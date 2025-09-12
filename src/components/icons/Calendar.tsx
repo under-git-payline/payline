@@ -1,0 +1,11 @@
+import React from 'react';
+
+type CalendarProps = React.SVGProps<SVGSVGElement>;
+
+const Calendar = (props: CalendarProps) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" {...props}>
+    <path d="M13.3333 2.00002H12.6667V0.666687H11.3333V2.00002H4.66668V0.666687H3.33334V2.00002H2.66668C1.93334 2.00002 1.33334 2.60002 1.33334 3.33335V14C1.33334 14.7334 1.93334 15.3334 2.66668 15.3334H13.3333C14.0667 15.3334 14.6667 14.7334 14.6667 14V3.33335C14.6667 2.60002 14.0667 2.00002 13.3333 2.00002ZM13.3333 14H2.66668V6.66669H13.3333V14ZM13.3333 5.33335H2.66668V3.33335H13.3333V5.33335Z" fill="white"/>
+  </svg>
+);
+
+export default Calendar;

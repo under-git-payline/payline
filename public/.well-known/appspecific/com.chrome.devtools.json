@@ -1,0 +1,13 @@
+{
+  "name": "PaylineData",
+  "url": "/",
+  "description": "PaylineData Application - Financial Data Management Platform",
+  "version": "1.0.0",
+  "startUrl": "/",
+  "scope": "/",
+  "display": "standalone",
+  "debugInfo": {
+    "sourceMapSupport": true,
+    "debugPort": 9229
+  }
+}
