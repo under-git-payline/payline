@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
         hostname: 'localhost',
         pathname: '/wp-content/uploads/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'paylinedatav2.wpenginepowered.com',
+        pathname: '/wp-content/uploads/**',
+      },
       // Add your production WordPress domain here when ready
       // {
       //   protocol: 'https',
