@@ -104,7 +104,7 @@ export default function BlogSlider() {
                 >
                     {blogs.map((blog) => (
                         <div key={blog.id} className="flex flex-col gap-4 w-[80%] md:w-[28%] flex-shrink-0">
-                            <Link href={`/blog/${blog.slug}`} className="max-h-[285px] overflow-hidden rounded-lg mb-4">
+                            <Link href={`/blog/${blog.slug}`} className="max-h-[230px] overflow-hidden rounded-lg mb-4">
                                 <Image 
                                     src={blog.featuredImage?.node?.sourceUrl || "/images/blog1.jpg"} 
                                     alt={blog.featuredImage?.node?.altText || blog.title} 

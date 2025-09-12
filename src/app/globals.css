@@ -13,6 +13,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-inter-tight: var(--font-inter-tight);
   --color-blue-500: var(--color-blue-500);
   --color-primary: var(--neutral-1000);
 }
@@ -27,7 +28,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter-tight), Arial, Helvetica, sans-serif;
 }
 
 .container {
