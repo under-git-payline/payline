@@ -37,11 +37,11 @@ export default function Header() {
             <div className="flex items-center gap-12">
                 <nav className="hidden md:flex gap-12 items-center">
                     <div className="relative group inline-block">
-                        <button className="hover:underline focus:outline-none flex items-center gap-1">
+                        <button className="cursor-pointer hover:underline focus:outline-none flex items-center gap-1">
                             Payments
                             <ArrowDown className="h-4 w-4" />
                         </button>
-                        <div className="absolute top-10 left-1/2 transform -translate-x-1/2 mt-2 w-[660px] bg-white rounded-lg shadow-xl opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-all duration-200 z-10 p-6">
+                        <div className="absolute top-6 left-1/2 transform -translate-x-1/2 -translate-y-5 w-[660px] bg-white rounded-lg shadow-xl opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:pointer-events-auto transition-all duration-300 ease-out z-10 p-6">
                             <div className="grid grid-cols-2 gap-6">
                                 {/* Payment Types Section */}
                                 <div>
@@ -138,11 +138,11 @@ export default function Header() {
                         Switch to Payline
                     </Link>
                     <div className="relative group inline-block">
-                        <button className="hover:underline focus:outline-none flex items-center gap-1">
+                        <button className="cursor-pointer hover:underline focus:outline-none flex items-center gap-1">
                             Resources
                             <ArrowDown className="h-4 w-4" />
                         </button>
-                        <div className="absolute left-1/2 transform -translate-x-1/2 top-10 mt-2 w-80 bg-white rounded-lg shadow-xl opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-all duration-200 z-10 p-6">
+                        <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-5 top-6 w-80 bg-white rounded-lg shadow-xl opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:pointer-events-auto transition-all duration-300 ease-out z-10 p-6">
                             <div className="space-y-3">
                                 <Link
                                     href="#"
