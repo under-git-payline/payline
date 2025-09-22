@@ -16,7 +16,7 @@ export default function FeatureCards({ data }: FeatureCardsProps) {
             {data.featureCard.map((card, index) => (
               <div key={index} className="bg-black/3 rounded-2xl p-5">
                 <div className="rounded-xl bg-[#B0E0F9] p-2 max-w-max">
-                  <Image src={card.icon.node.sourceUrl} alt={card.title} width={40} height={40} className="w-10 h-10" />
+                  <Image src={card.icon.node.sourceUrl} alt={card.title || card.icon.node.altText || ""} width={40} height={40} className="w-10 h-10" />
                 </div>
                 <div className="flex flex-col gap-2 pt-4">
                   <h3 className="text-2xl">{card.title}</h3>

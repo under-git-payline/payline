@@ -363,7 +363,9 @@ export default function Header() {
                             {/* Mobile Get Started Button */}
                             <div className="">
                                 <div className="w-full">
-                                    <Button variant="primary">Get Started</Button>
+                                    <Link href="/signup-today" className="sr-only">
+                                        <Button variant="primary">Get Started</Button>
+                                    </Link>
                                 </div>
                             </div>
                         </nav>

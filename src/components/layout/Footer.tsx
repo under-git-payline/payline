@@ -46,9 +46,11 @@ export default function Footer() {
                         <ul>
                             <li className="mb-2"><Link className="hover:underline" href="/switch-to-payline">Switch to Payline</Link></li>
                             <li className="mb-2">
-                                <Button variant="black">
-                                    <Link href="/signup-today">Get Started</Link>
-                                </Button>
+                                <Link href="/signup-today">
+                                    <Button variant="black">
+                                        Get Started
+                                    </Button>
+                                </Link>
                             </li>
                         </ul>
                     </div>
