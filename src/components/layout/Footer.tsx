@@ -33,8 +33,8 @@ export default function Footer() {
                     <div className="w-full md:w-2/10">
                         <span className="block mb-2"><strong>Resources</strong></span>
                         <ul>
-                            <li className="mb-2"><Link className="hover:underline" href="/#">Help & Support</Link></li>
-                            <li className="mb-2"><Link className="hover:underline" href="/#">Software Partners</Link></li>
+                            <li className="mb-2"><Link className="hover:underline" href="/help-and-support">Help & Support</Link></li>
+                            <li className="mb-2"><Link className="hover:underline" href="/payline-connect">Software Partners</Link></li>
                             <li className="mb-2"><Link className="hover:underline" href="/agents-and-isos">ISO & Agents</Link></li>
                             <li className="mb-2"><Link className="hover:underline" href="/interchange">What is interchange?</Link></li>
                             <li className="mb-2"><Link className="hover:underline" href="/about-us">About us</Link></li>
@@ -44,10 +44,10 @@ export default function Footer() {
                     <div className="w-full md:w-2/10">
                         <span className="block mb-2"><strong>Pricing</strong></span>
                         <ul>
-                            <li className="mb-2"><Link className="hover:underline" href="/get-started-now">Switch to Payline</Link></li>
+                            <li className="mb-2"><Link className="hover:underline" href="/switch-to-payline">Switch to Payline</Link></li>
                             <li className="mb-2">
                                 <Button variant="black">
-                                    <Link href="/get-started-now">Get Started</Link>
+                                    <Link href="/signup-today">Get Started</Link>
                                 </Button>
                             </li>
                         </ul>

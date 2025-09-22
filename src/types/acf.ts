@@ -119,6 +119,9 @@ export interface HeroLayoutData {
   description: string;
   cta: CtaLink;
   image: MediaItem;
+  addCalculator: boolean;
+  addForm: boolean;
+  formId: string;
   __typename: string;
 }
 
@@ -264,6 +267,36 @@ export interface DarkCtaLayoutData {
   __typename: string;
 }
 
+export interface FaqItem {
+  question: string;
+  answer: string;
+  __typename: string;
+}
+
+export interface FaqsLayoutData {
+  fieldGroupName?: string;
+  tag: string;
+  title: string;
+  faqs: FaqItem[];
+  __typename: string;
+}
+
+export interface ComparisonFeatureItem {
+  feature: string;
+  yourOldProcessor: boolean;
+  payline: boolean;
+  __typename: string;
+}
+
+export interface ComparisonTableLayoutData {
+  fieldGroupName?: string;
+  tag: string;
+  title: string;
+  description: string;
+  featuresTable: ComparisonFeatureItem[];
+  __typename: string;
+}
+
 export type FlexibleContentData = 
   | HomepageHeroLayoutData
   | TrustedByLayoutData
@@ -283,7 +316,9 @@ export type FlexibleContentData =
   | BoxedContentLayoutData
   | JourneyTimelineLayoutData
   | CenteredCardsLayoutData
-  | DarkCtaLayoutData;
+  | DarkCtaLayoutData
+  | FaqsLayoutData
+  | ComparisonTableLayoutData;
 
 export interface FlexibleContentProps {
   data?: FlexibleContentData;

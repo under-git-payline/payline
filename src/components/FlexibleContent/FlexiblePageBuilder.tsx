@@ -1,5 +1,5 @@
 import BlogSlider from "@/components/layout/Sections/BlogSlider";
-import CalculatorSection from "@/components/layout/Sections/CalculatorSection";
+import CalculatorSection from "../layout/Sections/CalculatorSection";
 import CardsSection from "@/components/layout/Sections/CardsSection";
 import HomepageHero from "@/components/layout/Sections/HomepageHero";
 import TeamSection from "@/components/layout/Sections/TeamSection";
@@ -18,6 +18,8 @@ import BoxedContent from "@/components/layout/Sections/BoxedContent";
 import JourneyTimeline from "@/components/layout/Sections/JourneyTimeline";
 import CenteredCards from "@/components/layout/Sections/CenteredCards";
 import DarkCta from "@/components/layout/Sections/DarkCta";
+import Faqs from "@/components/layout/Sections/Faqs";
+import ComparisonTable from "@/components/layout/Sections/ComparisonTable";
 
 interface PageBlock {
   fieldGroupName?: string;
@@ -54,6 +56,8 @@ const componentMap: Record<string, React.ComponentType<ComponentProps>> = {
   'PageBlocksPageBlocksJourneyTimelineLayout': JourneyTimeline as React.ComponentType<ComponentProps>,
   'PageBlocksPageBlocksCenteredCardsLayout': CenteredCards as React.ComponentType<ComponentProps>,
   'PageBlocksPageBlocksDarkCtaLayout': DarkCta as React.ComponentType<ComponentProps>,
+  'PageBlocksPageBlocksFaqsLayout': Faqs as React.ComponentType<ComponentProps>,
+  'PageBlocksPageBlocksComparisonTableLayout': ComparisonTable as React.ComponentType<ComponentProps>,
 };
 
 export default function FlexiblePageBuilder({ blocks }: FlexiblePageBuilderProps) {

@@ -14,8 +14,8 @@ import RecurringPaymentIcon from "../icons/RecurringPaymentIcon";
 // import APIIcon from "../icons/APIIcon";
 // import AnalyticsIcon from "../icons/AnalyticsIcon";
 import HighRiskIcon from "../icons/HighRiskIcon";
-import CloverFlexIcon from "../icons/CloverFlexIcon";
-import PaylineConnectIcon from "../icons/PaylineConnectIcon";
+// import CloverFlexIcon from "../icons/CloverFlexIcon";
+// import PaylineConnectIcon from "../icons/PaylineConnectIcon";
 
 export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -45,20 +45,8 @@ export default function Header() {
                             <div className="grid grid-cols-2 gap-6">
                                 {/* Payment Types Section */}
                                 <div>
-                                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Payment Solutions</h3>
+                                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Accept Payments</h3>
                                     <div className="space-y-3">
-                                        <Link
-                                            href="/online-payments"
-                                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
-                                        >
-                                            <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-200 transition-colors">
-                                                <OnlinePaymentIcon className="h-5 w-5 text-green-600" />
-                                            </div>
-                                            <div>
-                                                <div className="font-medium text-gray-900">Online Payments</div>
-                                                <div className="text-sm text-gray-500">Secure e-commerce processing</div>
-                                            </div>
-                                        </Link>
                                         <Link
                                             href="/in-person-payments"
                                             className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
@@ -72,15 +60,15 @@ export default function Header() {
                                             </div>
                                         </Link>
                                         <Link
-                                            href="/recurring-payments"
+                                            href="/online-payments"
                                             className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
                                         >
-                                            <div className="flex-shrink-0 w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center group-hover:bg-orange-200 transition-colors">
-                                                <RecurringPaymentIcon className="h-5 w-5 text-orange-600" />
+                                            <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-200 transition-colors">
+                                                <OnlinePaymentIcon className="h-5 w-5 text-green-600" />
                                             </div>
                                             <div>
-                                                <div className="font-medium text-gray-900">Recurring Payments</div>
-                                                <div className="text-sm text-gray-500">Automated subscription billing</div>
+                                                <div className="font-medium text-gray-900">Online Payments</div>
+                                                <div className="text-sm text-gray-500">Secure e-commerce processing</div>
                                             </div>
                                         </Link>
                                         <Link
@@ -95,13 +83,25 @@ export default function Header() {
                                                 <div className="text-sm text-gray-500">Specialized high-risk processing</div>
                                             </div>
                                         </Link>
+                                        <Link
+                                            href="/recurring-payments"
+                                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                                        >
+                                            <div className="flex-shrink-0 w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center group-hover:bg-orange-200 transition-colors">
+                                                <RecurringPaymentIcon className="h-5 w-5 text-orange-600" />
+                                            </div>
+                                            <div>
+                                                <div className="font-medium text-gray-900">Recurring Payments</div>
+                                                <div className="text-sm text-gray-500">Automated subscription billing</div>
+                                            </div>
+                                        </Link>
                                     </div>
                                 </div>
                                 
                                 {/* Products Section */}
                                 <div>
-                                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Products</h3>
-                                    <div className="space-y-3">
+                                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Hardware</h3>
+                                    {/* <div className="space-y-3">
                                         <Link
                                             href="/payline-connect"
                                             className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
@@ -126,6 +126,56 @@ export default function Header() {
                                                 <div className="text-sm text-gray-500">Accept payments in person or online. Businesses save 25%, on average, by switching to Payline</div>
                                             </div>
                                         </Link>
+                                    </div> */}
+                                    <div className="space-y-3">
+                                        <Link
+                                            href="/countertop-terminal"
+                                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                                        >
+                                            <div>
+                                                <div className="font-medium text-gray-900">Countertop Terminal</div>
+                                            </div>
+                                        </Link>
+                                        <Link
+                                            href="/smart-terminal"
+                                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                                        >
+                                            <div>
+                                                <div className="font-medium text-gray-900">Smart Terminal</div>
+                                            </div>
+                                        </Link>
+                                        <Link
+                                            href="/mobile-reader"
+                                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                                        >
+                                            <div>
+                                                <div className="font-medium text-gray-900">Mobile Reader</div>
+                                            </div>
+                                        </Link>
+                                        <Link
+                                            href="/basic-pos"
+                                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                                        >
+                                            <div>
+                                                <div className="font-medium text-gray-900">Basic POS</div>
+                                            </div>
+                                        </Link>
+                                        <Link
+                                            href="/all-in-one-pos"
+                                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                                        >
+                                            <div>
+                                                <div className="font-medium text-gray-900">All-in-One POS</div>
+                                            </div>
+                                        </Link>
+                                        <Link
+                                            href="/virtual-terminal"
+                                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                                        >
+                                            <div>
+                                                <div className="font-medium text-gray-900">Virtual Terminal</div>
+                                            </div>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +184,7 @@ export default function Header() {
                     <Link href="/pricing" className="hover:underline">
                         Pricing
                     </Link>
-                    <Link href="/switch" className="hover:underline">
+                    <Link href="/switch-to-payline" className="hover:underline">
                         Switch to Payline
                     </Link>
                     <div className="relative group inline-block">
@@ -145,13 +195,13 @@ export default function Header() {
                         <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-5 top-6 w-80 bg-white rounded-lg shadow-xl opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:pointer-events-auto transition-all duration-300 ease-out z-10 p-6">
                             <div className="space-y-3">
                                 <Link
-                                    href="#"
+                                    href="/help-and-support"
                                     className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
                                 >
                                     <div className="font-medium text-gray-900">Help & Support</div>
                                 </Link>
                                 <Link
-                                    href="#"
+                                    href="/payline-connect"
                                     className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
                                 >
                                     <div className="font-medium text-gray-900">Software Partners</div>
@@ -212,17 +262,8 @@ export default function Header() {
                                 {expandedSection === 'payments' && (
                                     <div className="mt-3 pl-4 space-y-4">
                                         <div>
-                                            <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Payment Solutions</h4>
+                                            <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Accept Payments</h4>
                                             <div className="space-y-3">
-                                                <Link href="/online-payments" className="flex items-center gap-3 py-2">
-                                                    <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                                                        <OnlinePaymentIcon className="h-4 w-4 text-green-600" />
-                                                    </div>
-                                                    <div>
-                                                        <div className="font-medium text-gray-900">Online Payments</div>
-                                                        <div className="text-sm text-gray-500">Secure e-commerce processing</div>
-                                                    </div>
-                                                </Link>
                                                 <Link href="/in-person-payments" className="flex items-center gap-3 py-2">
                                                     <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
                                                         <POSTerminalIcon className="h-4 w-4 text-blue-600" />
@@ -232,13 +273,13 @@ export default function Header() {
                                                         <div className="text-sm text-gray-500">Accept payments at your location</div>
                                                     </div>
                                                 </Link>
-                                                <Link href="/recurring-payments" className="flex items-center gap-3 py-2">
-                                                    <div className="flex-shrink-0 w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
-                                                        <RecurringPaymentIcon className="h-4 w-4 text-orange-600" />
+                                                <Link href="/online-payments" className="flex items-center gap-3 py-2">
+                                                    <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                                                        <OnlinePaymentIcon className="h-4 w-4 text-green-600" />
                                                     </div>
                                                     <div>
-                                                        <div className="font-medium text-gray-900">Recurring Payments</div>
-                                                        <div className="text-sm text-gray-500">Automated subscription billing</div>
+                                                        <div className="font-medium text-gray-900">Online Payments</div>
+                                                        <div className="text-sm text-gray-500">Secure e-commerce processing</div>
                                                     </div>
                                                 </Link>
                                                 <Link href="/high-risk-payments" className="flex items-center gap-3 py-2">
@@ -250,28 +291,37 @@ export default function Header() {
                                                         <div className="text-sm text-gray-500">Specialized high-risk processing</div>
                                                     </div>
                                                 </Link>
+                                                <Link href="/recurring-payments" className="flex items-center gap-3 py-2">
+                                                    <div className="flex-shrink-0 w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
+                                                        <RecurringPaymentIcon className="h-4 w-4 text-orange-600" />
+                                                    </div>
+                                                    <div>
+                                                        <div className="font-medium text-gray-900">Recurring Payments</div>
+                                                        <div className="text-sm text-gray-500">Automated subscription billing</div>
+                                                    </div>
+                                                </Link>
                                             </div>
                                         </div>
                                         <div>
-                                            <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Products</h4>
+                                            <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Hardware</h4>
                                             <div className="space-y-3">
-                                                <Link href="/payline-connect" className="flex items-center gap-3 py-2">
-                                                    <div className="flex-shrink-0 w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center">
-                                                        <PaylineConnectIcon className="h-4 w-4 text-indigo-600" />
-                                                    </div>
-                                                    <div>
-                                                        <div className="font-medium text-gray-900">Payline Connect</div>
-                                                        <div className="text-sm text-gray-500">Unlock new revenue streams with embedded payment solutions</div>
-                                                    </div>
+                                                <Link href="/countertop-terminal" className="block py-2">
+                                                    <div className="font-medium text-gray-900">Countertop Terminal</div>
                                                 </Link>
-                                                <Link href="/clover-flex-at-payline" className="flex items-center gap-3 py-2">
-                                                    <div className="flex-shrink-0 w-8 h-8 bg-teal-100 rounded-lg flex items-center justify-center">
-                                                        <CloverFlexIcon className="h-4 w-4 text-teal-600" />
-                                                    </div>
-                                                    <div>
-                                                        <div className="font-medium text-gray-900">Clover Flex</div>
-                                                        <div className="text-sm text-gray-500">Accept payments in person or online</div>
-                                                    </div>
+                                                <Link href="/smart-terminal" className="block py-2">
+                                                    <div className="font-medium text-gray-900">Smart Terminal</div>
+                                                </Link>
+                                                <Link href="/mobile-reader" className="block py-2">
+                                                    <div className="font-medium text-gray-900">Mobile Reader</div>
+                                                </Link>
+                                                <Link href="/basic-pos" className="block py-2">
+                                                    <div className="font-medium text-gray-900">Basic POS</div>
+                                                </Link>
+                                                <Link href="/all-in-one-pos" className="block py-2">
+                                                    <div className="font-medium text-gray-900">All-in-One POS</div>
+                                                </Link>
+                                                <Link href="/virtual-terminal" className="block py-2">
+                                                    <div className="font-medium text-gray-900">Virtual Terminal</div>
                                                 </Link>
                                             </div>
                                         </div>
@@ -285,7 +335,7 @@ export default function Header() {
                             </Link>
 
                             {/* Mobile Switch Link */}
-                            <Link href="/switch" className="block py-2 font-medium text-gray-900">
+                            <Link href="/switch-to-payline" className="block py-2 font-medium text-gray-900">
                                 Switch to Payline
                             </Link>
 
@@ -300,8 +350,8 @@ export default function Header() {
                                 </button>
                                 {expandedSection === 'resources' && (
                                     <div className="mt-3 pl-4 space-y-3">
-                                        <Link href="#" className="block py-2 text-gray-900">Help & Support</Link>
-                                        <Link href="#" className="block py-2 text-gray-900">Software Partners</Link>
+                                        <Link href="/help-and-support" className="block py-2 text-gray-900">Help & Support</Link>
+                                        <Link href="/payline-connect" className="block py-2 text-gray-900">Software Partners</Link>
                                         <Link href="/agents-and-isos" className="block py-2 text-gray-900">ISO & Agents</Link>
                                         <Link href="/interchange" className="block py-2 text-gray-900">What is interchange?</Link>
                                         <Link href="/about-us" className="block py-2 text-gray-900">About us</Link>

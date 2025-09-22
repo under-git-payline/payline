@@ -185,6 +185,9 @@ export const GET_PAGE_BLOCKS = gql`
                   }
                 }
               }
+              addCalculator
+              addForm
+              formId
             }
             ... on PageBlocksPageBlocksProductCardsLayout {
               __typename
@@ -419,6 +422,28 @@ export const GET_PAGE_BLOCKS = gql`
                 target
                 title
                 url
+              }
+            }
+            ... on PageBlocksPageBlocksFaqsLayout {
+              __typename
+              tag
+              title
+              faqs {
+                question
+                answer
+                __typename
+              }
+            }
+            ... on PageBlocksPageBlocksComparisonTableLayout {
+              __typename
+              tag
+              title
+              description
+              featuresTable {
+                feature
+                yourOldProcessor
+                payline
+                __typename
               }
             }
           }
