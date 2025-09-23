@@ -235,7 +235,9 @@ export default function Header() {
                     </div>
                 </nav>
                 <div className="flex items-center gap-2">
-                    <Button variant="primary">Get Started</Button>
+                    <Link href="/signup-today" className="sr-only">
+                        <Button variant="primary">Get Started</Button>
+                    </Link>
                     <div 
                         className="md:hidden rounded-full p-3 bg-[rgba(1,11,36,0.08)] cursor-pointer" 
                         onClick={toggleMobileMenu}
