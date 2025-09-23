@@ -44,7 +44,7 @@ export default function GetStarted({ data }: GetStartedProps) {
         alt={data.image.node.altText}
         width={620}
         height={465}
-        className="transform translate-x-10 translate-y-5 hidden lg:block"
+        className="transform translate-x-6 translate-y-5 hidden lg:block"
       />
     </div>
   );
