@@ -235,7 +235,7 @@ export default function Header() {
                     </div>
                 </nav>
                 <div className="flex items-center gap-2">
-                    <Link href="/signup-today" className="sr-only">
+                    <Link href="/signup-today">
                         <Button variant="primary">Get Started</Button>
                     </Link>
                     <div 
@@ -365,7 +365,7 @@ export default function Header() {
                             {/* Mobile Get Started Button */}
                             <div className="">
                                 <div className="w-full">
-                                    <Link href="/signup-today" className="sr-only">
+                                    <Link href="/signup-today">
                                         <Button variant="primary">Get Started</Button>
                                     </Link>
                                 </div>
