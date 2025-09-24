@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 // import ArrowRight from "@/components/icons/ArrowRight";
 import Mastercard from "@/components/icons/Mastercard";
 import Visa from "@/components/icons/Visa";
@@ -11,16 +11,17 @@ import { CalculatorLayoutData, FlexibleContentProps } from "@/types/acf";
 import Link from "next/link";
 
 interface CalculatorSectionProps extends FlexibleContentProps {
-    data?: CalculatorLayoutData;
-    embedded?: boolean;
+  data?: CalculatorLayoutData;
+  embedded?: boolean;
 }
 
 export default function CalculatorSection({ data, embedded = false }: CalculatorSectionProps) {
     const { smallPrint, subtitle, tag, title } = data || {};
     const [cardPresent, setCardPresent] = useState(true); // true = card present, false = card not present
-    const [sliderValue, setSliderValue] = useState(0); // 0-7 representing the volume tiers
-    const [cardPresentText, setCardPresentText] = useState('1.75%');
-    const [cardPresentTextSmall, setCardPresentTextSmall] = useState('+10¢');
+    const [averageTransactionSize, setAverageTransactionSize] = useState("250");
+    const [monthlyProcessingVolume, setMonthlyProcessingVolume] = useState("60000");
+    const [effectiveRate, setEffectiveRate] = useState('0.00');
+    const [cents, setCents] = useState('0');
     const [showPricing, setShowPricing] = useState(false);
 
     // Predefined monthly volume tiers
@@ -35,93 +36,36 @@ export default function CalculatorSection({ data, embedded = false }: Calculator
         { label: '$1M+', value: 1000000, avgTransaction: 200 }
     ];
 
+    // Credit Card Rate
+    // Interchange + 0.35% + $0.10
+    // Interchange + 0.30% + $0.10
+    // Interchange + 0.25% + $0.10
+    // Interchange + 0.20% + $0.08
+    // Interchange + 0.15% + $0.08
 
-    useEffect(() => {
-        const currentTier = volumeTiers[sliderValue];
-        const monthlyVolume = currentTier?.value || 0;
-        
-        let percentageRate;
-        if (cardPresent) {
-            if (monthlyVolume >= 1000000) {
-                percentageRate = 1.55;
-            } else if (monthlyVolume >= 500000) {
-                percentageRate = 1.60;
-            } else if (monthlyVolume >= 100000) {
-                percentageRate = 1.65;
-            } else if (monthlyVolume >= 50000) {
-                percentageRate = 1.70;
-            } else {
-                percentageRate = 1.75;
-            }
-        } else {
-            if (monthlyVolume >= 1000000) {
-                percentageRate = 1.95;
-            } else if (monthlyVolume >= 500000) {
-                percentageRate = 2.05;
-            } else if (monthlyVolume >= 100000) {
-                percentageRate = 2.25;
-            } else if (monthlyVolume >= 50000) {
-                percentageRate = 2.30;
-            } else {
-                percentageRate = 2.35;
-            }
-        }
-        
-        setCardPresentText(`${percentageRate}%`);
-        setCardPresentTextSmall('+10¢');
-    }, [cardPresent, sliderValue, volumeTiers]);
-
-    // // Calculate fees based on slider selection
-    // useEffect(() => {
-    //     const currentTier = volumeTiers[sliderValue];
-    //     const monthlyVolume = currentTier.value;
-
-    //     if (cardPresent) {
-    //         let percentageRate;
-    //         if (monthlyVolume >= 1000000) {
-    //             percentageRate = 0.0155; // 1.55% (0.15% + 1.40% interchange)
-    //         } else if (monthlyVolume >= 500000) {
-    //             percentageRate = 0.0160; // 1.60% (0.20% + 1.40% interchange)
-    //         } else if (monthlyVolume >= 100000) {
-    //             percentageRate = 0.0165; // 1.65% (0.25% + 1.40% interchange)
-    //         } else if (monthlyVolume >= 50000) {
-    //             percentageRate = 0.0170; // 1.70% (0.30% + 1.40% interchange)
-    //         } else {
-    //             percentageRate = 0.0175; // 1.75% (0.35% + 1.40% interchange)
-    //         }
-    //     } else {
-    //         let percentageRate;
-    //         if (monthlyVolume >= 1000000) {
-    //             percentageRate = 0.0195; // 1.95% (0.10% + 1.85% interchange)
-    //         } else if (monthlyVolume >= 500000) {
-    //             percentageRate = 0.0205; // 2.05% (0.20% + 1.85% interchange)
-    //         } else if (monthlyVolume >= 100000) {
-    //             percentageRate = 0.0225; // 2.25% (0.40% + 1.85% interchange)
-    //         } else if (monthlyVolume >= 50000) {
-    //             percentageRate = 0.0230; // 2.30% (0.45% + 1.85% interchange)
-    //         } else {
-    //             percentageRate = 0.0235; // 2.35% (0.50% + 1.85% interchange)
-    //         }
-    //     }
-
-    // }, [sliderValue, cardPresent]);
+    // Credit Card Rate
+    // Interchange + 0.50% + $0.20
+    // Interchange + 0.45% + $0.20
+    // Interchange + 0.40% + $0.15
+    // Interchange + 0.20% + $0.15
+    // Interchange + 0.10% + $0.12
 
     // Derived values for pricing table
-    const currentMonthlyVolume = volumeTiers[sliderValue]?.value ?? 0;
+    const currentMonthlyVolume = parseFloat(monthlyProcessingVolume) || 0;
     const pricingRows = cardPresent
         ? [
-            { range: 'Under $50K', rate: '1.75% +10¢' },
-            { range: '$50K - $100K', rate: '1.70% +10¢' },
-            { range: '$100K - $500K', rate: '1.65% +10¢' },
-            { range: '$500K - $1M', rate: '1.60% +10¢' },
-            { range: '$1M+', rate: '1.55% +10¢' },
+            { range: 'Under $50K', rate: 'Interchange + 0.35% + 10¢' },
+            { range: '$50K - $100K', rate: 'Interchange + 0.30% + 10¢' },
+            { range: '$100K - $500K', rate: 'Interchange + 0.25% + 10¢' },
+            { range: '$500K - $1M', rate: 'Interchange + 0.20% + 8¢' },
+            { range: '$1M+', rate: 'Interchange + 0.15% + 8¢' },
         ]
         : [
-            { range: 'Under $50K', rate: '2.35% +10¢' },
-            { range: '$50K - $100K', rate: '2.30% +10¢' },
-            { range: '$100K - $500K', rate: '2.25% +10¢' },
-            { range: '$500K - $1M', rate: '2.05% +10¢' },
-            { range: '$1M+', rate: '1.95% +10¢' },
+            { range: 'Under $50K', rate: 'Interchange + 0.50% + 20¢' },
+            { range: '$50K - $100K', rate: 'Interchange + 0.45% + 20¢' },
+            { range: '$100K - $500K', rate: 'Interchange + 0.40% + 15¢' },
+            { range: '$500K - $1M', rate: 'Interchange + 0.20% + 15¢' },
+            { range: '$1M+', rate: 'Interchange + 0.10% + 12¢' },
         ];
 
     const activeTierIndex = (() => {
@@ -131,6 +75,96 @@ export default function CalculatorSection({ data, embedded = false }: Calculator
         if (currentMonthlyVolume >= 50_000) return 1;    // $50K - $100K
         return 0;                                        // Under $50K
     })();
+
+    // Calculate fees based on average transaction size and monthly processing volume
+    useEffect(() => {
+        const avgTransaction = parseFloat(averageTransactionSize);
+        const monthlyVolume = parseFloat(monthlyProcessingVolume);
+
+        // Reset to 0.00 if inputs are invalid or empty
+        if (isNaN(avgTransaction) || isNaN(monthlyVolume) || avgTransaction <= 0 || monthlyVolume <= 0) {
+            setEffectiveRate('1.74');
+            setCents('8');
+            // setAverageFee('0.00');
+            return;
+        }
+
+        if (cardPresent) {
+            if (monthlyVolume > 1000000) {
+                // (Monthly Volume * (0.15% + 1.40%)) + ((Monthly Volume / Transaction Amount) * $0.08)
+                const fee = (monthlyVolume * (0.0015 + 0.014)) + ((monthlyVolume / avgTransaction) * 0.08);
+                const effectiveRate = (fee / monthlyVolume) * 100;
+                setEffectiveRate(effectiveRate.toFixed(2));
+                setCents('8');
+                return;
+            } else if (monthlyVolume > 500000) {
+                // (Monthly Volume * (0.20% + 1.40%)) + ((Monthly Volume / Transaction Amount) * $0.08)
+                const fee = (monthlyVolume * (0.0020 + 0.0140)) + ((monthlyVolume / avgTransaction) * 0.08);
+                const effectiveRate = (fee / monthlyVolume) * 100;
+                setEffectiveRate(effectiveRate.toFixed(2));
+                setCents('8');
+                return;
+            } else if (monthlyVolume > 100000) {
+                // (Monthly Volume * (0.25% + 1.40%)) + ((Monthly Volume / Transaction Amount) * $0.10)
+                const fee = (monthlyVolume * (0.0025 + 0.0140)) + ((monthlyVolume / avgTransaction) * 0.10);
+                const effectiveRate = (fee / monthlyVolume) * 100;
+                setEffectiveRate(effectiveRate.toFixed(2));
+                setCents('10');
+                return;
+            } else if (monthlyVolume > 50000) {
+                // (Monthly Volume * (0.30% + 1.40%)) + ((Monthly Volume / Transaction Amount) * $0.10)
+                const fee = (monthlyVolume * (0.0030 + 0.0140)) + ((monthlyVolume / avgTransaction) * 0.10);
+                const effectiveRate = (fee / monthlyVolume) * 100;
+                setEffectiveRate(effectiveRate.toFixed(2));
+                setCents('10');
+                return;
+            } else {
+                // (Monthly Volume * (0.35% + 1.40%)) + ((Monthly Volume / Transaction Amount) * $0.10)
+                const fee = (monthlyVolume * (0.0035 + 0.0140)) + ((monthlyVolume / avgTransaction) * 0.10);
+                const effectiveRate = (fee / monthlyVolume) * 100;
+                setEffectiveRate(effectiveRate.toFixed(2));
+                setCents('10');
+                return;
+            }
+        } else {
+            if (monthlyVolume > 1000000) {
+                // (Monthly Volume * (0.10% + 1.85%)) + ((Monthly Volume / Transaction Amount) * $0.12)
+                const fee = (monthlyVolume * (0.0010 + 0.0185)) + ((monthlyVolume / avgTransaction) * 0.12);
+                const effectiveRate = (fee / monthlyVolume) * 100;
+                setEffectiveRate(effectiveRate.toFixed(2));
+                setCents('12');
+                return;
+            } else if (monthlyVolume > 500000) {
+                // (Monthly Volume * (0.20% + 1.85%)) + ((Monthly Volume / Transaction Amount) * $0.12)
+                const fee = (monthlyVolume * (0.0020 + 0.0185)) + ((monthlyVolume / avgTransaction) * 0.15);
+                const effectiveRate = (fee / monthlyVolume) * 100;
+                setEffectiveRate(effectiveRate.toFixed(2));
+                setCents('15');
+                return;
+            } else if (monthlyVolume > 100000) {
+                // (Monthly Volume * (0.40% + 1.85%)) + ((Monthly Volume / Transaction Amount) * $0.15)
+                const fee = (monthlyVolume * (0.0040 + 0.0185)) + ((monthlyVolume / avgTransaction) * 0.15);
+                const effectiveRate = (fee / monthlyVolume) * 100;
+                setEffectiveRate(effectiveRate.toFixed(2));
+                setCents('15');
+                return;
+            } else if (monthlyVolume > 50000) {
+                // (Monthly Volume * (0.45% + 1.85%)) + ((Monthly Volume / Transaction Amount) * $0.20)
+                const fee = (monthlyVolume * (0.0045 + 0.0185)) + ((monthlyVolume / avgTransaction) * 0.20);
+                const effectiveRate = (fee / monthlyVolume) * 100;
+                setEffectiveRate(effectiveRate.toFixed(2));
+                setCents('20');
+                return;
+            } else {
+                // (Monthly Volume * (0.50% + 1.85%)) + ((Monthly Volume / Transaction Amount) * $0.20)
+                const fee = (monthlyVolume * (0.0050 + 0.0185)) + ((monthlyVolume / avgTransaction) * 0.20);
+                const effectiveRate = (fee / monthlyVolume) * 100;
+                setEffectiveRate(effectiveRate.toFixed(2));
+                setCents('20');
+                return;
+            }
+        }
+    }, [averageTransactionSize, monthlyProcessingVolume, cardPresent]);
 
     return (
         <div className={embedded ? "w-full flex flex-col items-center justify-center" : "container flex flex-col items-center justify-center gap-4 py-10 md:py-20 px-4 md:px-2 my-10 rounded-3xl bg-[linear-gradient(76deg,#B0E0F9_-4.48%,#E6F5FD_99.55%)]"}>
@@ -166,7 +200,7 @@ export default function CalculatorSection({ data, embedded = false }: Calculator
                 </div>
                 <div className="flex flex-col md:flex-row items-center justify-center gap-2 w-full pt-8">
                     <div className="bg-gray-50 flex flex-col rounded-lg gap-2 pt-8 pb-4 px-4 w-full lg:2/3">
-                        <span className="text-4xl font-bold text-center">{cardPresentText} <span className="text-lg font-normal">{cardPresentTextSmall}</span></span>
+                        <span className="text-5xl font-medium text-center">{effectiveRate}% <span className="text-lg font-normal">+{cents}¢</span></span>
                         <div className="flex items-center justify-center gap-2 text-[14px]">
                             <div className="bg-white/3 py-[3px] px-[10px] rounded-sm">
                                 <Visa/>
@@ -179,6 +213,16 @@ export default function CalculatorSection({ data, embedded = false }: Calculator
                             </div>
                         </div>
                     </div>
+                    {/* {averageFee && averageFee !== '0.00' &&
+                        <div className="bg-gray-50 flex flex-col rounded-lg gap-2 pt-8 pb-4 px-4 w-full lg:w-1/3">
+                            <span className="text-4xl font-medium">${parseFloat(averageFee).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                            <div className="flex items-center justify-start gap-2 text-[14px]">
+                                <div className="p-1">
+                                    <span className="text-[#343C50]">Average Cost*</span>
+                                </div>
+                            </div>
+                        </div>
+                    } */}
                     {/* <div className="bg-gray-50 flex flex-col rounded-lg gap-2 pt-8 pb-4 px-4 w-full md:w-1/3">
                         <span className="text-4xl font-medium">2.56% <span className="text-lg font-normal">+10¢</span></span>
                         <div className="flex items-center justify-start gap-2 text-[14px]">
@@ -196,33 +240,24 @@ export default function CalculatorSection({ data, embedded = false }: Calculator
                         </div>
                     </div> */}
                 </div>
-                <div className="flex flex-col items-center justify-center gap-4 w-full">
-                    <div className="w-full max-w-md">
-                        <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Monthly Sales Volume
-                            </label>
-                            <div className="relative">
-                                <input
-                                    type="range"
-                                    min="0"
-                                    max="7"
-                                    value={sliderValue}
-                                    onChange={(e) => setSliderValue(parseInt(e.target.value))}
-                                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 range-slider"
-                                    style={{
-                                        background: `linear-gradient(to right, #3B82F6 0%, #3B82F6 ${(sliderValue / 7) * 100}%, #E5E7EB ${(sliderValue / 7) * 100}%, #E5E7EB 100%)`
-                                    }}
-                                />
-                                <div className="flex justify-between text-xs text-gray-500 mt-2">
-                                    {volumeTiers.map((tier, index) => (
-                                        <span key={index} className={`${index === sliderValue ? 'font-semibold text-blue-600' : ''}`}>
-                                            {tier.label}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
+                <div className="flex flex-col md:flex-row items-center justify-center gap-4 w-full">
+                    <div className="w-full md:w-1/2">
+                        <input
+                            type="text"
+                            placeholder="Average transaction size *"
+                            value={averageTransactionSize}
+                            onChange={(e) => setAverageTransactionSize(e.target.value)}
+                            className="w-full text-[14px] p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                        <span className="text-[10px] text-[#676D7C]">Average transaction value in USD</span>
+                    </div>
+                    <div className="w-full md:w-1/2">
+                        <input
+                            type="text"
+                            placeholder="Monthly processing volume *"
+                            value={monthlyProcessingVolume}
+                            onChange={(e) => setMonthlyProcessingVolume(e.target.value)}
+                            className="w-full text-[14px] p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                        <span className="text-[10px] text-[#676D7C]">Total transactions per month</span>
                     </div>
                 </div>
                 {/* Toggle: See your rate */}
