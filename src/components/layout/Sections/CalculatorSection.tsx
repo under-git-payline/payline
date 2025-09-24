@@ -24,26 +24,14 @@ export default function CalculatorSection({ data, embedded = false }: Calculator
     const [cents, setCents] = useState('0');
     const [showPricing, setShowPricing] = useState(false);
 
-    // Predefined monthly volume tiers
-    const volumeTiers = [
-        { label: '$5K', value: 5000, avgTransaction: 50 },
-        { label: '$10K', value: 10000, avgTransaction: 50 },
-        { label: '$25K', value: 25000, avgTransaction: 50 },
-        { label: '$50K', value: 50000, avgTransaction: 75 },
-        { label: '$100K', value: 100000, avgTransaction: 100 },
-        { label: '$250K', value: 250000, avgTransaction: 150 },
-        { label: '$500K', value: 500000, avgTransaction: 150 },
-        { label: '$1M+', value: 1000000, avgTransaction: 200 }
-    ];
-
-    // Credit Card Rate
+    // Card Present - Credit Card Rate
     // Interchange + 0.35% + $0.10
     // Interchange + 0.30% + $0.10
     // Interchange + 0.25% + $0.10
     // Interchange + 0.20% + $0.08
     // Interchange + 0.15% + $0.08
 
-    // Credit Card Rate
+    // Card Not Present - Credit Card Rate
     // Interchange + 0.50% + $0.20
     // Interchange + 0.45% + $0.20
     // Interchange + 0.40% + $0.15
