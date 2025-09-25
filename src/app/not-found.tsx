@@ -4,7 +4,7 @@ import ArrowRight from "@/components/icons/ArrowRight";
 
 export default function NotFound() {
   return (
-    <div className="min-h-[60vh] flex items-center justify-center">
+    <div className="min-h-[100vh] flex items-center justify-center">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-2xl mx-auto">
           {/* 404 Number */}

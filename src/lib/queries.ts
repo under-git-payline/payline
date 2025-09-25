@@ -7,6 +7,9 @@ export const GET_PAGE_BLOCKS = gql`
       ... on Page {
         id
         title
+        template {
+          templateName
+        }
         seo {
           title
           metaDesc
@@ -446,6 +449,12 @@ export const GET_PAGE_BLOCKS = gql`
                 __typename
               }
             }
+            ... on PageBlocksPageBlocksMultiStepFormLayout {
+              __typename
+              title
+              description
+              initialCta
+            }
           }
         }
       }
@@ -582,6 +591,9 @@ interface PageBlocksData {
   nodeByUri?: {
     id: string;
     title: string;
+    template?: {
+      templateName?: string;
+    };
     seo?: {
       title?: string;
       metaDesc?: string;
@@ -683,4 +695,18 @@ export async function getPageData(uri: string) {
     console.error('Error fetching page data:', error);
     return null;
   }
+}
+
+// Helper function to check if a page uses a custom WordPress template
+export function isCustomTemplate(templateName?: string): boolean {
+  if (!templateName) return false;
+
+  console.log('Template Name:', templateName);
+  
+  // List of custom template names that should use simple header/footer
+  const customTemplates = [
+    'Landing Page'
+  ];
+  
+  return customTemplates.includes(templateName);
 }

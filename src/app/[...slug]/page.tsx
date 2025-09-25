@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import FlexiblePageBuilder from "@/components/FlexibleContent/FlexiblePageBuilder";
+import PageLayout from "@/components/layout/PageLayout";
 import { getAllPages, getPageBlocks, getPageData } from "@/lib/queries";
 import { shouldExcludePage, getCustomFallback, uriToSlugArray, pageConfig } from "@/lib/page-config";
 import type { Metadata } from 'next';
@@ -111,19 +112,31 @@ export default async function DynamicPage({ params }: PageProps) {
     // Check for custom fallback first
     const customFallback = getCustomFallback(uri);
     
+    // Fetch page data including template information
+    const pageData = await getPageData(uri);
+    const templateName = pageData?.template?.templateName;
+    
     // Fetch page blocks
     const blocks = await getPageBlocks(uri);
     
     // If no blocks found, use custom fallback or show 404
     if (blocks.length === 0) {
       if (customFallback) {
-        return customFallback.content;
+        return (
+          <PageLayout templateName={templateName}>
+            {customFallback.content}
+          </PageLayout>
+        );
       }
       // Call notFound() to trigger the not-found page
       notFound();
     }
 
-    return <FlexiblePageBuilder blocks={blocks} />;
+    return (
+      <PageLayout templateName={templateName}>
+        <FlexiblePageBuilder blocks={blocks} />
+      </PageLayout>
+    );
   } catch (error) {
     console.error(`Error rendering page ${uri}:`, error);
     
@@ -136,7 +149,14 @@ export default async function DynamicPage({ params }: PageProps) {
     // Try to show custom fallback on other errors
     const customFallback = getCustomFallback(uri);
     if (customFallback) {
-      return customFallback.content;
+      const pageData = await getPageData(uri);
+      const templateName = pageData?.template?.templateName;
+      
+      return (
+        <PageLayout templateName={templateName}>
+          {customFallback.content}
+        </PageLayout>
+      );
     }
     
     // For other errors, call notFound()

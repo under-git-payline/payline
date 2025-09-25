@@ -20,6 +20,7 @@ import CenteredCards from "@/components/layout/Sections/CenteredCards";
 import DarkCta from "@/components/layout/Sections/DarkCta";
 import Faqs from "@/components/layout/Sections/Faqs";
 import ComparisonTable from "@/components/layout/Sections/ComparisonTable";
+import MultiStepForm from "@/components/layout/Sections/MultiStepForm";
 
 interface PageBlock {
   fieldGroupName?: string;
@@ -58,6 +59,7 @@ const componentMap: Record<string, React.ComponentType<ComponentProps>> = {
   'PageBlocksPageBlocksDarkCtaLayout': DarkCta as React.ComponentType<ComponentProps>,
   'PageBlocksPageBlocksFaqsLayout': Faqs as React.ComponentType<ComponentProps>,
   'PageBlocksPageBlocksComparisonTableLayout': ComparisonTable as React.ComponentType<ComponentProps>,
+  'PageBlocksPageBlocksMultiStepFormLayout': MultiStepForm as React.ComponentType<ComponentProps>,
 };
 
 export default function FlexiblePageBuilder({ blocks }: FlexiblePageBuilderProps) {

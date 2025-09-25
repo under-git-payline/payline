@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter_Tight } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import ConditionalLayout from "@/components/layout/ConditionalLayout";
 import ApolloWrapper from "@/components/providers/ApolloWrapper";
 
 const geistSans = Geist({
@@ -44,13 +43,9 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <ApolloWrapper>
-          <div className="main">
-            <Header/>
-            <div className="py-4">
-              {children}
-            </div>
-            <Footer/>
-          </div>
+          <ConditionalLayout>
+            {children}
+          </ConditionalLayout>
         </ApolloWrapper>
       </body>
     </html>

@@ -297,6 +297,14 @@ export interface ComparisonTableLayoutData {
   __typename: string;
 }
 
+export interface MultiStepFormLayoutData {
+  fieldGroupName?: string;
+  title: string;
+  description: string;
+  initialCta: string;
+  __typename: string;
+}
+
 export type FlexibleContentData = 
   | HomepageHeroLayoutData
   | TrustedByLayoutData
@@ -318,7 +326,8 @@ export type FlexibleContentData =
   | CenteredCardsLayoutData
   | DarkCtaLayoutData
   | FaqsLayoutData
-  | ComparisonTableLayoutData;
+  | ComparisonTableLayoutData
+  | MultiStepFormLayoutData;
 
 export interface FlexibleContentProps {
   data?: FlexibleContentData;
