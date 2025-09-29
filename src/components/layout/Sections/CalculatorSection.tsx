@@ -17,9 +17,32 @@ interface CalculatorSectionProps extends FlexibleContentProps {
 
 export default function CalculatorSection({ data, embedded = false }: CalculatorSectionProps) {
     const { smallPrint, subtitle, tag, title } = data || {};
+
+    const formatCurrencyInput = (value: string) => {
+        const sanitized = value.replace(/[^0-9.]/g, "");
+
+        if (!sanitized) {
+            return "";
+        }
+
+        const [integerPartRaw, ...decimalParts] = sanitized.split(".");
+        const strippedInteger = integerPartRaw.replace(/^0+(?=\d)/, "");
+        const safeInteger = strippedInteger === "" ? "0" : strippedInteger;
+        const formattedInteger = safeInteger.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        const decimal = decimalParts.join("");
+        const hasTrailingDecimal = sanitized.endsWith(".") && decimal === "";
+
+        if (decimal) {
+            return `${formattedInteger}.${decimal}`;
+        }
+
+        return hasTrailingDecimal ? `${formattedInteger}.` : formattedInteger;
+    };
+
+    const toNumericValue = (value: string) => parseFloat(value.replace(/,/g, ""));
     const [cardPresent, setCardPresent] = useState(true); // true = card present, false = card not present
-    const [averageTransactionSize, setAverageTransactionSize] = useState("250");
-    const [monthlyProcessingVolume, setMonthlyProcessingVolume] = useState("60000");
+    const [averageTransactionSize, setAverageTransactionSize] = useState(() => formatCurrencyInput("250"));
+    const [monthlyProcessingVolume, setMonthlyProcessingVolume] = useState(() => formatCurrencyInput("60000"));
     const [effectiveRate, setEffectiveRate] = useState('0.00');
     const [cents, setCents] = useState('0');
     const [showPricing, setShowPricing] = useState(false);
@@ -39,7 +62,7 @@ export default function CalculatorSection({ data, embedded = false }: Calculator
     // Interchange + 0.10% + $0.12
 
     // Derived values for pricing table
-    const currentMonthlyVolume = parseFloat(monthlyProcessingVolume) || 0;
+    const currentMonthlyVolume = toNumericValue(monthlyProcessingVolume) || 0;
     const pricingRows = cardPresent
         ? [
             { range: 'Under $50K', rate: 'Interchange + 0.35% + 10¢' },
@@ -66,8 +89,8 @@ export default function CalculatorSection({ data, embedded = false }: Calculator
 
     // Calculate fees based on average transaction size and monthly processing volume
     useEffect(() => {
-        const avgTransaction = parseFloat(averageTransactionSize);
-        const monthlyVolume = parseFloat(monthlyProcessingVolume);
+        const avgTransaction = toNumericValue(averageTransactionSize);
+        const monthlyVolume = toNumericValue(monthlyProcessingVolume);
 
         // Reset to 0.00 if inputs are invalid or empty
         if (isNaN(avgTransaction) || isNaN(monthlyVolume) || avgTransaction <= 0 || monthlyVolume <= 0) {
@@ -230,21 +253,27 @@ export default function CalculatorSection({ data, embedded = false }: Calculator
                 </div>
                 <div className="flex flex-col md:flex-row items-center justify-center gap-4 w-full">
                     <div className="w-full md:w-1/2">
-                        <input
-                            type="text"
-                            placeholder="Average transaction size *"
-                            value={averageTransactionSize}
-                            onChange={(e) => setAverageTransactionSize(e.target.value)}
-                            className="w-full text-[14px] p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                        <div className="relative">
+                            <span className="pointer-events-none absolute left-4 top-[28px] -translate-y-1/2 text-[#676D7C] text-sm">$</span>
+                            <input
+                                type="text"
+                                placeholder="Average transaction size *"
+                                value={averageTransactionSize}
+                                onChange={(e) => setAverageTransactionSize(formatCurrencyInput(e.target.value))}
+                                className="w-full text-[14px] py-4 pr-4 pl-8 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                        </div>
                         <span className="text-[10px] text-[#676D7C]">Average transaction value in USD</span>
                     </div>
                     <div className="w-full md:w-1/2">
-                        <input
-                            type="text"
-                            placeholder="Monthly processing volume *"
-                            value={monthlyProcessingVolume}
-                            onChange={(e) => setMonthlyProcessingVolume(e.target.value)}
-                            className="w-full text-[14px] p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                        <div className="relative">
+                            <span className="pointer-events-none absolute left-4 top-[28px] -translate-y-1/2 text-[#676D7C] text-sm">$</span>
+                            <input
+                                type="text"
+                                placeholder="Monthly processing volume *"
+                                value={monthlyProcessingVolume}
+                                onChange={(e) => setMonthlyProcessingVolume(formatCurrencyInput(e.target.value))}
+                                className="w-full text-[14px] py-4 pr-4 pl-8 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                        </div>
                         <span className="text-[10px] text-[#676D7C]">Total transactions per month</span>
                     </div>
                 </div>

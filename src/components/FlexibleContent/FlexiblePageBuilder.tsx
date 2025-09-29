@@ -21,6 +21,8 @@ import DarkCta from "@/components/layout/Sections/DarkCta";
 import Faqs from "@/components/layout/Sections/Faqs";
 import ComparisonTable from "@/components/layout/Sections/ComparisonTable";
 import MultiStepForm from "@/components/layout/Sections/MultiStepForm";
+import PdfDownloadForm from "@/components/layout/Sections/PdfDownloadForm";
+import StatementUpload from "@/components/layout/Sections/StatementUpload";
 
 interface PageBlock {
   fieldGroupName?: string;
@@ -60,6 +62,8 @@ const componentMap: Record<string, React.ComponentType<ComponentProps>> = {
   'PageBlocksPageBlocksFaqsLayout': Faqs as React.ComponentType<ComponentProps>,
   'PageBlocksPageBlocksComparisonTableLayout': ComparisonTable as React.ComponentType<ComponentProps>,
   'PageBlocksPageBlocksMultiStepFormLayout': MultiStepForm as React.ComponentType<ComponentProps>,
+  'PageBlocksPageBlocksPdfDownloadFormLayout': PdfDownloadForm as React.ComponentType<ComponentProps>,
+  'PageBlocksPageBlocksStatementUploadLayout': StatementUpload as React.ComponentType<ComponentProps>,
 };
 
 export default function FlexiblePageBuilder({ blocks }: FlexiblePageBuilderProps) {

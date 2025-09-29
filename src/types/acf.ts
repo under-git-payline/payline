@@ -305,6 +305,40 @@ export interface MultiStepFormLayoutData {
   __typename: string;
 }
 
+export interface File {
+  node: {
+    mediaItemUrl: string;
+    title: string;
+  }
+}
+
+export interface PdfDownloadFormLayoutData {
+  fieldGroupName?: string;
+  content?: string;
+  downloadFile?: File;
+  __typename: string;
+}
+
+export interface StatementUploadCard {
+  fieldGroupName?: string;
+  icon?: MediaItem;
+  title?: string;
+  subtitle?: string;
+  cta?: CtaLink;
+  ctaUpload?: boolean;
+  __typename: string;
+}
+
+export interface StatementUploadLayoutData {
+  fieldGroupName?: string;
+  tag?: string;
+  title?: string;
+  subtitle?: string;
+  uploadEmail?: string;
+  card?: StatementUploadCard[];
+  __typename: string;
+}
+
 export type FlexibleContentData = 
   | HomepageHeroLayoutData
   | TrustedByLayoutData
@@ -327,7 +361,9 @@ export type FlexibleContentData =
   | DarkCtaLayoutData
   | FaqsLayoutData
   | ComparisonTableLayoutData
-  | MultiStepFormLayoutData;
+  | MultiStepFormLayoutData
+  | PdfDownloadFormLayoutData
+  | StatementUploadLayoutData;
 
 export interface FlexibleContentProps {
   data?: FlexibleContentData;

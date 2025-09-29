@@ -455,6 +455,46 @@ export const GET_PAGE_BLOCKS = gql`
               description
               initialCta
             }
+            ... on PageBlocksPageBlocksPdfDownloadFormLayout {
+              __typename
+              fieldGroupName
+              content
+              downloadFile {
+                __typename
+                node {
+                  mediaItemUrl
+                  title
+                }
+              }
+            }
+            ... on PageBlocksPageBlocksStatementUploadLayout {
+              __typename
+              fieldGroupName
+              tag
+              title
+              subtitle
+              uploadEmail
+              card {
+                __typename
+                fieldGroupName
+                title
+                subtitle
+                ctaUpload
+                cta {
+                  target
+                  title
+                  url
+                }
+                icon {
+                  __typename
+                  node {
+                    sourceUrl
+                    altText
+                    title
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -607,6 +647,7 @@ interface PageBlocksData {
 // Function to fetch page blocks using ACF flexible content
 export async function getPageBlocks(uri: string): Promise<PageBlock[]> {
   try {
+    console.log('Fetching page blocks for URI:', uri);
     const result = await client.query<PageBlocksData>({
       query: GET_PAGE_BLOCKS,
       variables: { uri },

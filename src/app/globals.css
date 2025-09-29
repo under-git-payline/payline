@@ -44,6 +44,13 @@ h2,h3,h4,h5 {
   font-weight: 500;
 }
 
+h2 {
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 42px;
+  letter-spacing: -0.5px;
+}
+
 @media screen and (min-width: 1536px) {
   .container {
     max-width: 1536px;
@@ -259,4 +266,34 @@ figure.wp-block-table table th {
 
 body.questionnaire-active header + div .container:not([data-questionnaire-active]) {
   display: none;
+}
+
+.pdf-download-form h2 {
+  margin-bottom: 20px;
+}
+
+.pdf-download-form ol {
+  counter-reset: step-counter;
+}
+
+.pdf-download-form ol li {
+  counter-increment: step-counter;
+  margin-bottom: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.pdf-download-form ol li::before {
+  content: counter(step-counter);
+  background-color: #016EA8;
+  border-radius: 100%;
+  /* padding: 4px 8px; */
+  color: white;
+  margin-right: 8px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
