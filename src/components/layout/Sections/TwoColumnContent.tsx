@@ -33,7 +33,7 @@ export default function TwoColumnContent({ data }: TwoColumnContentProps) {
             </h2>
           )}
           {data?.content && (
-            <div className="text-lg text-[#343C50] [&_strong]:font-bold [&_small]:text-[16px]" dangerouslySetInnerHTML={{ __html: data.content }} />
+            <div className="text-lg text-[#343C50] [&_strong]:font-bold [&_small]:text-[16px] [&_h4]:mt-4" dangerouslySetInnerHTML={{ __html: data.content }} />
           )}
         </div>
         {data?.cta && (
