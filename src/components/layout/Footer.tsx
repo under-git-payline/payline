@@ -33,7 +33,7 @@ export default function Footer() {
                     <div className="w-full md:w-2/10">
                         <span className="block mb-2"><strong>Resources</strong></span>
                         <ul>
-                            <li className="mb-2"><Link className="hover:underline" href="/help-and-support">Help & Support</Link></li>
+                            <li className="mb-2"><Link className="hover:underline" href="/contact-us">Help & Support</Link></li>
                             <li className="mb-2"><Link className="hover:underline" href="/payline-connect">Software Partners</Link></li>
                             <li className="mb-2"><Link className="hover:underline" href="/agents-and-isos">ISO & Agents</Link></li>
                             <li className="mb-2"><Link className="hover:underline" href="/interchange">What is interchange?</Link></li>

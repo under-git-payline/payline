@@ -195,7 +195,7 @@ export default function Header() {
                         <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-5 top-6 w-80 bg-white rounded-lg shadow-xl opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:pointer-events-auto transition-all duration-300 ease-out z-10 p-6">
                             <div className="space-y-3">
                                 <Link
-                                    href="/help-and-support"
+                                    href="/contact-us"
                                     className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
                                 >
                                     <div className="font-medium text-gray-900">Help & Support</div>
@@ -352,7 +352,7 @@ export default function Header() {
                                 </button>
                                 {expandedSection === 'resources' && (
                                     <div className="mt-3 pl-4 space-y-3">
-                                        <Link href="/help-and-support" className="block py-2 text-gray-900">Help & Support</Link>
+                                        <Link href="/contact-us" className="block py-2 text-gray-900">Help & Support</Link>
                                         <Link href="/payline-connect" className="block py-2 text-gray-900">Software Partners</Link>
                                         <Link href="/agents-and-isos" className="block py-2 text-gray-900">ISO & Agents</Link>
                                         <Link href="/interchange" className="block py-2 text-gray-900">What is interchange?</Link>
