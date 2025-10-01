@@ -707,6 +707,39 @@ interface AllPagesData {
   };
 }
 
+// Types for sitemap queries
+interface SitemapPostsData {
+  posts: {
+    nodes: Array<{
+      id: string;
+      title: string;
+      slug: string;
+      uri: string;
+      date: string;
+      modified: string;
+      categories: {
+        nodes: Array<{
+          name: string;
+          slug: string;
+        }>;
+      };
+    }>;
+  };
+}
+
+interface SitemapPagesData {
+  pages: {
+    nodes: Array<{
+      id: string;
+      title: string;
+      slug: string;
+      uri: string;
+      date: string;
+      modified: string;
+    }>;
+  };
+}
+
 // Function to fetch all pages for static generation
 export async function getAllPages() {
   try {
@@ -750,4 +783,71 @@ export function isCustomTemplate(templateName?: string): boolean {
   ];
   
   return customTemplates.includes(templateName);
+}
+
+// Sitemap-specific queries
+export const GET_ALL_POSTS_FOR_SITEMAP = gql`
+  query GetAllPostsForSitemap {
+    posts(first: 1000, where: { status: PUBLISH }) {
+      nodes {
+        id
+        title
+        slug
+        uri
+        date
+        modified
+        categories {
+          nodes {
+            name
+            slug
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_ALL_PAGES_FOR_SITEMAP = gql`
+  query GetAllPagesForSitemap {
+    pages(first: 1000, where: { status: PUBLISH }) {
+      nodes {
+        id
+        title
+        slug
+        uri
+        date
+        modified
+      }
+    }
+  }
+`;
+
+// Function to fetch all posts for sitemap
+export async function getAllPostsForSitemap() {
+  try {
+    const result = await client.query<SitemapPostsData>({
+      query: GET_ALL_POSTS_FOR_SITEMAP,
+      fetchPolicy: 'cache-first',
+    });
+
+    return result.data?.posts?.nodes || [];
+  } catch (error) {
+    console.error('Error fetching posts for sitemap:', error);
+    return [];
+  }
+}
+
+// Function to fetch all pages for sitemap
+export async function getAllPagesForSitemap() {
+  try {
+    const result = await client.query<SitemapPagesData>({
+      query: GET_ALL_PAGES_FOR_SITEMAP,
+      fetchPolicy: 'cache-first',
+    });
+
+    return result.data?.pages?.nodes || [];
+  } catch (error) {
+    console.error('Error fetching pages for sitemap:', error);
+    return [];
+  }
 }
