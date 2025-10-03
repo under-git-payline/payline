@@ -18,12 +18,12 @@ export default function HomepageHero({ data }: HeroProps) {
       altText: data?.image?.node?.altText || "Hero Image"
     },
     primaryCta: {
-      title: data?.primaryCta?.title || "Get Started",
-      url: data?.primaryCta?.url || "#"
+      title: data?.primaryCta?.title || "",
+      url: data?.primaryCta?.url || ""
     },
     secondaryCta: {
-      title: data?.secondaryCta?.title || "Schedule A Demo",
-      url: data?.secondaryCta?.url || "#"
+      title: data?.secondaryCta?.title || "",
+      url: data?.secondaryCta?.url || ""
     }
   };
 
@@ -43,17 +43,23 @@ export default function HomepageHero({ data }: HeroProps) {
         </div>
         <div className="divider max-w-[540px]"></div>
         <div className="flex gap-4 md:items-center flex-col md:flex-row">
+          {heroData.primaryCta.url && (
           <a href={heroData.primaryCta.url}>
             <Button variant="secondary">
               {heroData.primaryCta.title}
             </Button>
           </a>
-          <span className="self-center">or</span>
-          <a href={heroData.secondaryCta.url}>
-            <Button variant="transparent">
-              <Calendar /> {heroData.secondaryCta.title}
-            </Button>
-          </a>
+          )}
+          {heroData.secondaryCta.url && (
+          <>
+            <span className="self-center">or</span>
+            <a href={heroData.secondaryCta.url}>
+              <Button variant="transparent">
+                <Calendar /> {heroData.secondaryCta.title}
+              </Button>
+            </a>
+          </>
+          )}
         </div>
       </div>
       <Image
