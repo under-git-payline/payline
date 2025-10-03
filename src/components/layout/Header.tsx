@@ -181,7 +181,7 @@ export default function Header() {
                             </div>
                         </div>
                     </div>
-                    <Link href="/pricing" className="hover:underline">
+                    <Link href="/credit-card-processing-pricing" className="hover:underline">
                         Pricing
                     </Link>
                     <Link href="/switch-to-payline" className="hover:underline">
@@ -332,7 +332,7 @@ export default function Header() {
                             </div>
 
                             {/* Mobile Pricing Link */}
-                            <Link href="/pricing" className="block py-2 font-medium text-gray-900">
+                            <Link href="/credit-card-processing-pricing" className="block py-2 font-medium text-gray-900">
                                 Pricing
                             </Link>
 
