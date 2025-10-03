@@ -65,7 +65,7 @@ export default function BlogLayout() {
           The Blog
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl">
-          Insights, tips, and industry updates from the PaylineData team
+          Insights, tips, and industry updates from the Payline team
         </p>
       </div>
     </div>

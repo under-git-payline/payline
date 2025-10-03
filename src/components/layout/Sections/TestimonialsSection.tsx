@@ -69,7 +69,7 @@ export default function TestimonialsSection({ data }: TestimonialsProps) {
                                     <Star/><Star/><Star/><Star/><Star/>
                                 </div>
                                 <p>{testimonial.testimonial}</p>
-                                <div className="flex items-center gap-4 pt-4">
+                                <div className="flex items-center gap-4 pt-4 mt-auto">
                                     {testimonial.avatar?.node?.sourceUrl ? (
                                         <Image
                                             src={testimonial.avatar.node.sourceUrl}
