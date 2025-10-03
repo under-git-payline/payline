@@ -11,8 +11,8 @@ export default function SimpleFooter() {
 
                 <div className="flex flex-col gap-2 justify-between items-center lg:flex-row mt-6 pt-6 border-t border-gray-300">
                     <div>
-                        <Link href="/privacy-policy" className="mr-2">Privacy Policy</Link>
-                        <Link href="/terms-and-conditions">Terms and Conditions</Link>
+                        <Link href="/terms-of-service" className="mr-2">Terms of Service</Link>
+                        <Link href="/privacy-policy">Privacy Policy</Link>
                     </div>
                     <span>© {new Date().getFullYear()} Payline Data Services, LLC. All rights reserved.</span>
                     <span>Website Designed by <span className="underline">Creative Deploy LTD</span></span>

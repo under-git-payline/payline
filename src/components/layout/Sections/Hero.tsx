@@ -43,8 +43,7 @@ export default function Hero({ data }: HeroProps) {
         try {
           w.hbspt.forms.create({
             portalId: '47999322',
-            // formId: data?.formId, --- IGNORE ---
-            formId: "d7309e7f-88e7-470c-b997-f277796706d8",
+            formId: data?.formId || 'd7309e7f-88e7-470c-b997-f277796706d8',
             target: `#hero-hubspot-form`,
           });
         } catch (e) {

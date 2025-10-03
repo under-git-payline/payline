@@ -89,9 +89,38 @@ h2 {
   font-weight: normal;
 }
 
+
+.free-content-block {
+  color: #343C50;
+  /* text-align: center; */
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 28px; /* 155.556% */
+  letter-spacing: -0.5px;
+}
+
+.free-content-block h1 {
+  color: #010B24;
+  /* text-align: center; */
+  font-size: 72px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.2; /* 112.5% */
+  letter-spacing: -0.5px;
+  margin-bottom: 32px;
+}
+
+@media screen and (max-width: 1023px) {
+  .free-content-block h1 {
+    font-size: 48px;
+    margin-bottom: 24px;
+  }
+}
+
 .free-content-block h2 {
   color: #010B24;
-  text-align: center;
+  /* text-align: center; */
   font-size: 48px;
   font-style: normal;
   font-weight: 500;
@@ -100,9 +129,17 @@ h2 {
   margin-bottom: 16px;
 }
 
+@media screen and (max-width: 1023px) {
+  .free-content-block h2 {
+    font-size: 36px;
+    line-height: 42px;
+    margin-bottom: 12px;
+  }
+}
+
 .free-content-block h3 {
   color: #010B24;
-  text-align: center;
+  /* text-align: center; */
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
@@ -111,14 +148,19 @@ h2 {
   margin-bottom: 16px;
 }
 
-.free-content-block {
-  color: #343C50;
-  text-align: center;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: 28px; /* 155.556% */
-  letter-spacing: -0.5px;
+.free-content-block p {
+  margin-bottom: 20px;
+}
+
+.free-content-block ol {
+  padding-left: 20px;
+  margin-bottom: 20px;
+  list-style: decimal;
+}
+
+.free-content-block ol li {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .boxed-content-block p {

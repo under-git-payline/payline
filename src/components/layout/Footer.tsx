@@ -4,7 +4,6 @@ import Button from "../ui/Button";
 import LinkedIn from "../icons/LinkedIn";
 import Twitter from "../icons/Twitter";
 import Instagram from "../icons/Instagram";
-import Facebook from "../icons/Facebook";
 
 export default function Footer() {
     return (
@@ -15,10 +14,9 @@ export default function Footer() {
                         <Logo className="h-8 w-auto mb-3" />
                         <span>Flexible and Friendly Payment Processing <br/> Solutions, Tailored To Suit Your Needs</span>
                         <ul className="mt-10 flex gap-2">
-                            <li><Link href=""><span className="block p-3 rounded-full bg-[rgba(1,11,36,0.08)]"><LinkedIn/></span></Link></li>
-                            <li><Link href=""><span className="block p-3 rounded-full bg-[rgba(1,11,36,0.08)]"><Twitter/></span></Link></li>
-                            <li><Link href=""><span className="block p-3 rounded-full bg-[rgba(1,11,36,0.08)]"><Instagram/></span></Link></li>
-                            <li><Link href=""><span className="block p-3 rounded-full bg-[rgba(1,11,36,0.08)]"><Facebook/></span></Link></li>
+                            <li><Link href="https://www.linkedin.com/company/payline-data/" target="_blank"><span className="block p-3 rounded-full bg-[rgba(1,11,36,0.08)]"><LinkedIn/></span></Link></li>
+                            <li><Link href="https://x.com/hashtag/paylinedata" target="_blank"><span className="block p-3 rounded-full bg-[rgba(1,11,36,0.08)]"><Twitter/></span></Link></li>
+                            <li><Link href="https://www.instagram.com/paylinedata/" target="_blank"><span className="block p-3 rounded-full bg-[rgba(1,11,36,0.08)]"><Instagram/></span></Link></li>
                         </ul>
                     </div>
                     <div className="w-full md:w-2/10">
@@ -61,7 +59,7 @@ export default function Footer() {
                 </div>
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 w-full text-[#676D7C] text-[12px]">
                     <div className="flex flex-row gap-2">
-                        <Link className="underline" href="/terms-and-conditions">Terms & Conditions</Link>
+                        <Link className="underline" href="/terms-of-service">Terms of Service</Link>
                         <Link className="underline" href="/privacy-policy">Privacy Policy</Link>
                     </div>
                     <div>

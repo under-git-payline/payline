@@ -72,7 +72,7 @@ export default function Header() {
                                             </div>
                                         </Link>
                                         <Link
-                                            href="/high-risk-payments"
+                                            href="/high-risk-merchant-account"
                                             className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
                                         >
                                             <div className="flex-shrink-0 w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center group-hover:bg-red-200 transition-colors">
@@ -129,7 +129,7 @@ export default function Header() {
                                     </div> */}
                                     <div className="space-y-3">
                                         <Link
-                                            href="/countertop-terminal"
+                                            href="/countertop-terminals"
                                             className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
                                         >
                                             <div>
@@ -145,7 +145,7 @@ export default function Header() {
                                             </div>
                                         </Link>
                                         <Link
-                                            href="/mobile-reader"
+                                            href="/mobile-app-card-reader"
                                             className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
                                         >
                                             <div>
@@ -153,7 +153,7 @@ export default function Header() {
                                             </div>
                                         </Link>
                                         <Link
-                                            href="/basic-pos"
+                                            href="/pos"
                                             className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
                                         >
                                             <div>
@@ -169,7 +169,7 @@ export default function Header() {
                                             </div>
                                         </Link>
                                         <Link
-                                            href="/virtual-terminal"
+                                            href="/virtual-terminal-online-dashboard"
                                             className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
                                         >
                                             <div>
@@ -219,7 +219,7 @@ export default function Header() {
                                     <div className="font-medium text-gray-900">What is interchange?</div>
                                 </Link>
                                 <Link
-                                    href="/about-us"
+                                    href="/about"
                                     className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
                                 >
                                     <div className="font-medium text-gray-900">About us</div>
@@ -284,7 +284,7 @@ export default function Header() {
                                                         <div className="text-sm text-gray-500">Secure e-commerce processing</div>
                                                     </div>
                                                 </Link>
-                                                <Link href="/high-risk-payments" className="flex items-center gap-3 py-2">
+                                                <Link href="/high-risk-merchant-account" className="flex items-center gap-3 py-2">
                                                     <div className="flex-shrink-0 w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center">
                                                         <HighRiskIcon className="h-4 w-4 text-red-600" />
                                                     </div>
@@ -307,22 +307,22 @@ export default function Header() {
                                         <div>
                                             <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Hardware</h4>
                                             <div className="space-y-3">
-                                                <Link href="/countertop-terminal" className="block py-2">
+                                                <Link href="/countertop-terminals" className="block py-2">
                                                     <div className="font-medium text-gray-900">Countertop Terminal</div>
                                                 </Link>
                                                 <Link href="/smart-terminal" className="block py-2">
                                                     <div className="font-medium text-gray-900">Smart Terminal</div>
                                                 </Link>
-                                                <Link href="/mobile-reader" className="block py-2">
+                                                <Link href="/mobile-app-card-reader" className="block py-2">
                                                     <div className="font-medium text-gray-900">Mobile Reader</div>
                                                 </Link>
-                                                <Link href="/basic-pos" className="block py-2">
+                                                <Link href="/pos" className="block py-2">
                                                     <div className="font-medium text-gray-900">Basic POS</div>
                                                 </Link>
                                                 <Link href="/all-in-one-pos" className="block py-2">
                                                     <div className="font-medium text-gray-900">All-in-One POS</div>
                                                 </Link>
-                                                <Link href="/virtual-terminal" className="block py-2">
+                                                <Link href="/virtual-terminal-online-dashboard" className="block py-2">
                                                     <div className="font-medium text-gray-900">Virtual Terminal</div>
                                                 </Link>
                                             </div>
@@ -356,7 +356,7 @@ export default function Header() {
                                         <Link href="/payline-connect" className="block py-2 text-gray-900">Software Partners</Link>
                                         <Link href="/agents-and-isos" className="block py-2 text-gray-900">ISO & Agents</Link>
                                         <Link href="/interchange" className="block py-2 text-gray-900">What is interchange?</Link>
-                                        <Link href="/about-us" className="block py-2 text-gray-900">About us</Link>
+                                        <Link href="/about" className="block py-2 text-gray-900">About us</Link>
                                         <Link href="/blog" className="block py-2 text-gray-900">Blog</Link>
                                     </div>
                                 )}
