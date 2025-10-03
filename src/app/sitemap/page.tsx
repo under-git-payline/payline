@@ -8,29 +8,6 @@ export const metadata: Metadata = {
   description: 'Complete sitemap of all pages and posts on Payline Data website.',
 };
 
-interface SitemapPageProps {
-  pages: Array<{
-    id: string;
-    title: string;
-    uri: string;
-    date: string;
-    modified: string;
-  }>;
-  posts: Array<{
-    id: string;
-    title: string;
-    uri: string;
-    date: string;
-    modified: string;
-    categories: {
-      nodes: Array<{
-        name: string;
-        slug: string;
-      }>;
-    };
-  }>;
-}
-
 function SitemapSection({ 
   title, 
   items, 
@@ -145,7 +122,7 @@ export default async function SitemapPage() {
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Explore all the pages and content available on our website. 
-            This comprehensive sitemap helps you quickly find the information you're looking for.
+            This comprehensive sitemap helps you quickly find the information you&apos;re looking for.
           </p>
           <div className="mt-6 flex justify-center">
             <Link 
@@ -205,7 +182,7 @@ export default async function SitemapPage() {
             <div className="text-gray-400 text-6xl mb-4">📄</div>
             <h2 className="text-2xl font-semibold text-gray-600 mb-2">No Content Found</h2>
             <p className="text-gray-500">
-              We couldn't find any pages or posts to display in the sitemap.
+              We couldn&apos;t find any pages or posts to display in the sitemap.
             </p>
           </div>
         )}
