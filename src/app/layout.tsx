@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Inter_Tight } from "next/font/google";
 import "./globals.css";
 import ConditionalLayout from "@/components/layout/ConditionalLayout";
 import ApolloWrapper from "@/components/providers/ApolloWrapper";
+import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,6 +39,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || ''} />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${interTight.variable} antialiased`}
         suppressHydrationWarning={true}

@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     // Send to WordPress backend
     try {
       const wpApiUrl = `${process.env.WP_API_URL}/wp-json/payline/v1/upload`;
-      console.log('Attempting to upload to WordPress API:', wpApiUrl);
+      // console.log('Attempting to upload to WordPress API:', wpApiUrl);
       
       const wpResponse = await fetch(wpApiUrl, {
         method: 'POST',
