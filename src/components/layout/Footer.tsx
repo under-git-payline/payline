@@ -25,7 +25,7 @@ export default function Footer() {
                             <li className="mb-2"><Link className="hover:underline" href="/in-person-payments">In-person</Link></li>
                             <li className="mb-2"><Link className="hover:underline" href="/online-payments">Online</Link></li>
                             <li className="mb-2"><Link className="hover:underline" href="/recurring-payments">Recurring</Link></li>
-                            <li className="mb-2"><Link className="hover:underline" href="/high-risk-payments">High Risk</Link></li>
+                            <li className="mb-2"><Link className="hover:underline" href="/high-risk-merchant-account">High Risk</Link></li>
                         </ul>
                     </div>
                     <div className="w-full md:w-2/10">
