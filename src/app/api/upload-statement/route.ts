@@ -2,6 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if WordPress API URL is configured
+    if (!process.env.WP_API_URL) {
+      console.error('WP_API_URL environment variable is not configured');
+      return NextResponse.json({ 
+        error: 'Server configuration error. Please contact support.' 
+      }, { status: 500 });
+    }
+
     const formData = await request.formData();
     const file = formData.get('file') as File;
     const customerName = formData.get('customerName') as string || 'Website User';
@@ -41,25 +49,48 @@ export async function POST(request: NextRequest) {
     wpFormData.append('file', file);
 
     // Send to WordPress backend
-    const wpResponse = await fetch(`${process.env.WP_API_URL}/wp-json/payline/v1/upload`, {
-      method: 'POST',
-      body: wpFormData,
-    });
+    try {
+      const wpApiUrl = `${process.env.WP_API_URL}/wp-json/payline/v1/upload`;
+      console.log('Attempting to upload to WordPress API:', wpApiUrl);
+      
+      const wpResponse = await fetch(wpApiUrl, {
+        method: 'POST',
+        body: wpFormData,
+      });
 
-    const wpResult = await wpResponse.json();
+      // Check if the response is JSON before trying to parse it
+      const contentType = wpResponse.headers.get('content-type');
+      let wpResult: any;
+      
+      if (contentType && contentType.includes('application/json')) {
+        wpResult = await wpResponse.json();
+      } else {
+        // If it's not JSON, it's likely an HTML error page
+        const errorText = await wpResponse.text();
+        console.error('WordPress API returned non-JSON response:', errorText.substring(0, 500));
+        return NextResponse.json({ 
+          error: 'WordPress API is not responding correctly. Please check if the WordPress server is running.' 
+        }, { status: 500 });
+      }
 
-    if (!wpResponse.ok) {
-      console.error('WordPress API error:', wpResult);
+      if (!wpResponse.ok) {
+        console.error('WordPress API error:', wpResult);
+        return NextResponse.json({ 
+          error: wpResult.message || 'Failed to upload to WordPress. Please try again.' 
+        }, { status: 500 });
+      }
+
       return NextResponse.json({ 
-        error: wpResult.message || 'Failed to upload to WordPress. Please try again.' 
+        success: true, 
+        message: 'Statement uploaded successfully',
+        fileUrl: wpResult.file_url 
+      });
+    } catch (networkError) {
+      console.error('Network error connecting to WordPress API:', networkError);
+      return NextResponse.json({ 
+        error: 'Unable to connect to WordPress server. Please check if the server is running on the configured URL.' 
       }, { status: 500 });
     }
-
-    return NextResponse.json({ 
-      success: true, 
-      message: 'Statement uploaded successfully',
-      fileUrl: wpResult.file_url 
-    });
 
   } catch (error) {
     console.error('Upload error:', error);
