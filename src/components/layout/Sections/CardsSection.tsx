@@ -13,7 +13,7 @@ export default function CardsSection({ data }: CardsSectionProps) {
     const cardsData = {
         tag: data?.tag || "Customers",
         title: data?.title || "Swipe or tap payments at your business or over the phone or on your mobile phone",
-        subtitle: data?.subtitle || "Eget ultrices habitasse ultricies eu. Quis sagittis in turpis a id gravida mi consectetur. Nec vitae nulla vitae odio id quam dignissim adipiscing. Id urna a massa eleifend praesent.",
+        subtitle: data?.subtitle || "",
         cards: data?.cards || [
             {
                 title: "In-person",
