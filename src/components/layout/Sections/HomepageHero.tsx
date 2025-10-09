@@ -68,6 +68,8 @@ export default function HomepageHero({ data }: HeroProps) {
         width={600}
         height={400}
         className="rounded-l-lg shadow-lg bg-white/10"
+        quality={100} // prevent compression
+        priority // for above-the-fold images
       />
     </div>
   );
