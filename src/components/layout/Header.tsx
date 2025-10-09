@@ -37,7 +37,7 @@ export default function Header() {
             <div className="flex items-center gap-12">
                 <nav className="hidden md:flex gap-12 items-center">
                     <div className="relative group inline-block">
-                        <button className="cursor-pointer hover:underline focus:outline-none flex items-center gap-1">
+                        <button className="cursor-pointer focus:outline-none flex items-center gap-1">
                             Payments
                             <ArrowDown className="h-4 w-4" />
                         </button>
@@ -181,14 +181,14 @@ export default function Header() {
                             </div>
                         </div>
                     </div>
-                    <Link href="/credit-card-processing-pricing" className="hover:underline">
+                    <Link href="/credit-card-processing-pricing">
                         Pricing
                     </Link>
-                    <Link href="/switch-to-payline" className="hover:underline">
+                    <Link href="/switch-to-payline">
                         Switch to Payline
                     </Link>
                     <div className="relative group inline-block">
-                        <button className="cursor-pointer hover:underline focus:outline-none flex items-center gap-1">
+                        <button className="cursor-pointer focus:outline-none flex items-center gap-1">
                             Resources
                             <ArrowDown className="h-4 w-4" />
                         </button>
@@ -234,6 +234,11 @@ export default function Header() {
                         </div>
                     </div>
                 </nav>
+                <div className="flex items-center gap-2">
+                    <a href="tel:+17792178932" className="hidden md:block hover:underline cursor-pointer mr-2">
+                        +1 (779) 217-8932
+                    </a>
+                </div>
                 <div className="flex items-center gap-2">
                     <Link href="/signup-today">
                         <Button variant="primary">Get Started</Button>
@@ -362,8 +367,14 @@ export default function Header() {
                                 )}
                             </div>
 
+                            <div>
+                                <a href="tel:+17792178932" className="font-medium">
+                                    +1 (779) 217-8932
+                                </a>
+                            </div>
+
                             {/* Mobile Get Started Button */}
-                            <div className="">
+                            <div>
                                 <div className="w-full">
                                     <Link href="/signup-today">
                                         <Button variant="primary">Get Started</Button>
