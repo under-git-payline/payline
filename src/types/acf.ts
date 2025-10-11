@@ -122,6 +122,8 @@ export interface HeroLayoutData {
   addCalculator: boolean;
   addForm: boolean;
   formId: string;
+  addIframe: boolean;
+  iframeUrl: string;
   __typename: string;
 }
 

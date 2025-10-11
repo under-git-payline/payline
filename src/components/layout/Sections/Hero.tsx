@@ -30,8 +30,10 @@ export default function Hero({ data }: HeroProps) {
 
   const hasImage = Boolean(heroData.image.sourceUrl);
   const shouldShowForm = Boolean(data?.addForm && data?.formId);
-  const hasRightSide = hasImage || shouldShowForm;
+  const shouldShowIframe = Boolean(data?.addIframe && data?.iframeUrl);
+  const hasRightSide = hasImage || shouldShowForm || shouldShowIframe;
   const formContainerRef = useRef<HTMLDivElement | null>(null);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   useEffect(() => {
     if (!shouldShowForm || !formContainerRef.current) return;
@@ -103,6 +105,21 @@ export default function Hero({ data }: HeroProps) {
               // Notify our effect the script is ready
               document.dispatchEvent(new Event('hubspotFormsLoaded'));
             }}
+          />
+        </div>
+      ) : shouldShowIframe ? (
+        <div className="w-full lg:w-auto bg-white rounded-2xl overflow-hidden">
+          <iframe
+            ref={iframeRef}
+            src={data?.iframeUrl}
+            className="w-full lg:w-[620px] max-w-[620px] rounded-2xl border-0"
+            style={{ 
+              height: '980px'
+            }}
+            title="Embedded Content"
+            allowFullScreen
+            loading="lazy"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation"
           />
         </div>
       ) : (

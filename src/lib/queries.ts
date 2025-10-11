@@ -191,6 +191,8 @@ export const GET_PAGE_BLOCKS = gql`
               addCalculator
               addForm
               formId
+              addIframe
+              iframeUrl
             }
             ... on PageBlocksPageBlocksProductCardsLayout {
               __typename
