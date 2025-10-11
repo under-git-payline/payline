@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import ArrowDown from "../icons/ArrowDown";
 import HamburgerMenu from "../icons/HamburgerMenu";
 import Logo from "../icons/Logo";
@@ -20,6 +21,10 @@ import HighRiskIcon from "../icons/HighRiskIcon";
 export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [expandedSection, setExpandedSection] = useState<string | null>(null);
+    const pathname = usePathname();
+
+    // Hide Get Started button on /apply page
+    const hideGetStartedButton = pathname === "/apply";
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -239,16 +244,18 @@ export default function Header() {
                         +1 (779) 217-8932
                     </a>
                 </div>
-                <div className="flex items-center gap-2">
-                    <Link href="/signup-today">
-                        <Button variant="primary">Get Started</Button>
-                    </Link>
-                    <div 
-                        className="md:hidden rounded-full p-3 bg-[rgba(1,11,36,0.08)] cursor-pointer" 
-                        onClick={toggleMobileMenu}
-                    >
-                        <HamburgerMenu />
+                {!hideGetStartedButton && (
+                    <div className="flex items-center gap-2">
+                        <Link href="/signup-today">
+                            <Button variant="primary">Get Started</Button>
+                        </Link>
                     </div>
+                )}
+                <div 
+                    className="md:hidden rounded-full p-3 bg-[rgba(1,11,36,0.08)] cursor-pointer" 
+                    onClick={toggleMobileMenu}
+                >
+                    <HamburgerMenu />
                 </div>
             </div>
 
@@ -374,13 +381,15 @@ export default function Header() {
                             </div>
 
                             {/* Mobile Get Started Button */}
-                            <div>
-                                <div className="w-full">
-                                    <Link href="/signup-today">
-                                        <Button variant="primary">Get Started</Button>
-                                    </Link>
+                            {!hideGetStartedButton && (
+                                <div>
+                                    <div className="w-full">
+                                        <Link href="/signup-today">
+                                            <Button variant="primary">Get Started</Button>
+                                        </Link>
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                         </nav>
                     </div>
                 </div>
