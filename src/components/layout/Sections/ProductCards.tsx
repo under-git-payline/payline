@@ -22,7 +22,7 @@ export default function ProductCards({ data }: ProductCardsProps) {
                 <span className="price-el text-[#343C50] text-sm" dangerouslySetInnerHTML={{ __html: product.price }} />
                 <p className="text-lg text-[#343C50]">{product.description}</p>
                 {product.cta && 
-                  <div className="mt-3"><Button variant="black"><Link href={product.cta.url} target={product.cta.target}>{product.cta.title}</Link></Button></div>
+                  <div className="mt-3"><Link href={product.cta.url} target={product.cta.target}><Button variant="black">{product.cta.title}</Button></Link></div>
                 }
               </div>
             </div>
