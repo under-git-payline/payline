@@ -23,8 +23,8 @@ export default function Hero({ data }: HeroProps) {
       altText: data?.image?.node?.altText || data?.title || "Hero Image",
     },
     cta: {
-      title: data?.cta?.title || "Get Started",
-      url: data?.cta?.url || "/signup-today"
+      title: data?.cta?.title || "",
+      url: data?.cta?.url || ""
     },
   };
 
@@ -87,13 +87,15 @@ export default function Hero({ data }: HeroProps) {
             </p>
           )}
         </div>
-        <div className={`flex gap-4 md:items-center flex-col md:flex-row ${hasRightSide ? '' : 'justify-center'}`}>
-          <a href={heroData.cta.url}>
-            <Button variant="secondary">
-              {heroData.cta.title}
-            </Button>
-          </a>
-        </div>
+        {heroData.cta.url && heroData.cta.title && (
+          <div className={`flex gap-4 md:items-center flex-col md:flex-row ${hasRightSide ? '' : 'justify-center'}`}>
+            <a href={heroData.cta.url}>
+              <Button variant="secondary">
+                {heroData.cta.title}
+              </Button>
+            </a>
+          </div>
+        )}
       </div>
       {shouldShowForm ? (
         <div className="w-full lg:w-auto pb-10 lg:p-0" ref={formContainerRef}>
