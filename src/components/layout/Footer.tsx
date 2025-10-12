@@ -65,9 +65,6 @@ export default function Footer() {
                     <div>
                         <span>© {new Date().getFullYear()} Payline Data Services, LLC. All right reserved.</span>
                     </div>
-                    <div>
-                        <span>Website Designed by <span className="underline">Creative Deploy LTD</span></span>
-                    </div>
                 </div>
             </div>
         </footer>

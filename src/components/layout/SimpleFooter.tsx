@@ -15,7 +15,6 @@ export default function SimpleFooter() {
                         <Link href="/privacy-policy">Privacy Policy</Link>
                     </div>
                     <span>© {new Date().getFullYear()} Payline Data Services, LLC. All rights reserved.</span>
-                    <span>Website Designed by <span className="underline">Creative Deploy LTD</span></span>
                 </div>
             </div>
         </footer>
