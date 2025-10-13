@@ -43,8 +43,9 @@ export default function Footer() {
                         <span className="block mb-2"><strong>Pricing</strong></span>
                         <ul>
                             <li className="mb-2"><Link className="hover:underline" href="/switch-to-payline">Switch to Payline</Link></li>
+                            <li className="mb-2"><Link className="hover:underline" href="/signup-today">Contact Sales</Link></li>
                             <li className="mb-2">
-                                <Link href="/signup-today">
+                                <Link href="/apply">
                                     <Button variant="black">
                                         Get Started
                                     </Button>

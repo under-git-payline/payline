@@ -246,7 +246,7 @@ export default function Header() {
                 </div>
                 {!hideGetStartedButton && (
                     <div className="flex items-center gap-2">
-                        <Link href="/signup-today">
+                        <Link href="/apply">
                             <Button variant="primary">Get Started</Button>
                         </Link>
                     </div>
@@ -384,7 +384,7 @@ export default function Header() {
                             {!hideGetStartedButton && (
                                 <div>
                                     <div className="w-full">
-                                        <Link href="/signup-today">
+                                        <Link href="/apply">
                                             <Button variant="primary">Get Started</Button>
                                         </Link>
                                     </div>
