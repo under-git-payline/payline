@@ -176,6 +176,11 @@ export const GET_PAGE_BLOCKS = gql`
                 title
                 url
               }
+              secondaryCta {
+                target
+                title
+                url
+              }
               image {
                 node {
                   altText

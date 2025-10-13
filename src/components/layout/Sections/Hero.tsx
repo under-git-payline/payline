@@ -26,6 +26,10 @@ export default function Hero({ data }: HeroProps) {
       title: data?.cta?.title || "",
       url: data?.cta?.url || ""
     },
+    secondaryCta: {
+      title: data?.secondaryCta?.title || "",
+      url: data?.secondaryCta?.url || ""
+    },
   };
 
   const hasImage = Boolean(heroData.image.sourceUrl);
@@ -87,13 +91,20 @@ export default function Hero({ data }: HeroProps) {
             </p>
           )}
         </div>
-        {heroData.cta.url && heroData.cta.title && (
+        {(heroData.cta.url && heroData.cta.title) && (
           <div className={`flex gap-4 md:items-center flex-col md:flex-row ${hasRightSide ? '' : 'justify-center'}`}>
             <a href={heroData.cta.url}>
               <Button variant="secondary">
                 {heroData.cta.title}
               </Button>
             </a>
+            {(heroData.secondaryCta.title && heroData.secondaryCta.url) && (
+              <a href={heroData.secondaryCta.url}>
+                <Button variant="primary">
+                  {heroData.secondaryCta.title}
+                </Button>
+              </a>
+            )}
           </div>
         )}
       </div>

@@ -118,6 +118,7 @@ export interface HeroLayoutData {
   title: string;
   description: string;
   cta: CtaLink;
+  secondaryCta?: CtaLink;
   image: MediaItem;
   addCalculator: boolean;
   addForm: boolean;
