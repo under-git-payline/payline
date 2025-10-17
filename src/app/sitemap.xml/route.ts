@@ -19,7 +19,7 @@ function generateSitemapXML(pages: any[], posts: any[]): string {
   // Generate post entries
   const postEntries = posts.map(post => `
   <url>
-    <loc>${BASE_URL}${post.uri}</loc>
+    <loc>${BASE_URL}/blog${post.uri}</loc>
     <lastmod>${post.modified || post.date}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -38,11 +38,15 @@ function generateSitemapXML(pages: any[], posts: any[]): string {
 
 export async function GET() {
   try {
+    console.log('Starting sitemap generation...');
+    
     // Fetch all pages and posts from WordPress
     const [pages, posts] = await Promise.all([
       getAllPagesForSitemap(),
       getAllPostsForSitemap()
     ]);
+
+    console.log(`Sitemap: Retrieved ${pages.length} pages and ${posts.length} posts from WordPress`);
 
     // Filter out any pages/posts that shouldn't be in the sitemap
     const filteredPages = pages.filter(page => 
@@ -56,6 +60,8 @@ export async function GET() {
       !post.uri.includes('/wp-admin/') && 
       !post.uri.includes('/wp-content/')
     );
+
+    console.log(`Sitemap: After filtering - ${filteredPages.length} pages and ${filteredPosts.length} posts`);
 
     // Generate the XML sitemap
     const sitemap = generateSitemapXML(filteredPages, filteredPosts);

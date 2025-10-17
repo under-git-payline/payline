@@ -731,6 +731,10 @@ interface SitemapPostsData {
         }>;
       };
     }>;
+    pageInfo: {
+      hasNextPage: boolean;
+      endCursor: string | null;
+    };
   };
 }
 
@@ -794,8 +798,8 @@ export function isCustomTemplate(templateName?: string): boolean {
 
 // Sitemap-specific queries
 export const GET_ALL_POSTS_FOR_SITEMAP = gql`
-  query GetAllPostsForSitemap {
-    posts(first: 1000, where: { status: PUBLISH }) {
+  query GetAllPostsForSitemap($first: Int = 100, $after: String) {
+    posts(first: $first, after: $after, where: { status: PUBLISH }) {
       nodes {
         id
         title
@@ -809,6 +813,10 @@ export const GET_ALL_POSTS_FOR_SITEMAP = gql`
             slug
           }
         }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
       }
     }
   }
@@ -829,15 +837,60 @@ export const GET_ALL_PAGES_FOR_SITEMAP = gql`
   }
 `;
 
-// Function to fetch all posts for sitemap
+// Function to fetch all posts for sitemap with pagination
 export async function getAllPostsForSitemap() {
   try {
-    const result = await client.query<SitemapPostsData>({
-      query: GET_ALL_POSTS_FOR_SITEMAP,
-      fetchPolicy: 'cache-first',
-    });
+    const allPosts: Array<{
+      id: string;
+      title: string;
+      slug: string;
+      uri: string;
+      date: string;
+      modified: string;
+      categories: {
+        nodes: Array<{
+          name: string;
+          slug: string;
+        }>;
+      };
+    }> = [];
+    
+    let hasNextPage = true;
+    let cursor: string | null = null;
+    let pageCount = 0;
 
-    return result.data?.posts?.nodes || [];
+    console.log('Starting to fetch posts for sitemap...');
+
+    while (hasNextPage && pageCount < 50) { // Safety limit to prevent infinite loops
+      // @ts-expect-error - Temporary ignore for Apollo Client typing issue
+      const response = await client.query<SitemapPostsData>({
+        query: GET_ALL_POSTS_FOR_SITEMAP,
+        variables: {
+          first: 100, // Fetch 100 posts at a time
+          after: cursor
+        },
+        fetchPolicy: 'no-cache', // Use no-cache to ensure fresh data
+      });
+
+      const posts = response.data?.posts?.nodes || [];
+      // @ts-expect-error - Temporary ignore for Apollo Client typing issue
+      const info = response.data?.posts?.pageInfo;
+      
+      allPosts.push(...posts);
+      hasNextPage = info?.hasNextPage || false;
+      cursor = info?.endCursor || null;
+      pageCount++;
+
+      console.log(`Fetched page ${pageCount}: ${posts.length} posts, total: ${allPosts.length}, hasNextPage: ${hasNextPage}`);
+      
+      // Break if no more posts in this batch
+      if (posts.length === 0) {
+        break;
+      }
+    }
+
+    console.log(`Completed fetching posts for sitemap: ${allPosts.length} total posts`);
+    return allPosts;
   } catch (error) {
     console.error('Error fetching posts for sitemap:', error);
     return [];
