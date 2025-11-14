@@ -1,15 +1,17 @@
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: /sitemap.xml
-
-# Common bot restrictions
+# WordPress backend (safe)
 Disallow: /wp-admin/
 Disallow: /wp-includes/
-Disallow: /wp-content/plugins/
-Disallow: /wp-content/themes/
 Disallow: /admin/
 Disallow: /api/auth/
-Disallow: /_next/
 Disallow: /private/
+
+# Allow WordPress public media
+Allow: /wp-content/uploads/
+
+# (IMPORTANT) Allow Next.js assets
+Allow: /_next/
+
+Sitemap: https://paylinedata.com/sitemap.xml
