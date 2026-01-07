@@ -27,6 +27,15 @@ const nextConfig: NextConfig = {
       // },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/blog/14-best-website-builders-for-freelancers',
+        destination: '/blog/15-best-website-builders-for-freelancers',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
