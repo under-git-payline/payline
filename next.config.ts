@@ -34,6 +34,11 @@ const nextConfig: NextConfig = {
         destination: '/blog/15-best-website-builders-for-freelancers',
         permanent: true,
       },
+      {
+        source: '/blog/top-7-cloud-based-hr-and-payroll-software',
+        destination: '/blog/top-8-cloud-based-hr-and-payroll-software',
+        permanent: true,
+      },
     ];
   },
 };
