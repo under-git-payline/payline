@@ -32,8 +32,9 @@ export default function Footer() {
                         <span className="block mb-2"><strong>Resources</strong></span>
                         <ul>
                             <li className="mb-2"><Link className="hover:underline" href="/contact-us">Help & Support</Link></li>
-                            <li className="mb-2"><Link className="hover:underline" href="/payline-connect">Software Partners</Link></li>
+                            <li className="mb-2"><Link className="hover:underline" href="/partners">Partners</Link></li>
                             <li className="mb-2"><Link className="hover:underline" href="/agents-and-isos">ISO & Agents</Link></li>
+                            <li className="mb-2"><Link className="hover:underline" href="/payline-connect">Software Platforms</Link></li>
                             <li className="mb-2"><Link className="hover:underline" href="/interchange">What is interchange?</Link></li>
                             <li className="mb-2"><Link className="hover:underline" href="/about">About us</Link></li>
                             <li className="mb-2"><Link className="hover:underline" href="/blog">Blog</Link></li>

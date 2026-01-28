@@ -206,16 +206,23 @@ export default function Header() {
                                     <div className="font-medium text-gray-900">Help & Support</div>
                                 </Link>
                                 <Link
-                                    href="/payline-connect"
+                                    href="/partners"
                                     className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
                                 >
-                                    <div className="font-medium text-gray-900">Software Partners</div>
+                                    <div className="font-medium text-gray-900">Partners</div>
                                 </Link>
                                 <Link
                                     href="/agents-and-isos"
                                     className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
                                 >
                                     <div className="font-medium text-gray-900">ISO & Agents</div>
+                                </Link>
+
+                                <Link
+                                    href="/payline-connect"
+                                    className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                                >
+                                    <div className="font-medium text-gray-900">Software Platforms</div>
                                 </Link>
                                 <Link
                                     href="/interchange"
@@ -365,8 +372,9 @@ export default function Header() {
                                 {expandedSection === 'resources' && (
                                     <div className="mt-3 pl-4 space-y-3">
                                         <Link href="/contact-us" className="block py-2 text-gray-900">Help & Support</Link>
-                                        <Link href="/payline-connect" className="block py-2 text-gray-900">Software Partners</Link>
+                                        <Link href="/partners" className="block py-2 text-gray-900">Partners</Link>
                                         <Link href="/agents-and-isos" className="block py-2 text-gray-900">ISO & Agents</Link>
+                                        <Link href="/payline-connect" className="block py-2 text-gray-900">Software Platforms</Link>
                                         <Link href="/interchange" className="block py-2 text-gray-900">What is interchange?</Link>
                                         <Link href="/about" className="block py-2 text-gray-900">About us</Link>
                                         <Link href="/blog" className="block py-2 text-gray-900">Blog</Link>
