@@ -12,7 +12,7 @@ export default function FeatureCards({ data }: FeatureCardsProps) {
         {data?.title && <h2 className="text-5xl leading-14 mb-2">{data.title}</h2>}
         {data?.subtitle && <p className="text-lg text-[#343C50]">{data.subtitle}</p>}
         {data?.featureCard && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+          <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 ${[3, 5, 6].includes(data.featureCard.length) ? "lg:grid-cols-3" : "lg:grid-cols-4"}`}>
             {data.featureCard.map((card, index) => (
               <div key={index} className="bg-black/3 rounded-2xl p-5">
                 <div className="rounded-xl bg-[#B0E0F9] p-2 max-w-max">

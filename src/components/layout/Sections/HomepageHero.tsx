@@ -34,7 +34,7 @@ export default function HomepageHero({ data }: HeroProps) {
           <span className="w-fit text-sm/6 font-light py-1 px-3 bg-black/10 rounded-sm">
             {heroData.tag}
           </span>
-          <h1 className="text-white font-heading text-4xl md:text-7xl/18 font-bold tracking-[-0.5px] uppercase">
+          <h1 className="text-white font-heading text-4xl md:text-6xl/18 font-bold tracking-[-0.5px] uppercase">
             {heroData.title}
           </h1>
           <p className="text-2xl">
