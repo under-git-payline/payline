@@ -45,7 +45,7 @@ export default function Header() {
                             Solutions
                             <ArrowDown className="h-4 w-4" />
                         </button>
-                        <div className="absolute top-6 left-1/2 transform -translate-x-1/2 -translate-y-5 w-[1000px] bg-white rounded-lg shadow-xl opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:pointer-events-auto transition-all duration-300 ease-out z-10 p-6">
+                        <div className="absolute top-6 left-0 -translate-x-1/4 2xl:left-1/2 2xl:-translate-x-1/2 -translate-y-5 w-[1000px] bg-white rounded-lg shadow-xl opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:pointer-events-auto transition-all duration-300 ease-out z-10 p-6">
                             <div className="grid grid-cols-4 gap-6">
                                 {/* Payment Types Section */}
                                 <div>
@@ -176,7 +176,7 @@ export default function Header() {
                                     <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Developers</h3>
                                     <div className="space-y-3">
                                         <Link
-                                            href="https://payline.transactiongateway.com/merchants/resources/integration/&sa=D&source=editors&ust=1781722362680320&usg=AOvVaw21JS-9uvn6NrZG0nRkB5rH" target="_blank"
+                                            href="https://payline.transactiongateway.com/merchants/resources/integration/integration_portal.php" target="_blank"
                                             className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
                                         >
                                             <div>
@@ -364,7 +364,7 @@ export default function Header() {
                                         <div>
                                             <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Developers</h4>
                                             <div className="space-y-3">
-                                                <Link href="https://payline.transactiongateway.com/merchants/resources/integration/&sa=D&source=editors&ust=1781722362680320&usg=AOvVaw21JS-9uvn6NrZG0nRkB5rH" target="_blank" className="block py-2">
+                                                <Link href="https://payline.transactiongateway.com/merchants/resources/integration/integration_portal.php" target="_blank" className="block py-2">
                                                     <div className="font-medium text-gray-900">APIs</div>
                                                     <div className="text-sm text-gray-500">Embed payments into your platform</div>
                                                 </Link>
