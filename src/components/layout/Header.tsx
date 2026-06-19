@@ -95,7 +95,7 @@ export default function Header() {
                                     <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Products</h3>
                                     <div className="space-y-3">
                                         <Link
-                                            href="/payment-links"
+                                            href="/payments-link"
                                             className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
                                         >
                                             <div>
@@ -328,7 +328,7 @@ export default function Header() {
                                         <div>
                                             <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Products</h4>
                                             <div className="space-y-3">
-                                                <Link href="/payment-links" className="block py-2">
+                                                <Link href="/payments-link" className="block py-2">
                                                     <div className="font-medium text-gray-900">Payment Links</div>
                                                     <div className="text-sm text-gray-500">No code payments</div>
                                                 </Link>
