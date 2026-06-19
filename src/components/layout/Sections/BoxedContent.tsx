@@ -8,7 +8,7 @@ interface BoxedContentProps extends FlexibleContentProps {
 
 export default function BoxedContent({ data }: BoxedContentProps) {
   return (
-    <div className="boxed-content-block container flex flex-col lg:flex-row items-center justify-start gap-16 rounded-4xl mx-14 p-10 bg-black/3">
+    <div className={`boxed-content-block container flex flex-col gap-16 rounded-4xl mx-14 p-10 bg-black/3 ${data?.reverse ? "lg:flex-row-reverse" : "lg:flex-row"} items-center justify-start`}>
       {data?.image && (
         <div className="lg:w-1/2">
           <Image

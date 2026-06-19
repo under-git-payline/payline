@@ -11,7 +11,6 @@ import Button from "../ui/Button";
 import POSTerminalIcon from "../icons/POSTerminalIcon";
 // import MobilePaymentIcon from "../icons/MobilePaymentIcon";
 import OnlinePaymentIcon from "../icons/OnlinePaymentIcon";
-import RecurringPaymentIcon from "../icons/RecurringPaymentIcon";
 // import APIIcon from "../icons/APIIcon";
 // import AnalyticsIcon from "../icons/AnalyticsIcon";
 import HighRiskIcon from "../icons/HighRiskIcon";
@@ -43,14 +42,14 @@ export default function Header() {
                 <nav className="hidden md:flex gap-12 items-center">
                     <div className="relative group inline-block">
                         <button className="cursor-pointer focus:outline-none flex items-center gap-1">
-                            Payments
+                            Solutions
                             <ArrowDown className="h-4 w-4" />
                         </button>
-                        <div className="absolute top-6 left-1/2 transform -translate-x-1/2 -translate-y-5 w-[660px] bg-white rounded-lg shadow-xl opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:pointer-events-auto transition-all duration-300 ease-out z-10 p-6">
-                            <div className="grid grid-cols-2 gap-6">
+                        <div className="absolute top-6 left-1/2 transform -translate-x-1/2 -translate-y-5 w-[1000px] bg-white rounded-lg shadow-xl opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:pointer-events-auto transition-all duration-300 ease-out z-10 p-6">
+                            <div className="grid grid-cols-4 gap-6">
                                 {/* Payment Types Section */}
                                 <div>
-                                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Accept Payments</h3>
+                                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Payments</h3>
                                     <div className="space-y-3">
                                         <Link
                                             href="/in-person-payments"
@@ -88,50 +87,37 @@ export default function Header() {
                                                 <div className="text-sm text-gray-500">Specialized high-risk processing</div>
                                             </div>
                                         </Link>
+                                    </div>
+                                </div>
+
+                                {/* Products Section */}
+                                <div>
+                                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Products</h3>
+                                    <div className="space-y-3">
+                                        <Link
+                                            href="/payment-links"
+                                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                                        >
+                                            <div>
+                                                <div className="font-medium text-gray-900">Payment Links</div>
+                                                <div className="text-sm text-gray-500">No code payments</div>
+                                            </div>
+                                        </Link>
                                         <Link
                                             href="/recurring-payments"
                                             className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
                                         >
-                                            <div className="flex-shrink-0 w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center group-hover:bg-orange-200 transition-colors">
-                                                <RecurringPaymentIcon className="h-5 w-5 text-orange-600" />
-                                            </div>
                                             <div>
-                                                <div className="font-medium text-gray-900">Recurring Payments</div>
+                                                <div className="font-medium text-gray-900">Recurring</div>
                                                 <div className="text-sm text-gray-500">Automated subscription billing</div>
                                             </div>
                                         </Link>
                                     </div>
                                 </div>
                                 
-                                {/* Products Section */}
+                                {/* Hardware Section */}
                                 <div>
                                     <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Hardware</h3>
-                                    {/* <div className="space-y-3">
-                                        <Link
-                                            href="/payline-connect"
-                                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
-                                        >
-                                            <div className="flex-shrink-0 w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center group-hover:bg-indigo-200 transition-colors">
-                                                <PaylineConnectIcon className="h-5 w-5 text-indigo-600" />
-                                            </div>
-                                            <div>
-                                                <div className="font-medium text-gray-900">Payline Connect</div>
-                                                <div className="text-sm text-gray-500">Unlock new revenue streams with embedded payment solutions that enhance your software.</div>
-                                            </div>
-                                        </Link>
-                                        <Link
-                                            href="/clover-flex-at-payline"
-                                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
-                                        >
-                                            <div className="flex-shrink-0 w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center group-hover:bg-teal-200 transition-colors">
-                                                <CloverFlexIcon className="h-5 w-5 text-teal-600" />
-                                            </div>
-                                            <div>
-                                                <div className="font-medium text-gray-900">Clover Flex</div>
-                                                <div className="text-sm text-gray-500">Accept payments in person or online. Businesses save 25%, on average, by switching to Payline</div>
-                                            </div>
-                                        </Link>
-                                    </div> */}
                                     <div className="space-y-3">
                                         <Link
                                             href="/countertop-terminals"
@@ -182,69 +168,94 @@ export default function Header() {
                                             </div>
                                         </Link>
                                     </div>
+                                
                                 </div>
+                                
+                                {/* Developers Section */}
+                                <div>
+                                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Developers</h3>
+                                    <div className="space-y-3">
+                                        <Link
+                                            href="https://payline.transactiongateway.com/merchants/resources/integration/&sa=D&source=editors&ust=1781722362680320&usg=AOvVaw21JS-9uvn6NrZG0nRkB5rH" target="_blank"
+                                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                                        >
+                                            <div>
+                                                <div className="font-medium text-gray-900">APIs</div>
+                                                <div className="text-sm text-gray-500">Embed payments into your platform</div>
+                                            </div>
+                                        </Link>
+                                        <Link
+                                            href="/digital-merchant-onboarding"
+                                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                                        >
+                                            <div>
+                                                <div className="font-medium text-gray-900">No Code</div>
+                                                <div className="text-sm text-gray-500">No code & low code for fast implementation</div>
+                                            </div>
+                                        </Link>
+                                        <Link
+                                            href="/digital-merchant-onboarding"
+                                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                                        >
+                                            <div>
+                                                <div className="font-medium text-gray-900">Boarding</div>
+                                                <div className="text-sm text-gray-500">API & Hosted Form Onboarding</div>
+                                            </div>
+                                        </Link>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                    <Link href="/credit-card-processing-pricing">
-                        Pricing
-                    </Link>
-                    <Link href="/switch-to-payline">
+                    {/* <Link href="/switch-to-payline">
                         Switch to Payline
-                    </Link>
+                    </Link> */}
                     <div className="relative group inline-block">
                         <button className="cursor-pointer focus:outline-none flex items-center gap-1">
-                            Resources
+                            Who we serve
                             <ArrowDown className="h-4 w-4" />
                         </button>
                         <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-5 top-6 w-80 bg-white rounded-lg shadow-xl opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:pointer-events-auto transition-all duration-300 ease-out z-10 p-6">
                             <div className="space-y-3">
                                 <Link
-                                    href="/contact-us"
+                                    href="/payline-connect"
                                     className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
                                 >
-                                    <div className="font-medium text-gray-900">Help & Support</div>
-                                </Link>
-                                <Link
-                                    href="/partners"
-                                    className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
-                                >
-                                    <div className="font-medium text-gray-900">Partners</div>
+                                    <div className="font-medium text-gray-900">Software Companies</div>
+                                    <div className="text-sm text-gray-500">Integrate payments & grow revenue</div>
                                 </Link>
                                 <Link
                                     href="/agents-and-isos"
                                     className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
                                 >
-                                    <div className="font-medium text-gray-900">ISO & Agents</div>
+                                    <div className="font-medium text-gray-900">Sales Partners</div>
+                                    <div className="text-sm text-gray-500">Agents & ISO program</div>
+                                </Link>
+                                <Link
+                                    href="/partners"
+                                    className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                                >
+                                    <div className="font-medium text-gray-900">Associations</div>
+                                    <div className="text-sm text-gray-500">Empower your members</div>
                                 </Link>
 
                                 <Link
-                                    href="/payline-connect"
+                                    href="/partners"
                                     className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
                                 >
-                                    <div className="font-medium text-gray-900">Software Platforms</div>
-                                </Link>
-                                <Link
-                                    href="/interchange"
-                                    className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
-                                >
-                                    <div className="font-medium text-gray-900">What is interchange?</div>
-                                </Link>
-                                <Link
-                                    href="/about"
-                                    className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
-                                >
-                                    <div className="font-medium text-gray-900">About us</div>
-                                </Link>
-                                <Link
-                                    href="/blog"
-                                    className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
-                                >
-                                    <div className="font-medium text-gray-900">Blog</div>
+                                    <div className="font-medium text-gray-900">Merchants</div>
+                                    <div className="text-sm text-gray-500">Accept Payments</div>
                                 </Link>
                             </div>
                         </div>
                     </div>
+                    <Link href="https://payline.transactiongateway.com/merchants/resources/integration/integration_portal.php&sa=D&source=editors&ust=1781722362680653&usg=AOvVaw3b9DUweHuK-ift4bpZyxAW" target="_blank">
+                        Developers
+                    </Link>
+                    <Link href="/credit-card-processing-pricing">
+                        Pricing
+                    </Link>
                 </nav>
                 <div className="flex items-center gap-2">
                     <a href="tel:+17792178932" className="hidden md:block hover:underline cursor-pointer mr-2">
@@ -271,19 +282,19 @@ export default function Header() {
                 <div className="md:hidden absolute top-[76px] left-0 right-0 bg-white border-t shadow-lg z-50">
                     <div className="container py-4">
                         <nav className="space-y-4">
-                            {/* Mobile Payments Section */}
+                            {/* Mobile Solutions Section */}
                             <div>
                                 <button
-                                    onClick={() => toggleSection('payments')}
+                                    onClick={() => toggleSection('solutions')}
                                     className="flex items-center justify-between w-full py-2 text-left font-medium text-gray-900"
                                 >
-                                    Payments
-                                    <ArrowDown className={`h-4 w-4 transition-transform ${expandedSection === 'payments' ? 'rotate-180' : ''}`} />
+                                    Solutions
+                                    <ArrowDown className={`h-4 w-4 transition-transform ${expandedSection === 'solutions' ? 'rotate-180' : ''}`} />
                                 </button>
-                                {expandedSection === 'payments' && (
+                                {expandedSection === 'solutions' && (
                                     <div className="mt-3 pl-4 space-y-4">
                                         <div>
-                                            <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Accept Payments</h4>
+                                            <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Payments</h4>
                                             <div className="space-y-3">
                                                 <Link href="/in-person-payments" className="flex items-center gap-3 py-2">
                                                     <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -312,14 +323,18 @@ export default function Header() {
                                                         <div className="text-sm text-gray-500">Specialized high-risk processing</div>
                                                     </div>
                                                 </Link>
-                                                <Link href="/recurring-payments" className="flex items-center gap-3 py-2">
-                                                    <div className="flex-shrink-0 w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
-                                                        <RecurringPaymentIcon className="h-4 w-4 text-orange-600" />
-                                                    </div>
-                                                    <div>
-                                                        <div className="font-medium text-gray-900">Recurring Payments</div>
-                                                        <div className="text-sm text-gray-500">Automated subscription billing</div>
-                                                    </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Products</h4>
+                                            <div className="space-y-3">
+                                                <Link href="/payment-links" className="block py-2">
+                                                    <div className="font-medium text-gray-900">Payment Links</div>
+                                                    <div className="text-sm text-gray-500">No code payments</div>
+                                                </Link>
+                                                <Link href="/recurring-payments" className="block py-2">
+                                                    <div className="font-medium text-gray-900">Recurring</div>
+                                                    <div className="text-sm text-gray-500">Automated subscription billing</div>
                                                 </Link>
                                             </div>
                                         </div>
@@ -346,41 +361,67 @@ export default function Header() {
                                                 </Link>
                                             </div>
                                         </div>
+                                        <div>
+                                            <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Developers</h4>
+                                            <div className="space-y-3">
+                                                <Link href="https://payline.transactiongateway.com/merchants/resources/integration/&sa=D&source=editors&ust=1781722362680320&usg=AOvVaw21JS-9uvn6NrZG0nRkB5rH" target="_blank" className="block py-2">
+                                                    <div className="font-medium text-gray-900">APIs</div>
+                                                    <div className="text-sm text-gray-500">Embed payments into your platform</div>
+                                                </Link>
+                                                <Link href="/digital-merchant-onboarding" className="block py-2">
+                                                    <div className="font-medium text-gray-900">No Code</div>
+                                                    <div className="text-sm text-gray-500">No code & low code for fast implementation</div>
+                                                </Link>
+                                                <Link href="/digital-merchant-onboarding" className="block py-2">
+                                                    <div className="font-medium text-gray-900">Boarding</div>
+                                                    <div className="text-sm text-gray-500">API & Hosted Form Onboarding</div>
+                                                </Link>
+                                            </div>
+                                        </div>
                                     </div>
                                 )}
                             </div>
+
+                            {/* Mobile Who We Serve Section */}
+                            <div>
+                                <button
+                                    onClick={() => toggleSection('who-we-serve')}
+                                    className="flex items-center justify-between w-full py-2 text-left font-medium text-gray-900"
+                                >
+                                    Who we serve
+                                    <ArrowDown className={`h-4 w-4 transition-transform ${expandedSection === 'who-we-serve' ? 'rotate-180' : ''}`} />
+                                </button>
+                                {expandedSection === 'who-we-serve' && (
+                                    <div className="mt-3 pl-4 space-y-3">
+                                        <Link href="/payline-connect" className="block py-2">
+                                            <div className="font-medium text-gray-900">Software Companies</div>
+                                            <div className="text-sm text-gray-500">Integrate payments & grow revenue</div>
+                                        </Link>
+                                        <Link href="/agents-and-isos" className="block py-2">
+                                            <div className="font-medium text-gray-900">Sales Partners</div>
+                                            <div className="text-sm text-gray-500">Agents & ISO program</div>
+                                        </Link>
+                                        <Link href="/partners" className="block py-2">
+                                            <div className="font-medium text-gray-900">Associations</div>
+                                            <div className="text-sm text-gray-500">Empower your members</div>
+                                        </Link>
+                                        <Link href="/partners" className="block py-2">
+                                            <div className="font-medium text-gray-900">Merchants</div>
+                                            <div className="text-sm text-gray-500">Accept Payments</div>
+                                        </Link>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Mobile Developers Link */}
+                            <Link href="https://payline.transactiongateway.com/merchants/resources/integration/integration_portal.php&sa=D&source=editors&ust=1781722362680653&usg=AOvVaw3b9DUweHuK-ift4bpZyxAW" target="_blank" className="block py-2 font-medium text-gray-900">
+                                Developers
+                            </Link>
 
                             {/* Mobile Pricing Link */}
                             <Link href="/credit-card-processing-pricing" className="block py-2 font-medium text-gray-900">
                                 Pricing
                             </Link>
-
-                            {/* Mobile Switch Link */}
-                            <Link href="/switch-to-payline" className="block py-2 font-medium text-gray-900">
-                                Switch to Payline
-                            </Link>
-
-                            {/* Mobile Resources Section */}
-                            <div>
-                                <button
-                                    onClick={() => toggleSection('resources')}
-                                    className="flex items-center justify-between w-full py-2 text-left font-medium text-gray-900"
-                                >
-                                    Resources
-                                    <ArrowDown className={`h-4 w-4 transition-transform ${expandedSection === 'resources' ? 'rotate-180' : ''}`} />
-                                </button>
-                                {expandedSection === 'resources' && (
-                                    <div className="mt-3 pl-4 space-y-3">
-                                        <Link href="/contact-us" className="block py-2 text-gray-900">Help & Support</Link>
-                                        <Link href="/partners" className="block py-2 text-gray-900">Partners</Link>
-                                        <Link href="/agents-and-isos" className="block py-2 text-gray-900">ISO & Agents</Link>
-                                        <Link href="/payline-connect" className="block py-2 text-gray-900">Software Platforms</Link>
-                                        <Link href="/interchange" className="block py-2 text-gray-900">What is interchange?</Link>
-                                        <Link href="/about" className="block py-2 text-gray-900">About us</Link>
-                                        <Link href="/blog" className="block py-2 text-gray-900">Blog</Link>
-                                    </div>
-                                )}
-                            </div>
 
                             <div>
                                 <a href="tel:+17792178932" className="font-medium">

@@ -339,3 +339,7 @@ body.questionnaire-active header + div .container:not([data-questionnaire-active
   justify-content: center;
   flex-shrink: 0;
 }
+
+.two-column-content a {
+  margin-bottom: 10px;
+}

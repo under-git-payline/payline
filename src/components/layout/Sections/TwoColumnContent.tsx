@@ -8,7 +8,7 @@ interface TwoColumnContentProps extends FlexibleContentProps {
 
 export default function TwoColumnContent({ data }: TwoColumnContentProps) {
   const content = (
-    <div className={`container flex flex-col lg:flex-row items-center justify-start gap-16 rounded-4xl my-10 ${data?.reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}>
+    <div className={`two-column-content container flex flex-col lg:flex-row items-center justify-start gap-16 rounded-4xl my-10 ${data?.reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}>
       {data?.image && (
         <div className="lg:w-1/2">
           <Image
