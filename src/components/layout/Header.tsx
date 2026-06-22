@@ -250,7 +250,7 @@ export default function Header() {
                             </div>
                         </div>
                     </div>
-                    <Link href="https://payline.transactiongateway.com/merchants/resources/integration/integration_portal.php&sa=D&source=editors&ust=1781722362680653&usg=AOvVaw3b9DUweHuK-ift4bpZyxAW" target="_blank">
+                    <Link href="https://payline.transactiongateway.com/merchants/resources/integration/integration_portal.php" target="_blank">
                         Developers
                     </Link>
                     <Link href="/credit-card-processing-pricing">
@@ -414,7 +414,7 @@ export default function Header() {
                             </div>
 
                             {/* Mobile Developers Link */}
-                            <Link href="https://payline.transactiongateway.com/merchants/resources/integration/integration_portal.php&sa=D&source=editors&ust=1781722362680653&usg=AOvVaw3b9DUweHuK-ift4bpZyxAW" target="_blank" className="block py-2 font-medium text-gray-900">
+                            <Link href="https://payline.transactiongateway.com/merchants/resources/integration/integration_portal.php" target="_blank" className="block py-2 font-medium text-gray-900">
                                 Developers
                             </Link>
 
