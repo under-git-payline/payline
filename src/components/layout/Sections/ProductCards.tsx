@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Button from "../../ui/Button";
 import { ProductCardsLayoutData, FlexibleContentProps } from "@/types/acf";
 import Link from "next/dist/client/link";
 
