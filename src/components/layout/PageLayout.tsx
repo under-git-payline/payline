@@ -7,9 +7,10 @@ import { isCustomTemplate } from "@/lib/queries";
 interface PageLayoutProps {
   children: React.ReactNode;
   templateName?: string;
+  headerVariant?: "light" | "dark";
 }
 
-export default function PageLayout({ children, templateName }: PageLayoutProps) {
+export default function PageLayout({ children, templateName, headerVariant = "light" }: PageLayoutProps) {
   const useSimpleLayout = isCustomTemplate(templateName);
 
   if (useSimpleLayout) {
@@ -26,10 +27,8 @@ export default function PageLayout({ children, templateName }: PageLayoutProps) 
 
   return (
     <div className="main">
-      <Header />
-      <div className="py-4">
-        {children}
-      </div>
+      <Header variant={headerVariant} />
+      {children}
       <Footer />
     </div>
   );

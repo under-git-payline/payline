@@ -27,9 +27,7 @@ export default function ConditionalLayout({ children }: ConditionalLayoutProps) 
   return (
     <div className="main">
       <Header />
-      <div className="py-4">
-        {children}
-      </div>
+      {children}
       <Footer />
     </div>
   );

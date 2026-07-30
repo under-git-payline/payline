@@ -3,6 +3,8 @@ import FlexiblePageBuilder from "@/components/FlexibleContent/FlexiblePageBuilde
 import PageLayout from "@/components/layout/PageLayout";
 import { getAllPages, getPageBlocks, getPageData } from "@/lib/queries";
 import { shouldExcludePage, getCustomFallback, uriToSlugArray, pageConfig } from "@/lib/page-config";
+import { isFeatureHero } from "@/lib/hero";
+import { HeroLayoutData } from "@/types/acf";
 import type { Metadata } from 'next';
 
 interface PageProps {
@@ -118,7 +120,7 @@ export default async function DynamicPage({ params }: PageProps) {
     
     // Fetch page blocks
     const blocks = await getPageBlocks(uri);
-    
+
     // If no blocks found, use custom fallback or show 404
     if (blocks.length === 0) {
       if (customFallback) {
@@ -132,8 +134,15 @@ export default async function DynamicPage({ params }: PageProps) {
       notFound();
     }
 
+    // Hero renders a dark background only when it's not a form/iframe/calculator
+    // "Feature Hero" (which is light) — kept in sync with Hero.tsx via the shared predicate.
+    const firstBlock = blocks[0];
+    const headerVariant = firstBlock?.__typename === 'PageBlocksPageBlocksHeroLayout' && !isFeatureHero(firstBlock as HeroLayoutData)
+      ? 'dark'
+      : 'light';
+
     return (
-      <PageLayout templateName={templateName}>
+      <PageLayout templateName={templateName} headerVariant={headerVariant}>
         <FlexiblePageBuilder blocks={blocks} />
       </PageLayout>
     );

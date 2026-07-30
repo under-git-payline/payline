@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import client from './apollo-client';
+import client, { wordpressFetchPolicy } from './apollo-client';
 
 export const GET_PAGE_BLOCKS = gql`
   query PageBlocks($uri: String!) {
@@ -502,6 +502,38 @@ export const GET_PAGE_BLOCKS = gql`
                 }
               }
             }
+            ... on PageBlocksPageBlocksFeaturePillsLayout {
+              __typename
+              fieldGroupName
+              title
+              subtitle
+              pills {
+                __typename
+                label
+              }
+            }
+            ... on PageBlocksPageBlocksProcessStepsLayout {
+              __typename
+              title
+              description
+              steps {
+                __typename
+                title
+                description
+                image {
+                  node {
+                    altText
+                    sourceUrl
+                    uri
+                    title
+                    mediaDetails {
+                      width
+                      height
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -658,7 +690,7 @@ export async function getPageBlocks(uri: string): Promise<PageBlock[]> {
     const result = await client.query<PageBlocksData>({
       query: GET_PAGE_BLOCKS,
       variables: { uri },
-      fetchPolicy: 'cache-first', // Enable caching for production
+      fetchPolicy: wordpressFetchPolicy,
     });
 
     // console.log('results:', result);
@@ -756,7 +788,7 @@ export async function getAllPages() {
   try {
     const result = await client.query<AllPagesData>({
       query: GET_ALL_PAGES,
-      fetchPolicy: 'cache-first',
+      fetchPolicy: wordpressFetchPolicy,
     });
 
     return result.data?.pages?.nodes || [];
@@ -772,7 +804,7 @@ export async function getPageData(uri: string) {
     const { data } = await client.query<PageBlocksData>({
       query: GET_PAGE_BLOCKS,
       variables: { uri },
-      fetchPolicy: 'cache-first',
+      fetchPolicy: wordpressFetchPolicy,
     });
     
     return data?.nodeByUri || null;
@@ -902,7 +934,7 @@ export async function getAllPagesForSitemap() {
   try {
     const result = await client.query<SitemapPagesData>({
       query: GET_ALL_PAGES_FOR_SITEMAP,
-      fetchPolicy: 'cache-first',
+      fetchPolicy: wordpressFetchPolicy,
     });
 
     return result.data?.pages?.nodes || [];

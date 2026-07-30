@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-// import ArrowRight from "@/components/icons/ArrowRight";
+import ArrowRight from "@/components/icons/ArrowRight";
+import ArrowDown from "@/components/icons/ArrowDown";
 import Mastercard from "@/components/icons/Mastercard";
 import Visa from "@/components/icons/Visa";
 import Image from "next/image";
@@ -45,7 +46,6 @@ export default function CalculatorSection({ data, embedded = false }: Calculator
     const [monthlyProcessingVolume, setMonthlyProcessingVolume] = useState(() => formatCurrencyInput("60000"));
     const [effectiveRate, setEffectiveRate] = useState('0.00');
     const [cents, setCents] = useState('0');
-    const [showPricing, setShowPricing] = useState(false);
 
     // Card Present - Credit Card Rate
     // Interchange + 0.35% + $0.10
@@ -178,7 +178,7 @@ export default function CalculatorSection({ data, embedded = false }: Calculator
     }, [averageTransactionSize, monthlyProcessingVolume, cardPresent]);
 
     return (
-        <div className={embedded ? "w-full flex flex-col items-center justify-center" : "container flex flex-col items-center justify-center gap-4 py-10 md:py-20 px-4 md:px-2 my-10 rounded-3xl bg-[linear-gradient(76deg,#B0E0F9_-4.48%,#E6F5FD_99.55%)]"}>
+        <div className={embedded ? "w-full flex flex-col items-center justify-center" : "container flex flex-col items-center justify-center gap-10 py-10 md:py-20 px-4 md:px-2 my-10 rounded-[40px] bg-[linear-gradient(76deg,#B0E0F9_-4.48%,#E6F5FD_99.55%)]"}>
             {!embedded && (
                 <SectionHeader
                     tag={tag}
@@ -186,148 +186,106 @@ export default function CalculatorSection({ data, embedded = false }: Calculator
                     subtitle={subtitle}
                 />
             )}
-            <div className={`${embedded ? "shadow-lg" : ''} flex flex-col items-center justify-center gap-4 relative max-w-[660px] w-full bg-white rounded-3xl p-8 mt-10`}>
-                <div className="flex items-center justify-between w-[350px] absolute top-[-24px] left-1/2 -translate-x-1/2 bg-gray-50 rounded-[32px] p-[4px]">
-                    <div 
-                        className={`px-8 py-2 rounded-[24px] cursor-pointer transition-colors ${
-                            cardPresent 
-                                ? 'bg-[#1A2339] text-white' 
-                                : 'text-[#676D7C] hover:bg-gray-100'
-                        }`}
-                        onClick={() => setCardPresent(true)}
-                    >
-                        Card Present
-                    </div>
-                    <div 
-                        className={`px-8 py-2 rounded-[24px] cursor-pointer transition-colors ${
-                            !cardPresent 
-                                ? 'bg-[#1A2339] text-white' 
-                                : 'text-[#676D7C] hover:bg-gray-100'
-                        }`}
-                        onClick={() => setCardPresent(false)}
-                    >
-                        Card Not Present
-                    </div>
-                </div>
-                <div className="flex flex-col md:flex-row items-center justify-center gap-2 w-full pt-8">
-                    <div className="bg-gray-50 flex flex-col rounded-lg gap-2 pt-8 pb-4 px-4 w-full lg:2/3">
-                        <span className="text-5xl font-medium text-center">{effectiveRate}% <span className="text-lg font-normal">+{cents}¢</span></span>
-                        <div className="flex items-center justify-center gap-2 text-[14px]">
-                            <div className="bg-white/3 py-[3px] px-[10px] rounded-sm">
-                                <Visa/>
-                            </div>
-                            <div className="bg-white/3 py-[3px] px-[10px] rounded-sm">
-                                <Mastercard/>
-                            </div>
-                            <div className="bg-white/3 py-[3px] px-[10px] rounded-sm">
-                                <Image src="/logos/Discover_Card_logo.svg" alt="Discover" width={63} height={10} />
-                            </div>
+            <div className="w-full max-w-[894px] bg-white border border-black/6 rounded-xl shadow-[0px_0px_32px_0px_rgba(0,0,0,0.08)] overflow-hidden">
+                <div className="flex flex-col md:flex-row gap-4 p-6">
+                    <div className="flex-1 flex flex-col gap-1.5">
+                        <span className="text-base text-[#040405]">Card Present <span className="text-[#B9442E]">*</span></span>
+                        <div className="flex h-[52px]">
+                            <button
+                                type="button"
+                                onClick={() => setCardPresent(true)}
+                                className={`flex-1 flex items-center justify-center rounded-l-sm text-base cursor-pointer transition-colors ${
+                                    cardPresent ? 'bg-[#040405] text-white' : 'bg-white text-black/60 border border-black/20'
+                                }`}
+                            >
+                                Yes
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setCardPresent(false)}
+                                className={`flex-1 flex items-center justify-center rounded-r-sm text-base cursor-pointer transition-colors ${
+                                    !cardPresent ? 'bg-[#040405] text-white' : 'bg-white text-black/60 border border-black/20'
+                                }`}
+                            >
+                                No
+                            </button>
                         </div>
                     </div>
-                    {/* {averageFee && averageFee !== '0.00' &&
-                        <div className="bg-gray-50 flex flex-col rounded-lg gap-2 pt-8 pb-4 px-4 w-full lg:w-1/3">
-                            <span className="text-4xl font-medium">${parseFloat(averageFee).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                            <div className="flex items-center justify-start gap-2 text-[14px]">
-                                <div className="p-1">
-                                    <span className="text-[#343C50]">Average Cost*</span>
-                                </div>
-                            </div>
-                        </div>
-                    } */}
-                    {/* <div className="bg-gray-50 flex flex-col rounded-lg gap-2 pt-8 pb-4 px-4 w-full md:w-1/3">
-                        <span className="text-4xl font-medium">2.56% <span className="text-lg font-normal">+10¢</span></span>
-                        <div className="flex items-center justify-start gap-2 text-[14px]">
-                            <div className="bg-white/3 py-[3px] px-[10px] rounded-sm">
-                                <Amex/>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="bg-gray-50 flex flex-col rounded-lg gap-2 pt-8 pb-4 px-4 w-full md:w-1/3">
-                        <span className="text-4xl font-medium">0.40%</span>
-                        <div className="flex items-center justify-start gap-2 text-[14px]">
-                            <div className="p-1">
-                                <span className="text-[#343C50]">PIN-Debit</span>
-                            </div>
-                        </div>
-                    </div> */}
-                </div>
-                <div className="flex flex-col md:flex-row items-center justify-center gap-4 w-full">
-                    <div className="w-full md:w-1/2">
-                        <div className="relative">
-                            <span className="pointer-events-none absolute left-4 top-[28px] -translate-y-1/2 text-[#676D7C] text-sm">$</span>
+                    <div className="flex-1 flex flex-col gap-1.5">
+                        <label htmlFor="average-transaction-size" className="text-base text-[#040405]">Average transaction size <span className="text-[#B9442E]">*</span></label>
+                        <div className="flex items-center gap-2 h-[52px] px-4 border border-[#040405] rounded-sm has-focus:ring-2 has-focus:ring-black/20">
+                            <span className="flex items-center gap-1 text-base text-black/60 shrink-0">
+                                USD <ArrowDown className="size-4" fill="currentColor" />
+                            </span>
                             <input
+                                id="average-transaction-size"
                                 type="text"
-                                placeholder="Average transaction size *"
                                 value={averageTransactionSize}
                                 onChange={(e) => setAverageTransactionSize(formatCurrencyInput(e.target.value))}
-                                className="w-full text-[14px] py-4 pr-4 pl-8 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                                className="flex-1 min-w-0 text-base text-[#040405] outline-none bg-transparent"/>
                         </div>
-                        <span className="text-[10px] text-[#676D7C]">Average transaction value in USD</span>
                     </div>
-                    <div className="w-full md:w-1/2">
-                        <div className="relative">
-                            <span className="pointer-events-none absolute left-4 top-[28px] -translate-y-1/2 text-[#676D7C] text-sm">$</span>
+                    <div className="flex-1 flex flex-col gap-1.5">
+                        <label htmlFor="monthly-processing-volume" className="text-base text-[#040405]">Monthly processing volume <span className="text-[#B9442E]">*</span></label>
+                        <div className="flex items-center gap-2 h-[52px] px-4 border border-[#040405] rounded-sm has-focus:ring-2 has-focus:ring-black/20">
+                            <span className="flex items-center gap-1 text-base text-black/60 shrink-0">
+                                USD <ArrowDown className="size-4" fill="currentColor" />
+                            </span>
                             <input
+                                id="monthly-processing-volume"
                                 type="text"
-                                placeholder="Monthly processing volume *"
                                 value={monthlyProcessingVolume}
                                 onChange={(e) => setMonthlyProcessingVolume(formatCurrencyInput(e.target.value))}
-                                className="w-full text-[14px] py-4 pr-4 pl-8 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                                className="flex-1 min-w-0 text-base text-[#040405] outline-none bg-transparent"/>
                         </div>
-                        <span className="text-[10px] text-[#676D7C]">Total transactions per month</span>
                     </div>
                 </div>
-                {/* Toggle: See your rate */}
-                <div className="w-full mt-4">
-                    <button
-                        type="button"
-                        onClick={() => setShowPricing((v) => !v)}
-                        className="w-full flex items-center justify-center gap-2 text-[#1A2339] hover:text-[#0f1424] font-medium py-3 border-t border-gray-200 cursor-pointer"
-                        aria-expanded={showPricing}
-                        aria-controls="pricing-table"
-                    >
-                        <svg
-                            className={`h-5 w-5 transition-transform duration-200 ${showPricing ? 'rotate-180' : ''}`}
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            aria-hidden="true"
-                        >
-                            <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clipRule="evenodd" />
-                        </svg>
-                        <span>See your rate</span>
-                    </button>
-                    {showPricing && (
-                        <div id="pricing-table" className="mt-3 w-full overflow-hidden">
-                            <div className="overflow-x-auto">
-                                <table className="min-w-full border border-gray-200 rounded-lg overflow-hidden">
-                                    <thead className="bg-gray-50">
-                                        <tr>
-                                            <th className="text-left text-sm font-semibold text-gray-700 px-4 py-2 border-b border-b-gray-100">Monthly Volume</th>
-                                            <th className="text-left text-sm font-semibold text-gray-700 px-4 py-2 border-b border-b-gray-100">Rate</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {pricingRows.map((row, idx) => (
-                                            <tr key={row.range} className={`${idx === activeTierIndex ? 'bg-blue-50' : 'bg-white'} hover:bg-gray-50`}>
-                                                <td className="px-4 py-2 border-b border-b-gray-100 text-sm text-[#343C50]">{row.range}</td>
-                                                <td className="px-4 py-2 border-b border-b-gray-100 text-sm font-medium text-[#1A2339]">{row.rate}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                <div className="h-px w-full bg-black/6" />
+                <div className="flex flex-col md:flex-row gap-4 bg-black/4 p-6">
+                    <div className="w-full md:w-[258px] shrink-0 flex flex-col gap-3 bg-white border border-black/6 rounded-xl p-5">
+                        <div className="flex flex-col gap-1 text-[#040405]">
+                            <span className="text-sm">Our fees:</span>
+                            <div className="flex items-center gap-3">
+                                <span className="text-[44px] leading-12 tracking-[-1px] font-medium">{effectiveRate}%</span>
+                                <span className="text-xl leading-7 font-medium">+{cents}¢</span>
                             </div>
                         </div>
-                    )}
+                        <div className="flex items-center gap-1">
+                            <div className="h-6 w-[39px] flex items-center justify-center bg-white border border-black/6 rounded-sm">
+                                <Visa/>
+                            </div>
+                            <div className="h-6 w-[39px] flex items-center justify-center bg-white border border-black/6 rounded-sm">
+                                <Mastercard/>
+                            </div>
+                            <div className="h-6 w-[39px] flex items-center justify-center bg-white border border-black/6 rounded-sm">
+                                <Image src="/logos/Discover_Card_logo.svg" alt="Discover" width={39} height={10} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex-1 bg-white border border-black/6 rounded-xl px-5 pt-5 pb-10">
+                        <div className="flex gap-4 md:gap-10 px-2 text-sm font-medium text-[#040405]">
+                            <span className="flex-1 min-w-0">Monthly Volume</span>
+                            <span className="flex-1 min-w-0">Rate</span>
+                        </div>
+                        {pricingRows.map((row, idx) => (
+                            <div key={row.range}>
+                                {idx > 0 && <div className="h-px w-full bg-black/6" />}
+                                <div className={`flex gap-4 md:gap-10 px-2 py-1.5 text-sm ${idx === activeTierIndex ? 'bg-[#E6F5FD]' : ''}`}>
+                                    <span className="flex-1 min-w-0 text-black/60">{row.range}</span>
+                                    <span className="flex-1 min-w-0 font-medium text-[#040405]">{row.rate}</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
             {!embedded && (
-                <div className="flex flex-col justify-center gap-12 max-w-[660px] w-full">
-                    { smallPrint && <span className="text-center text-[10px] text-[#676D7C]">{smallPrint}</span> }
-                    <Link href="/signup-today" className="w-full flex flex-col">
-                        <Button
-                            variant="black"
-                        >
+                <div className="flex flex-col items-center gap-4 w-full max-w-[343px] md:max-w-none">
+                    { smallPrint && <span className="text-center text-[10px] text-black/60">{smallPrint}</span> }
+                    <Link href="/signup-today" className="block w-full md:w-auto">
+                        <Button variant="heroPrimary">
                             Get Started
+                            <ArrowRight fill="currentColor" />
                         </Button>
                     </Link>
                 </div>

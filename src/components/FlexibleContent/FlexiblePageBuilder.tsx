@@ -23,6 +23,8 @@ import ComparisonTable from "@/components/layout/Sections/ComparisonTable";
 import MultiStepForm from "@/components/layout/Sections/MultiStepForm";
 import PdfDownloadForm from "@/components/layout/Sections/PdfDownloadForm";
 import StatementUpload from "@/components/layout/Sections/StatementUpload";
+import FeaturePills from "@/components/layout/Sections/FeaturePills";
+import ProcessSteps from "@/components/layout/Sections/ProcessSteps";
 
 interface PageBlock {
   fieldGroupName?: string;
@@ -64,6 +66,8 @@ const componentMap: Record<string, React.ComponentType<ComponentProps>> = {
   'PageBlocksPageBlocksMultiStepFormLayout': MultiStepForm as React.ComponentType<ComponentProps>,
   'PageBlocksPageBlocksPdfDownloadFormLayout': PdfDownloadForm as React.ComponentType<ComponentProps>,
   'PageBlocksPageBlocksStatementUploadLayout': StatementUpload as React.ComponentType<ComponentProps>,
+  'PageBlocksPageBlocksFeaturePillsLayout': FeaturePills as React.ComponentType<ComponentProps>,
+  'PageBlocksPageBlocksProcessStepsLayout': ProcessSteps as React.ComponentType<ComponentProps>,
 };
 
 export default function FlexiblePageBuilder({ blocks }: FlexiblePageBuilderProps) {

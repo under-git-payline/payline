@@ -10,13 +10,14 @@ interface ProductCardsProps extends FlexibleContentProps {
 export default function ProductCards({ data }: ProductCardsProps) {
   return (
     <div className="container my-14 text-[#010B24]">
-      {data?.title && <h2 className="text-5xl leading-14 mb-2">{data.title}</h2>}
+      {data?.tag && <p className="text-sm text-[#343C50] mb-2">{data.tag}</p>}
+      {data?.title && <h2 className="text-5xl leading-14 mb-2 max-w-[660px] text-center mx-auto">{data.title}</h2>}
       {data?.subtitle && <p className="text-lg text-[#343C50]">{data.subtitle}</p>}
       {data?.products && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
           {data.products.map((product, index) => (
             <div key={index} className="max-w-[440px]">
-              <div className="h-[440px] w-full overflow-hidden rounded-3xl object-contain bg-[#b0e1f9] flex items-center justify-center">
+              <div className="h-auto w-full overflow-hidden rounded-3xl object-contain bg-[#b0e1f9] flex items-center justify-center">
                 <Image src={product.image.node.sourceUrl} alt={product.title} width={440} height={440} quality={100} className="w-full h-auto rounded-3xl" />
               </div>
               <div className="flex flex-col gap-2 lg:px-4 pt-4">
@@ -24,7 +25,7 @@ export default function ProductCards({ data }: ProductCardsProps) {
                 <span className="price-el text-[#343C50] text-sm" dangerouslySetInnerHTML={{ __html: product.price }} />
                 <p className="text-lg text-[#343C50]">{product.description}</p>
                 {product.cta && 
-                  <div className="mt-3"><Link href={product.cta.url} target={product.cta.target}><Button variant="black">{product.cta.title}</Button></Link></div>
+                  <div className="mt-3"><Link className="underline" href={product.cta.url} target={product.cta.target}>{product.cta.title}</Link></div>
                 }
               </div>
             </div>

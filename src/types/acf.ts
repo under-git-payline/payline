@@ -139,6 +139,7 @@ export interface ProductCardItem {
 
 export interface ProductCardsLayoutData {
   fieldGroupName: string;
+  tag: string;
   title: string;
   subtitle: string;
   products: ProductCardItem[];
@@ -157,6 +158,19 @@ export interface FeatureCardsLayoutData {
   title: string;
   subtitle: string;
   featureCard: FeatureCardItem[];
+  __typename: string;
+}
+
+export interface PillItem {
+  label: string;
+  __typename: string;
+}
+
+export interface FeaturePillsLayoutData {
+  fieldGroupName?: string;
+  title: string;
+  subtitle: string;
+  pills: PillItem[];
   __typename: string;
 }
 
@@ -246,6 +260,20 @@ export interface JourneyTimelineLayoutData {
     description: string;
     image: MediaItem;
   }[];
+  __typename: string;
+}
+
+export interface ProcessStepItem {
+  image: MediaItem;
+  title: string;
+  description: string;
+  __typename: string;
+}
+
+export interface ProcessStepsLayoutData {
+  title: string;
+  description: string;
+  steps: ProcessStepItem[];
   __typename: string;
 }
 
@@ -366,7 +394,9 @@ export type FlexibleContentData =
   | ComparisonTableLayoutData
   | MultiStepFormLayoutData
   | PdfDownloadFormLayoutData
-  | StatementUploadLayoutData;
+  | StatementUploadLayoutData
+  | FeaturePillsLayoutData
+  | ProcessStepsLayoutData;
 
 export interface FlexibleContentProps {
   data?: FlexibleContentData;

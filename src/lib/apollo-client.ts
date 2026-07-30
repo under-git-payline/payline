@@ -1,6 +1,8 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { HttpLink } from '@apollo/client/link/http';
 
+export const wordpressFetchPolicy = process.env.NODE_ENV === 'development' ? 'network-only' : 'cache-first';
+
 const httpLink = new HttpLink({
   uri: process.env.NEXT_PUBLIC_WORDPRESS_GRAPHQL_URL || 'http://localhost:8080/graphqlpayline',
   // Add headers if needed
@@ -38,10 +40,11 @@ const client = new ApolloClient({
   defaultOptions: {
     watchQuery: {
       errorPolicy: 'all',
+      fetchPolicy: wordpressFetchPolicy,
     },
     query: {
       errorPolicy: 'all',
-      fetchPolicy: 'cache-first',
+      fetchPolicy: wordpressFetchPolicy,
     },
   },
 });

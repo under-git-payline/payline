@@ -19,14 +19,14 @@ export default function TeamSection({ data }: OurTeamProps) {
                     alt={image?.node.altText}
                     width={1200}
                     height={600}
-                    className="max-w-full h-auto rounded-lg"/>
+                    className="max-w-full h-auto rounded-3xl"/>
             )}
             </div>
-            <div className="flex flex-col justify-center w-full lg:w-1/3 bg-black/2 p-4 md:p-10 rounded-lg">
+            <div className="flex flex-col justify-center w-full lg:w-1/3 md:p-10 rounded-lg">
                 {tag && <Tag>{tag}</Tag>}
                 {title && (
                     <h2
-                        className="text-[32px] md:text-[36px] pt-2 font-medium [&_strong]:text-[#016EA8] [&_strong]:font-medium"
+                        className="text-[32px] md:text-[36px] pt-2 pb-3 font-medium [&_strong]:text-[#018DD7] [&_strong]:font-medium"
                         dangerouslySetInnerHTML={{ __html: title }}
                         suppressHydrationWarning={true}
                     />
@@ -40,7 +40,7 @@ export default function TeamSection({ data }: OurTeamProps) {
                 )}
                 {cta && (
                     <div>
-                        <Button variant="gray">
+                        <Button variant="black">
                             <Link href={cta?.url}>{cta?.title}</Link>
                         </Button>
                     </div>

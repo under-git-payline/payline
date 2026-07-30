@@ -2,15 +2,20 @@
 
 import Image from "next/image";
 import Button from "../../ui/Button";
+import ArrowRight from "../../icons/ArrowRight";
+import Calendar from "../../icons/Calendar";
 import dynamic from "next/dynamic";
 const CalculatorSection = dynamic(() => import("./CalculatorSection"), { ssr: false });
 import { HeroLayoutData, FlexibleContentProps } from "@/types/acf";
 import { useEffect, useRef } from "react";
 import Script from "next/script";
+import { getHeroCardKind, isFeatureHero } from "@/lib/hero";
 
 interface HeroProps extends FlexibleContentProps {
   data?: HeroLayoutData;
 }
+
+type CardKind = "form" | "iframe" | "calculator" | "image" | null;
 
 export default function Hero({ data }: HeroProps) {
   // Fallback to default values if no data is provided
@@ -34,8 +39,14 @@ export default function Hero({ data }: HeroProps) {
 
   const hasImage = Boolean(heroData.image.sourceUrl);
   const shouldShowForm = Boolean(data?.addForm && data?.formId);
-  const shouldShowIframe = Boolean(data?.addIframe && data?.iframeUrl);
-  const hasRightSide = hasImage || shouldShowForm || shouldShowIframe;
+
+  const cardKind: CardKind = getHeroCardKind(data) ?? (hasImage ? "image" : null);
+  const useFeatureHero = isFeatureHero(data);
+  const hideCtaOnDesktop = cardKind === "form" || cardKind === "iframe";
+
+  const hasCta = Boolean(heroData.cta.url && heroData.cta.title);
+  const hasSecondaryCta = Boolean(heroData.secondaryCta.title && heroData.secondaryCta.url);
+
   const formContainerRef = useRef<HTMLDivElement | null>(null);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
@@ -43,8 +54,7 @@ export default function Hero({ data }: HeroProps) {
     if (!shouldShowForm || !formContainerRef.current) return;
     const loadAndCreateForm = () => {
       if (typeof window === 'undefined') return;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const w: any = window as any;
+      const w = window as any;
       if (w.hbspt && w.hbspt.forms) {
         try {
           w.hbspt.forms.create({
@@ -59,8 +69,7 @@ export default function Hero({ data }: HeroProps) {
     };
 
     // If the script is already loaded
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      if (typeof (window as any).hbspt !== 'undefined') {
+    if (typeof (window as any).hbspt !== 'undefined') {
       loadAndCreateForm();
       return;
     }
@@ -71,86 +80,138 @@ export default function Hero({ data }: HeroProps) {
     return () => document.removeEventListener('hubspotFormsLoaded', onScriptLoad);
   }, [shouldShowForm, data?.formId]);
 
+  if (useFeatureHero) {
+    return (
+      <section className="homepage-hero-clouds relative overflow-hidden pb-10 pt-[114px] lg:pb-12 lg:pt-[120px]">
+        <div className="container relative z-10 flex flex-col items-center gap-6 px-4! md:gap-10 md:px-5! lg:gap-10 lg:px-10!">
+          <div className="flex w-full max-w-[893px] flex-col items-center gap-2 text-center text-[#040405] md:gap-3">
+            {heroData.tag && (
+              <span className="rounded bg-black/4 px-3 py-1 text-sm leading-6 font-normal">
+                {heroData.tag}
+              </span>
+            )}
+            {heroData.title && (
+              <h1 className="text-[32px] leading-[42px] font-medium tracking-[-1px] lg:text-[60px] lg:leading-[66px]">
+                {heroData.title}
+              </h1>
+            )}
+            {heroData.description && (
+              <p className="max-w-[760px] text-[18px] leading-[26px] text-black/80 lg:text-xl lg:leading-7">
+                {heroData.description}
+              </p>
+            )}
+          </div>
+
+          {hasCta && (
+            <div className={`flex w-full max-w-[343px] flex-col items-center justify-center gap-3 md:max-w-none md:flex-row ${hideCtaOnDesktop ? 'lg:hidden' : ''}`}>
+              <a href={heroData.cta.url} className="block w-full md:w-auto">
+                <Button variant="heroPrimary">
+                  {heroData.cta.title}
+                  <ArrowRight fill="currentColor" />
+                </Button>
+              </a>
+              {hasSecondaryCta && (
+                <a href={heroData.secondaryCta.url} className="block w-full md:w-auto">
+                  <Button variant="heroSecondary">
+                    <Calendar />
+                    {heroData.secondaryCta.title}
+                  </Button>
+                </a>
+              )}
+            </div>
+          )}
+
+          {cardKind === "calculator" ? (
+            <CalculatorSection embedded />
+          ) : (
+            <div className="w-full max-w-[660px] rounded-xl border border-black/6 bg-white p-4 text-black shadow-[0_0_32px_rgba(0,0,0,0.08)] md:p-6">
+              {cardKind === "form" ? (
+                <div className="w-full" ref={formContainerRef}>
+                  <div id="hero-hubspot-form" className="w-full" />
+                  <Script
+                    src="https://js.hsforms.net/forms/v2.js"
+                    strategy="afterInteractive"
+                    onLoad={() => {
+                      document.dispatchEvent(new Event('hubspotFormsLoaded'));
+                    }}
+                  />
+                </div>
+              ) : cardKind === "iframe" ? (
+                <iframe
+                  ref={iframeRef}
+                  src={data?.iframeUrl}
+                  className="w-full rounded-lg border-0"
+                  style={{ height: '980px' }}
+                  title="Embedded Content"
+                  allowFullScreen
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation"
+                />
+              ) : null}
+            </div>
+          )}
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <div className={`relative container ${hasRightSide ? `flex ${hasImage ? 'flex-col-reverse' : 'flex-col'} lg:flex-row items-center justify-between` : 'flex flex-col items-center justify-center text-center'} gap-10 pt-10 px-10 lg:py-10 bg-brand-gradient text-white rounded-4xl ${data?.addCalculator ? 'mb-50' : 'mb-10'}`}>
-      <div className={`flex flex-col gap-10 ${hasRightSide ? 'lg:max-w-1/2' : 'max-w-3xl w-full items-center text-center'} ${hasImage ? 'pb-10' : ''} lg:p-10`}>
-        <div className="flex flex-col gap-3">
-          {heroData.tag && (
-            <span className={`text-sm/6 font-light py-1 px-3 bg-black/10 rounded-sm ${hasRightSide ? 'w-fit' : 'mx-auto'}`}>
-              {heroData.tag}
-            </span>
-          )}
-          {heroData.title && (
-            <h1 className={`text-white font-heading text-4xl md:text-6xl/18 font-bold tracking-[-0.5px] ${hasRightSide ? '' : 'text-center'}`}>
-              {heroData.title}
-            </h1>
-          )}
+    <section className="relative bg-[#002132] bg-[url(/images/hero-bg-darkblue.png)] bg-cover bg-no-repeat bg-top-right text-white mb-10">
+      <div
+        className={`container flex gap-5 px-4! pt-[114px] pb-10 lg:gap-10 lg:px-10! lg:pt-[120px] lg:pb-20 ${
+          hasImage
+            ? 'flex-col-reverse lg:flex-row lg:items-center lg:justify-between'
+            : 'flex-col items-center text-center'
+        }`}
+      >
+        <div className={`flex flex-col gap-3 ${hasImage ? 'lg:max-w-[580px] lg:flex-1' : 'max-w-3xl items-center text-center'}`}>
+          <div className="flex flex-col gap-1.5">
+            {heroData.tag && (
+              <span className={`rounded-sm bg-white/8 px-2 py-0.5 text-sm/6 font-normal lg:px-3 lg:py-1 ${hasImage ? 'w-fit' : 'mx-auto'}`}>
+                {heroData.tag}
+              </span>
+            )}
+            {heroData.title && (
+              <h1 className="text-[32px] leading-[42px] font-medium tracking-[-1px] lg:text-[60px] lg:leading-[66px]">
+                {heroData.title}
+              </h1>
+            )}
+          </div>
           {heroData.description && (
-            <p className={`text-lg ${hasRightSide ? '' : 'text-center'}`}>
+            <p className="text-[18px] leading-[26px] text-white/80 lg:text-xl lg:leading-7">
               {heroData.description}
             </p>
           )}
-        </div>
-        {(heroData.cta.url && heroData.cta.title) && (
-          <div className={`flex gap-4 md:items-center flex-col md:flex-row ${hasRightSide ? '' : 'justify-center'}`}>
-            <a href={heroData.cta.url}>
-              <Button variant="secondary">
-                {heroData.cta.title}
-              </Button>
-            </a>
-            {(heroData.secondaryCta.title && heroData.secondaryCta.url) && (
-              <a href={heroData.secondaryCta.url}>
-                <Button variant="primary">
-                  {heroData.secondaryCta.title}
+          {hasCta && (
+            <div className={`flex flex-wrap items-center gap-2 pt-2 ${hasImage ? '' : 'justify-center'}`}>
+              <a href={heroData.cta.url} className="block w-full md:w-auto">
+                <Button variant="heroPrimary">
+                  {heroData.cta.title}
+                  <ArrowRight fill="currentColor" />
                 </Button>
               </a>
-            )}
+              {hasSecondaryCta && (
+                <a href={heroData.secondaryCta.url} className="block w-full md:w-auto">
+                  <Button variant="heroSecondaryDark">
+                    <Calendar />
+                    {heroData.secondaryCta.title}
+                  </Button>
+                </a>
+              )}
+            </div>
+          )}
+        </div>
+        {hasImage && (
+          <div className="relative aspect-4/3 w-full overflow-hidden rounded-[20px] lg:flex-1">
+            <Image
+              src={heroData.image.sourceUrl}
+              alt={heroData.image.altText}
+              fill
+              className="object-cover"
+            />
           </div>
         )}
       </div>
-      {shouldShowForm ? (
-        <div className="w-full lg:w-auto pb-10 lg:p-0" ref={formContainerRef}>
-          <div id="hero-hubspot-form" className="bg-white text-black rounded-2xl p-4 sm:p-6 md:p-8 w-full lg:w-[620px] max-w-[620px]" />
-          <Script
-            src="https://js.hsforms.net/forms/v2.js"
-            strategy="afterInteractive"
-            onLoad={() => {
-              // Notify our effect the script is ready
-              document.dispatchEvent(new Event('hubspotFormsLoaded'));
-            }}
-          />
-        </div>
-      ) : shouldShowIframe ? (
-        <div className="w-full bg-white rounded-2xl overflow-hidden mb-10 lg:m-0">
-          <iframe
-            ref={iframeRef}
-            src={data?.iframeUrl}
-            className="w-full max-w-[620px] rounded-2xl border-0"
-            style={{ 
-              height: '980px'
-            }}
-            title="Embedded Content"
-            allowFullScreen
-            loading="lazy"
-            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation"
-          />
-        </div>
-      ) : (
-        hasImage && (
-          <Image
-            src={heroData.image.sourceUrl}
-            alt={heroData.image.altText}
-            width={620}
-            height={465}
-            className="rounded-l-lg"
-          />
-        )
-      )}
-      {data?.addCalculator && (
-        <div className="w-full max-w-[760px] text-black -mb-[200px]">
-          <CalculatorSection embedded />
-        </div>
-      )}
-    </div>
+    </section>
   );
 }

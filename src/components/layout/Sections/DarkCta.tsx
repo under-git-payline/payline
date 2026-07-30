@@ -9,9 +9,9 @@ export default function DarkCta({ data }: DarkCtaProps) {
   if (!data) return null;
 
   return (
-    <div className="dark-cta-block container relative flex flex-col lg:flex-row items-center justify-center gap-10 py-5 px-10 lg:py-30 text-white rounded-4xl mt-4 mb-10 overflow-hidden bg-[#1A2339]">
+    <div className="dark-cta-block container relative flex flex-col lg:flex-row items-center justify-center gap-10 py-5 px-10 lg:py-30 text-white rounded-2xl mt-4 mb-10 overflow-hidden">
       {/* Floating element - bottom left */}
-      <div 
+      {/* <div 
         className="absolute"
         style={{
           left: '-151px',
@@ -24,10 +24,10 @@ export default function DarkCta({ data }: DarkCtaProps) {
           filter: 'blur(100px)',
           aspectRatio: '1/1'
         }}
-      />
+      /> */}
       
       {/* Floating element - top right */}
-      <div 
+      {/* <div 
         className="absolute"
         style={{
           right: '-160px',
@@ -40,7 +40,7 @@ export default function DarkCta({ data }: DarkCtaProps) {
           filter: 'blur(100px)',
           aspectRatio: '1/1'
         }}
-      />
+      /> */}
       
       <div className="flex flex-col justify-center align-center gap-5 lg:max-w-[660px] relative z-10">
         <div className="dark-cta-block__content flex flex-col gap-3 text-center">

@@ -9,6 +9,7 @@ import { usePosts } from "@/hooks/useWordPressData";
 // import { Post } from "@/types/wordpress";
 import Link from "next/link";
 import Image from "next/image";
+import Calendar from "@/components/icons/Calendar";
 
 export default function BlogSlider() {
 
@@ -117,9 +118,8 @@ export default function BlogSlider() {
                             <Link href={`/blog/${blog.slug}`} className="hover:text-blue-600 transition-colors">
                                 <p className="text-[18px] font-medium">{blog.title}</p>
                             </Link>
-                            <div className="flex items-center text-[12px] text-gray-500">
-                                <span>{formatDate(blog.date)}</span>
-                                <span className="mx-2">|</span>
+                            <div className="flex items-center gap-2 text-[12px] text-gray-500">
+                                <span className="flex items-center gap-1"><Calendar/> {formatDate(blog.date)}</span>
                                 <span className="flex items-center gap-1"><Time/> {calculateReadingTime(blog.content)}</span>
                             </div>
                         </div>

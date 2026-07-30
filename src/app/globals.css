@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #fafaf9;
   --foreground: #171717;
   --color-blue-500: #019BEC;
   --neutral-1000: #010B24;
@@ -45,7 +45,7 @@ h2,h3,h4,h5 {
 }
 
 h2 {
-  font-size: 36px;
+  font-size: 44px;
   font-weight: 500;
   line-height: 42px;
   letter-spacing: -0.5px;
@@ -59,6 +59,51 @@ h2 {
 
 .bg-brand-gradient {
   background: linear-gradient(76deg, #A0D6F8 -4.48%, #1197FB 36.26%, #355EF2 93.64%);
+}
+
+.homepage-hero-clouds {
+  background-color: #F9F9FA;
+  background-image: linear-gradient(180deg, rgba(203, 235, 251, 0.95) 0%, rgba(212, 238, 252, 0.82) 36%, rgba(249, 249, 250, 1) 68%);
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: 100% 835px;
+}
+
+.homepage-hero-clouds::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    url('/images/clouds-background.png'),
+    linear-gradient(180deg, rgba(249, 249, 250, 0) 0%, #F9F9FA 100%);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100%
+  ;
+}
+
+@media screen and (max-width: 767px) {
+  .homepage-hero-clouds {
+    background-image: linear-gradient(180deg, rgba(203, 235, 251, 0.95) 0%, rgba(212, 238, 252, 0.82) 48%, rgba(249, 249, 250, 0) 78%);
+    background-position: center top;
+    background-size: 100% 586px;
+  }
+
+  .homepage-hero-clouds::before {
+    background-position: center calc(100% - 78px), center bottom;
+    background-size: 820px auto, 100% 183px;
+  }
+}
+
+/* Hide scrollbars while preserving horizontal scroll behavior. */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 .divider {
@@ -342,4 +387,54 @@ body.questionnaire-active header + div .container:not([data-questionnaire-active
 
 .two-column-content a {
   margin-bottom: 10px;
+}
+
+.feature-pills-clouds {
+  position: relative;
+  overflow: hidden;
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 100%),
+    radial-gradient(120% 140% at 100% -10%, #8AD1F6 0%, #CBEBFB 55%, #EAF6FD 100%);
+}
+
+.feature-pills-clouds::before,
+.feature-pills-clouds::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 1100px;
+  height: 620px;
+  background: url('/images/feature-pills-clouds.png') no-repeat center / contain;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.feature-pills-clouds::before {
+  left: -280px;
+  transform: translateY(-50%);
+}
+
+.feature-pills-clouds::after {
+  right: -280px;
+  transform: translateY(-50%) scaleX(-1);
+}
+
+@media screen and (max-width: 767px) {
+  .feature-pills-clouds::before,
+  .feature-pills-clouds::after {
+    width: 640px;
+    height: 360px;
+  }
+
+  .feature-pills-clouds::before {
+    left: -220px;
+  }
+
+  .feature-pills-clouds::after {
+    right: -220px;
+  }
+}
+
+.dark-cta-block {
+  background: url('/images/dark-cta-bg.png') no-repeat center / contain;
 }
