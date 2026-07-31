@@ -283,6 +283,18 @@ export const GET_PAGE_BLOCKS = gql`
               boxes {
                 title
                 description
+                icon {
+                  node {
+                    altText
+                    sourceUrl
+                    uri
+                    title
+                    mediaDetails {
+                      width
+                      height
+                    }
+                  }
+                }
               }
               removeBackground
             }

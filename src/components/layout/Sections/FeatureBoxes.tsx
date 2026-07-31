@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FlexibleContentProps, FeatureBoxesLayoutData } from "@/types/acf";
 
 interface FeatureBoxesProps extends FlexibleContentProps {
@@ -8,16 +9,33 @@ export default function FeatureBoxes({ data }: FeatureBoxesProps) {
   if (!data) return null;
 
   const content = (
-    <div className="feature-boxes container py-10 text-[#010B24]">
-      {data?.title && <h2 className="text-5xl leading-14 mb-2">{data.title}</h2>}
-      {data?.subtitle && <p className="text-lg text-[#343C50]">{data.subtitle}</p>}
+    <div className="feature-boxes container py-20">
+      {(data?.title || data?.subtitle) && (
+        <div className="mx-auto flex max-w-[660px] flex-col items-center gap-3 text-center">
+          {data?.title && (
+            <h2 className="text-[32px] leading-[38px] font-medium tracking-[-1px] text-[#040405] lg:text-[60px] lg:leading-[66px]">
+              {data.title}
+            </h2>
+          )}
+          {data?.subtitle && (
+            <p className="text-[17px] leading-[1.45] text-black/80 md:text-xl md:leading-7">
+              {data.subtitle}
+            </p>
+          )}
+        </div>
+      )}
       {data?.boxes && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
           {data.boxes.map((box, index) => (
-            <div key={index} className="bg-black/3 rounded-2xl p-5 pb-14">
-              <div className="flex flex-col gap-2 pt-4">
-                <h3 className="text-2xl">{box.title}</h3>
-                <p className="text-lg text-[#343C50]">{box.description}</p>
+            <div key={index} className="flex flex-col gap-6 rounded-[20px] bg-white p-8">
+              {box.icon?.node?.sourceUrl && (
+                <div className="flex size-[74px] items-center justify-center rounded-xl bg-[#E2EFF1]">
+                  <Image src={box.icon.node.sourceUrl} alt={box.title || box.icon.node.altText || ""} width={44} height={44} className="w-11 h-11" />
+                </div>
+              )}
+              <div className="flex flex-col gap-2">
+                <h3 className="text-[32px] leading-9 tracking-[-1px] text-[#040405]">{box.title}</h3>
+                <p className="text-lg leading-7 text-[#343C50]">{box.description}</p>
               </div>
             </div>
           ))}
@@ -27,7 +45,7 @@ export default function FeatureBoxes({ data }: FeatureBoxesProps) {
   );
 
   return !data?.removeBackground ? (
-    <div className="bg-[#F9F9FA] py-10 my-10">
+    <div className="my-14 bg-[#F4F4F5]">
       {content}
     </div>
   ) : (

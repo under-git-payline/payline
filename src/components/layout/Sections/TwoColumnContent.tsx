@@ -28,12 +28,12 @@ export default function TwoColumnContent({ data }: TwoColumnContentProps) {
             </span>
           )}
           {data?.title && (
-            <h2 className="text-3xl md:text-5xl leading-14 max-w-[550px] self-start">
+            <h2 className="text-3xl md:text-5xl leading-14 max-w-[580px] self-start">
               {data.title}
             </h2>
           )}
           {data?.content && (
-            <div className="text-lg text-[#343C50] [&_strong]:font-bold [&_small]:text-[16px] [&_h4]:mt-4" dangerouslySetInnerHTML={{ __html: data.content }} />
+            <div className="text-xl text-[#343C50] [&_strong]:font-bold [&_small]:text-[16px] [&_h4]:mt-4" dangerouslySetInnerHTML={{ __html: data.content }} />
           )}
         </div>
         {data?.cta && (
@@ -50,7 +50,7 @@ export default function TwoColumnContent({ data }: TwoColumnContentProps) {
   );
 
   return data?.background ? (
-    <div className="bg-[#F9F9FA] py-10">
+    <div className="bg-[#f4f4f5] py-10">
       {content}
     </div>
   ) : (

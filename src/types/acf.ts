@@ -186,6 +186,7 @@ export interface OverlappingImagesLayoutData {
 export interface FeatureBoxItem {
   title: string;
   description: string;
+  icon?: MediaItem;
   __typename: string;
 }
 

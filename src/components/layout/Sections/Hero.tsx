@@ -164,7 +164,7 @@ export default function Hero({ data }: HeroProps) {
             : 'flex-col items-center text-center'
         }`}
       >
-        <div className={`flex flex-col gap-3 ${hasImage ? 'lg:max-w-[580px] lg:flex-1' : 'max-w-3xl items-center text-center'}`}>
+        <div className={`flex flex-col gap-3 ${hasImage ? 'lg:max-w-[610px] lg:flex-1' : 'max-w-3xl items-center text-center'}`}>
           <div className="flex flex-col gap-1.5">
             {heroData.tag && (
               <span className={`rounded-sm bg-white/8 px-2 py-0.5 text-sm/6 font-normal lg:px-3 lg:py-1 ${hasImage ? 'w-fit' : 'mx-auto'}`}>
