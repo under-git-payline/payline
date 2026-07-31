@@ -11,7 +11,7 @@ export default function ProductCards({ data }: ProductCardsProps) {
     <div className="container my-14 text-[#010B24]">
       {data?.tag && <p className="text-sm text-[#343C50] mb-2">{data.tag}</p>}
       {data?.title && <h2 className="text-5xl leading-14 mb-2 max-w-[660px] text-center mx-auto">{data.title}</h2>}
-      {data?.subtitle && <p className="text-lg text-[#343C50]">{data.subtitle}</p>}
+      {data?.subtitle && <p className="text-lg text-center text-[#343C50]">{data.subtitle}</p>}
       {data?.products && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
           {data.products.map((product, index) => (
