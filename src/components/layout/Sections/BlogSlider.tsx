@@ -87,7 +87,8 @@ export default function BlogSlider() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-12 mb-8">
                 <div className="flex flex-col justify-center">
                     <Tag>Blog</Tag>
-                    <h2 className="text-[36px] pt-2 font-medium">What we&apos;re talking about</h2>
+                    <h2 className="text-[36px] py-3 font-medium">What we&apos;re talking about</h2>
+                    <p>Insights, tips, and industry updates from the Payline team</p>
                 </div>
                 <div className="hidden md:flex items-center justify-end gap-2">
                     <div className="p-4 bg-black/8 rounded-full cursor-pointer hover:bg-black/12" onClick={prevSlide}>
