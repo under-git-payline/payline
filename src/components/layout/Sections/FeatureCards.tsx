@@ -48,7 +48,7 @@ export default function FeatureCards({ data }: FeatureCardsProps) {
                 key={index}
                 className={`flex flex-col gap-6 rounded-[20px] bg-white p-5${
                   centered
-                    ? ` w-full md:w-[calc(50%-12px)] ${isThreeColCount ? "lg:w-[calc(33.333%-16px)]" : "lg:w-[calc(25%-18px)]"}`
+                    ? ` w-full min-w-0 md:w-[calc(50%-12px)] ${isThreeColCount ? "lg:w-[calc((100%-48px)/3)]" : "lg:w-[calc(25%-18px)]"}`
                     : ""
                 }`}
               >
