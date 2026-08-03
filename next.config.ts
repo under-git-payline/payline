@@ -19,6 +19,12 @@ const nextConfig: NextConfig = {
         hostname: 'paylinedatav2.wpenginepowered.com',
         pathname: '/wp-content/uploads/**',
       },
+      // WordPress serves author avatars from Gravatar (blog article sidebar)
+      {
+        protocol: 'https',
+        hostname: 'secure.gravatar.com',
+        pathname: '/avatar/**',
+      },
       // Add your production WordPress domain here when ready
       // {
       //   protocol: 'https',

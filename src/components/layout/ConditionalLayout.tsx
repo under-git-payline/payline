@@ -24,9 +24,12 @@ export default function ConditionalLayout({ children }: ConditionalLayoutProps) 
   }
 
   // Static pages and homepage use the root layout header/footer
+  // Blog pages open on a dark hero, so the header sits on top of it in its dark variant
+  const headerVariant = pathname.startsWith('/blog') ? 'dark' : 'light';
+
   return (
     <div className="main">
-      <Header />
+      <Header variant={headerVariant} />
       {children}
       <Footer />
     </div>

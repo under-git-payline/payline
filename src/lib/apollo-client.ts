@@ -18,7 +18,7 @@ const client = new ApolloClient({
       Query: {
         fields: {
           posts: {
-            keyArgs: ["where", ["categoryIn"]],
+            keyArgs: ["where", ["categoryIn", "search"]],
             merge(existing, incoming, { args }) {
               // If this is a fresh query (no 'after' cursor), replace the existing data
               if (!args?.after) {

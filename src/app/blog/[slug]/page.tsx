@@ -4,7 +4,7 @@ import { GET_POST_BY_SLUG } from '@/lib/queries';
 import client from '@/lib/apollo-client';
 import { Post } from '@/types/wordpress';
 import Image from 'next/image';
-import Contents from '@/components/icons/Contents';
+import ArticleSidebar, { ArticleHeading } from '@/components/layout/ArticleSidebar';
 
 interface PostPageProps {
   params: Promise<{
@@ -35,7 +35,47 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
       title: 'Post Not Found',
     };
   }
-}export default async function PostPage({ params }: PostPageProps) {
+}
+
+/** Adds anchor ids to the article headings and collects them for the contents list. */
+function buildContents(content: string) {
+  const headings: ArticleHeading[] = [];
+  const usedIds = new Set<string>();
+
+  const contentWithIds = content.replace(
+    /<h([23])([^>]*)>([\s\S]*?)<\/h\1>/gi,
+    (match, level: string, attrs: string, inner: string) => {
+      const text = inner.replace(/<[^>]*>/g, '').trim();
+      if (!text) return match;
+
+      const base = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'section';
+      let id = base;
+      let suffix = 2;
+      while (usedIds.has(id)) {
+        id = `${base}-${suffix}`;
+        suffix += 1;
+      }
+      usedIds.add(id);
+      headings.push({ id, text, level: Number(level) });
+
+      const cleanedAttrs = attrs.replace(/\s+id\s*=\s*(".*?"|'.*?')/gi, '');
+      return `<h${level}${cleanedAttrs} id="${id}">${inner}</h${level}>`;
+    }
+  );
+
+  return { headings, contentWithIds };
+}
+
+/** Concave corner used where the title panel meets the hero image edges. */
+function CornerNotch({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M0 0V20H20C8.9547 20 0 11.0459 0 0Z" fill="#002132" />
+    </svg>
+  );
+}
+
+export default async function PostPage({ params }: PostPageProps) {
   try {
     const resolvedParams = await params;
     const { data } = await client.query<{ post: Post }>({
@@ -53,8 +93,8 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
       const date = new Date(dateString);
       return date.toLocaleDateString('en-US', {
         year: 'numeric',
-        month: 'long',
-        day: 'numeric'
+        month: '2-digit',
+        day: '2-digit'
       });
     };
 
@@ -62,116 +102,64 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
       const plainText = content.replace(/<[^>]*>/g, '');
       const wordCount = plainText.split(/\s+/).filter(word => word.length > 0).length;
       const readingTimeMinutes = Math.ceil(wordCount / 225);
-      return `${readingTimeMinutes} min read`;
+      return `${readingTimeMinutes}min read`;
     };
+
+    const { headings, contentWithIds } = buildContents(post.content);
+    const category = post.categories?.nodes[0]?.name;
 
     return (
       <article>
-        {/* Full-width Hero Section */}
-        <header className="bg-[#016EA8] w-full py-12 mb-8">
-          <div className="max-w-[900px] mx-auto px-4">
-            {post.featuredImage && (
-              <div className="relative w-full h-64 md:h-120 rounded-xl overflow-hidden mb-6">
-                <Image
-                  src={post.featuredImage.node.sourceUrl}
-                  alt={post.featuredImage.node.altText || post.title}
-                  fill
-                  className="object-cover"
-                />
-                {/* Title Overlay */}
-                <div className="absolute bottom-0 left-0 right-auto">
-                  <div className="bg-[#016EA8] rounded-tr-lg pt-6 pr-6 max-w-[430px]">
-                    <div className="mb-4">
-                    {post.categories?.nodes.map((category) => (
-                        <span
-                        key={category.id}
-                        className="inline-block bg-black/6 text-white px-3 text-[12px] py-1 rounded-sm mr-2"
-                        >
-                        {category.name}
-                        </span>
-                    ))}
-                    </div>
-                    <h1 className="text-2xl md:text-4xl font-medium text-white">
-                      {post.title}
-                    </h1>
-                  </div>
-                </div>
+        {/* Editorial hero */}
+        <header className="bg-[#002132] px-5 pt-[120px] pb-10 lg:px-10">
+          <div className="relative mx-auto max-w-[1126px]">
+            <div className="relative aspect-video w-full overflow-hidden rounded-[20px] bg-[#E8E8E8]">
+              <Image
+                src={post.featuredImage?.node.sourceUrl || '/images/blog-placeholder.png'}
+                alt={post.featuredImage?.node.altText || post.title}
+                fill
+                priority
+                sizes="(max-width: 1126px) 100vw, 1126px"
+                className="object-cover"
+              />
+            </div>
+
+            <div className="relative w-full rounded-tr-[20px] bg-[#002132] p-6 sm:absolute sm:bottom-0 sm:left-0 sm:w-[70%] lg:w-[48.2%]">
+              <CornerNotch className="absolute -top-5 left-0 hidden sm:block" />
+              <CornerNotch className="absolute -right-5 bottom-0 hidden sm:block" />
+
+              <div className="flex flex-col items-start gap-3">
+                {category && (
+                  <span className="rounded bg-white/8 px-3 py-1 text-[14px] leading-[24px] text-white">
+                    {category}
+                  </span>
+                )}
+                <h1 className="text-[32px] leading-[38px] font-medium tracking-[-0.5px] text-white lg:text-[44px] lg:leading-[48px] lg:tracking-[-1px]">
+                  {post.title}
+                </h1>
               </div>
-            )}
-            
-            {/* Fallback for posts without featured image */}
-            {!post.featuredImage && (
-                <div className="bg-[#016EA8] rounded-tr-lg pt-6 pr-6 max-w-[430px]">
-                    <div className="mb-4">
-                    {post.categories?.nodes.map((category) => (
-                        <span
-                        key={category.id}
-                        className="inline-block bg-black/6 text-white px-3 text-[12px] py-1 rounded-sm mr-2"
-                        >
-                        {category.name}
-                        </span>
-                    ))}
-                    </div>
-                    <h1 className="text-2xl md:text-4xl font-medium text-white">
-                    {post.title}
-                    </h1>
-                </div>
-            )}
+            </div>
           </div>
         </header>
 
-        {/* Content Area */}
-        <div className="max-w-[900px] mx-auto px-4 py-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Sidebar - 1/3 */}
-            <aside className="lg:col-span-1">
-              {/* Author Information */}
-              <div className="text-[14px]">
-                <p className="text-[#343C50] font-medium">Written by <span className='font-bold text-[#010B24]'>{post.author.node.name}</span></p>
-                <div className='text-[#676D7C]'>
-                    <span className="font-medium">Last Edited: {formatDate(post.date)} • {calculateReadingTime(post.content)} </span>
-                </div>
-              </div>
-
-              {/* Table of Contents */}
-              <div className="mt-5">
-                <h3 className="flex gap-2 align-center font-semibold text-gray-900 mb-3"><Contents /> Contents</h3>
-                <nav className="space-y-2">
-                  <div className="text-[14px] text-gray-600">
-                    <div 
-                      className="prose-headings-toc"
-                      dangerouslySetInnerHTML={{ 
-                        __html: post.content
-                          .match(/<h[2-6][^>]*>.*?<\/h[2-6]>/gi)
-                          ?.map((heading) => {
-                            const text = heading.replace(/<[^>]*>/g, '');
-                            const level = parseInt(heading.match(/h([2-6])/)?.[1] || '2');
-                            const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-                            return `<a href="#${id}" class="block py-1 text-[#010B24] hover:underline ${level > 2 ? 'ml-4' : ''}">${text}</a>`;
-                          })
-                          .join('') || '<p class="text-gray-500 italic">No headings found</p>'
-                      }}
-                    />
-                  </div>
-                </nav>
+        {/* Article body */}
+        <div className="bg-white px-5 py-10 lg:px-10">
+          <div className="mx-auto flex max-w-[1126px] flex-col gap-10 lg:flex-row">
+            <aside className="lg:w-[427px] lg:shrink-0">
+              <div className="lg:sticky lg:top-10">
+                <ArticleSidebar
+                  title={post.title}
+                  authorName={post.author.node.name}
+                  authorAvatar={post.author.node.avatar?.url}
+                  lastEdited={formatDate(post.date)}
+                  readTime={calculateReadingTime(post.content)}
+                  headings={headings}
+                />
               </div>
             </aside>
 
-            {/* Main Content - 2/3 */}
-            <main className="lg:col-span-2">
-              <div 
-                className="prose prose-lg max-w-none"
-                dangerouslySetInnerHTML={{ 
-                  __html: post.content.replace(
-                    /<h([2-6])([^>]*)>/g, 
-                    (match, level, attrs) => {
-                      const text = post.content.match(new RegExp(`<h${level}[^>]*>(.*?)</h${level}>`))?.[1] || '';
-                      const id = text.replace(/<[^>]*>/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
-                      return `<h${level} id="${id}"${attrs}>`;
-                    }
-                  )
-                }}
-              />
+            <main className="min-w-0 flex-1">
+              <div dangerouslySetInnerHTML={{ __html: contentWithIds }} />
             </main>
           </div>
         </div>

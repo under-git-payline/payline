@@ -279,6 +279,18 @@ export interface ProcessStepsLayoutData {
   __typename: string;
 }
 
+export interface CarouselCardItem {
+  title: string;
+  description: string;
+  __typename: string;
+}
+
+export interface CardCarouselLayoutData {
+  title: string;
+  carouselCards: CarouselCardItem[];
+  __typename: string;
+}
+
 export interface CenterCardItem {
   title: string;
   description: string;
@@ -398,7 +410,8 @@ export type FlexibleContentData =
   | PdfDownloadFormLayoutData
   | StatementUploadLayoutData
   | FeaturePillsLayoutData
-  | ProcessStepsLayoutData;
+  | ProcessStepsLayoutData
+  | CardCarouselLayoutData;
 
 export interface FlexibleContentProps {
   data?: FlexibleContentData;

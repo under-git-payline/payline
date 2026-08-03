@@ -547,6 +547,15 @@ export const GET_PAGE_BLOCKS = gql`
                 }
               }
             }
+            ... on PageBlocksPageBlocksCardCarouselLayout {
+              __typename
+              title
+              carouselCards {
+                __typename
+                title
+                description
+              }
+            }
           }
         }
       }
@@ -555,8 +564,8 @@ export const GET_PAGE_BLOCKS = gql`
 `;
 
 export const GET_POSTS = gql`
-  query GetPosts($first: Int = 10, $after: String, $categoryIn: [ID]) {
-    posts(first: $first, after: $after, where: { status: PUBLISH, categoryIn: $categoryIn }) {
+  query GetPosts($first: Int = 10, $after: String, $categoryIn: [ID], $search: String) {
+    posts(first: $first, after: $after, where: { status: PUBLISH, categoryIn: $categoryIn, search: $search }) {
       pageInfo {
         hasNextPage
         hasPreviousPage

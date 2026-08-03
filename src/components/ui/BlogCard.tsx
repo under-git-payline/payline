@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import Calendar from '@/components/icons/Calendar';
+import Time from '@/components/icons/Time';
 
 interface BlogCardProps {
   title: string;
-  excerpt: string;
   slug: string;
   date: string;
   readTime: string;
@@ -14,7 +15,6 @@ interface BlogCardProps {
 
 export default function BlogCard({
   title,
-  excerpt,
   slug,
   date,
   readTime,
@@ -22,66 +22,49 @@ export default function BlogCard({
   featuredImage,
   imageAlt = ''
 }: BlogCardProps) {
-  
+
   const stripHtml = (html: string): string => {
     return html.replace(/<[^>]*>/g, '').trim();
   };
 
-  const truncateText = (text: string, maxLength: number = 120): string => {
-    const cleanText = stripHtml(text);
-    if (cleanText.length <= maxLength) return cleanText;
-    return cleanText.substring(0, maxLength).trim() + '...';
-  };
-
   return (
-    <Link href={`/blog/${slug}`} className="group block">
-      <article>
-        {/* Featured Image */}
-        <div className="relative w-full h-48 bg-gray-200 rounded-lg overflow-hidden">
-          {featuredImage ? (
-            <Image
-              src={featuredImage}
-              alt={imageAlt}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
-            />
-          ) : (
-            <Image
-              src='/images/blog-placeholder.png'
-              alt={imageAlt}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
-            />
-          )}
-        </div>
+    <Link href={`/blog/${slug}`} className="group flex flex-col gap-3 pb-5">
+      {/* Featured Image */}
+      <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-[#E8E8E8]">
+        <Image
+          src={featuredImage || '/images/blog-placeholder.png'}
+          alt={imageAlt}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      </div>
 
-        {/* Content */}
-        <div className="py-6">
-          {/* Title */}
-          <h3 className="text-2xl font-semibold text-gray-900 mb-3 group-hover:text-[#016EA8] transition-colors">
+      {/* Content */}
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1">
+          {category && (
+            <span className="w-fit rounded-[2px] bg-black/4 px-1.5 py-1 text-[10px] leading-[12px] text-[#040405]">
+              {category}
+            </span>
+          )}
+          <h3 className="text-[16px] leading-[26px] text-[#040405] transition-colors group-hover:text-[#016EA8]">
             {stripHtml(title)}
           </h3>
-
-          {/* Excerpt */}
-          <p className="text-gray-600 mb-4 leading-relaxed">
-            {truncateText(excerpt)}
-          </p>
-
-          {/* Meta */}
-          <div className="flex items-center text-[12px] text-[#676D7C]">
-            {/* Category */}
-            {category && (
-                <span className="inline-block bg-black/6 text-[010B24] text-[10px] px-3 py-1 rounded-md">
-                    {category}
-                </span>
-            )}
-            <span className="mx-2">•</span>
-            <span>{date}</span>
-            <span className="mx-2">•</span>
-            <span>{readTime}</span>
-          </div>
         </div>
-      </article>
+
+        {/* Meta */}
+        <div className="flex items-center gap-3 text-[12px] leading-[18px] text-black/60">
+          <span className="flex items-center gap-1">
+            <Calendar width={12} height={12} fill="rgba(0,0,0,0.6)" />
+            {date}
+          </span>
+          <span className="flex items-center gap-1">
+            <Time width={12} height={12} fill="rgba(0,0,0,0.6)" />
+            {readTime}
+          </span>
+        </div>
+      </div>
     </Link>
   );
 }

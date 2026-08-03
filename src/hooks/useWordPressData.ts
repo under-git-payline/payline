@@ -42,9 +42,9 @@ export const usePosts = (first: number = 6) => {
   };
 };
 
-export const useBlogPosts = (first: number = 9, categoryIn?: string[]) => {
+export const useBlogPosts = (first: number = 9, categoryIn?: string[], search?: string) => {
   const { data, loading, error, fetchMore, networkStatus } = useQuery<PostsQuery>(GET_POSTS, {
-    variables: { first, categoryIn },
+    variables: { first, categoryIn, search },
     notifyOnNetworkStatusChange: true,
   });
   

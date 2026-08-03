@@ -135,77 +135,115 @@ h2 {
 }
 
 
+/* Generic WordPress list styles. Declared ahead of .free-content-block so that
+   block's list rules — same specificity — win inside free content. */
+ul.wp-block-list {
+  padding-left: 20px;
+  margin-bottom: 20px;
+  list-style-type: disc;
+}
+
+ul.wp-block-list li {
+  margin-bottom: 10px;
+}
+
 .free-content-block {
-  color: #343C50;
+  color: rgba(0, 0, 0, 0.8);
   /* text-align: center; */
-  font-size: 18px;
+  font-size: 20px;
   font-style: normal;
-  font-weight: 300;
-  line-height: 28px; /* 155.556% */
-  letter-spacing: -0.5px;
+  font-weight: 400;
+  line-height: 28px; /* 140% */
+  letter-spacing: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .free-content-block {
+    font-size: 17px;
+    line-height: 1.45;
+  }
 }
 
 .free-content-block h1 {
-  color: #010B24;
+  color: #040405;
   /* text-align: center; */
-  font-size: 72px;
+  font-size: 60px;
   font-style: normal;
   font-weight: 500;
-  line-height: 1.2; /* 112.5% */
-  letter-spacing: -0.5px;
-  margin-bottom: 32px;
+  line-height: 66px; /* 110% */
+  letter-spacing: -1px;
+  margin-bottom: 12px;
 }
 
 @media screen and (max-width: 1023px) {
   .free-content-block h1 {
-    font-size: 48px;
-    margin-bottom: 24px;
+    font-size: 32px;
+    line-height: 38px;
   }
 }
 
 .free-content-block h2 {
-  color: #010B24;
+  color: #040405;
   /* text-align: center; */
-  font-size: 48px;
+  font-size: 32px;
   font-style: normal;
   font-weight: 500;
-  line-height: 54px; /* 112.5% */
-  letter-spacing: -0.5px;
-  margin-bottom: 16px;
+  line-height: 36px; /* 112.5% */
+  letter-spacing: -1px;
+  margin-top: 40px;
+  margin-bottom: 6px;
 }
 
 @media screen and (max-width: 1023px) {
   .free-content-block h2 {
-    font-size: 36px;
-    line-height: 42px;
-    margin-bottom: 12px;
+    font-size: 24px;
+    line-height: 30px;
+    margin-top: 32px;
   }
 }
 
+.free-content-block h2:first-child {
+  margin-top: 0;
+}
+
 .free-content-block h3 {
-  color: #010B24;
+  color: #040405;
   /* text-align: center; */
   font-size: 24px;
   font-style: normal;
   font-weight: 500;
   line-height: 30px; /* 125% */
-  letter-spacing: -0.5px;
+  letter-spacing: -1px;
   margin-bottom: 16px;
+}
+
+.free-content-block a {
+  color: #016EA8;
+  text-decoration: underline;
 }
 
 .free-content-block p {
   margin-bottom: 20px;
 }
 
-.free-content-block ol {
-  padding-left: 20px;
+.free-content-block ol,
+.free-content-block ul {
+  padding-left: 30px;
   margin-bottom: 20px;
+}
+
+.free-content-block ol {
   list-style: decimal;
 }
 
-.free-content-block ol li {
-  margin-top: 10px;
-  margin-bottom: 10px;
+.free-content-block ul {
+  list-style: disc;
+}
+
+.free-content-block ol li,
+.free-content-block ul li {
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .boxed-content-block p {
@@ -231,19 +269,37 @@ h2 {
 
 
 article main {
-  font-size: 16px;
-  color: #010B24;
-  line-height: 1.2;
-  font-weight: 300;
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.8);
+  line-height: 28px;
+  font-weight: 400;
 }
 
 article main h2 {
-  font-size: 24px;
-  color: #010B24;
-  line-height: 1.2;
+  font-size: 32px;
+  color: #040405;
+  line-height: 36px;
+  letter-spacing: -1px;
   font-weight: 500;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   margin-top: 40px;
+  scroll-margin-top: 100px;
+}
+
+article main h3 {
+  font-size: 24px;
+  color: #040405;
+  line-height: 30px;
+  letter-spacing: -0.5px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  margin-top: 32px;
+  scroll-margin-top: 100px;
+}
+
+article main h2:first-child,
+article main h3:first-child {
+  margin-top: 0;
 }
 
 article main p {
@@ -255,16 +311,6 @@ article main a {
 }
 
 article main figure {
-  margin-bottom: 10px;
-}
-
-ul.wp-block-list {
-  padding-left: 20px;
-  margin-bottom: 20px;
-  list-style-type: disc;
-}
-
-ul.wp-block-list li {
   margin-bottom: 10px;
 }
 

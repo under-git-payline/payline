@@ -25,6 +25,7 @@ import PdfDownloadForm from "@/components/layout/Sections/PdfDownloadForm";
 import StatementUpload from "@/components/layout/Sections/StatementUpload";
 import FeaturePills from "@/components/layout/Sections/FeaturePills";
 import ProcessSteps from "@/components/layout/Sections/ProcessSteps";
+import CardCarousel from "@/components/layout/Sections/CardCarousel";
 
 interface PageBlock {
   fieldGroupName?: string;
@@ -68,6 +69,7 @@ const componentMap: Record<string, React.ComponentType<ComponentProps>> = {
   'PageBlocksPageBlocksStatementUploadLayout': StatementUpload as React.ComponentType<ComponentProps>,
   'PageBlocksPageBlocksFeaturePillsLayout': FeaturePills as React.ComponentType<ComponentProps>,
   'PageBlocksPageBlocksProcessStepsLayout': ProcessSteps as React.ComponentType<ComponentProps>,
+  'PageBlocksPageBlocksCardCarouselLayout': CardCarousel as React.ComponentType<ComponentProps>,
 };
 
 export default function FlexiblePageBuilder({ blocks }: FlexiblePageBuilderProps) {
