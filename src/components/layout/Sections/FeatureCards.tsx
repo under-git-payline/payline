@@ -5,13 +5,23 @@ interface FeatureCardsProps extends FlexibleContentProps {
   data?: FeatureCardsLayoutData;
 }
 
+// Hero card-grid variant: square cards showing an icon plus a single line of
+// heading copy, sitting directly beneath the hero on the same light background.
+export function isCompactFeatureCards(data?: FeatureCardsLayoutData): boolean {
+  return Boolean(data?.featureCard?.length) && !data!.featureCard.some((card) => card.title);
+}
+
+// The default darker grey; the compact grid and the explicit light-background
+// variant both sit on #F9F9FA instead.
+export function hasDarkGreyBackground(data?: FeatureCardsLayoutData): boolean {
+  return !isCompactFeatureCards(data) && !data?.lightBackground;
+}
+
 export default function FeatureCards({ data }: FeatureCardsProps) {
   const isThreeColCount = data?.featureCard ? [3, 5, 6].includes(data.featureCard.length) : false;
   const centered = Boolean(data?.centerContent);
   const lightBackground = Boolean(data?.lightBackground);
-  // Hero card-grid variant: square cards showing an icon plus a single line of
-  // heading copy, sitting directly beneath the hero on the same light background.
-  const compact = Boolean(data?.featureCard?.length) && !data!.featureCard.some((card) => card.title);
+  const compact = isCompactFeatureCards(data);
 
   return (
     <div className={`${compact || lightBackground ? "bg-[#F9F9FA]" : "bg-[#F4F4F5]"} text-[#010B24]`}>

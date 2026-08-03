@@ -13,6 +13,9 @@ import { getHeroCardKind, isLightHero } from "@/lib/hero";
 
 interface HeroProps extends FlexibleContentProps {
   data?: HeroLayoutData;
+  // Set when the next section already provides the separation (e.g. a
+  // dark-grey feature card grid butting straight up against the hero).
+  flushBottom?: boolean;
 }
 
 type CardKind = "form" | "iframe" | "calculator" | "image" | null;
@@ -28,7 +31,7 @@ function renderTitle(title: string) {
   ));
 }
 
-export default function Hero({ data }: HeroProps) {
+export default function Hero({ data, flushBottom }: HeroProps) {
   // Fallback to default values if no data is provided
   const heroData = {
     tag: data?.tag || "",
@@ -176,7 +179,7 @@ export default function Hero({ data }: HeroProps) {
   }
 
   return (
-    <section className="relative bg-[#002132] bg-[url(/images/hero-bg-darkblue.png)] bg-cover bg-no-repeat bg-top-right text-white mb-10">
+    <section className={`relative bg-[#002132] bg-[url(/images/hero-bg-darkblue.png)] bg-cover bg-no-repeat bg-top-right text-white${flushBottom ? '' : ' mb-10'}`}>
       <div
         className={`container flex gap-5 px-4! pt-[114px] pb-10 lg:gap-10 lg:px-10! lg:pt-[120px] lg:pb-20 ${
           hasImage

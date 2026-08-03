@@ -7,7 +7,7 @@ import TestimonialsSection from "@/components/layout/Sections/TestimonialsSectio
 import TrustedByIcons from "@/components/layout/Sections/TrustedByIcons";
 import Hero from "@/components/layout/Sections/Hero";
 import ProductCards from "@/components/layout/Sections/ProductCards";
-import FeatureCards from "@/components/layout/Sections/FeatureCards";
+import FeatureCards, { hasDarkGreyBackground } from "@/components/layout/Sections/FeatureCards";
 import OverlappingImages from "@/components/layout/Sections/OverlappingImages";
 import FeatureBoxes from "@/components/layout/Sections/FeatureBoxes";
 import ExploreSolutions from "@/components/layout/Sections/ExploreSolutions";
@@ -26,6 +26,7 @@ import StatementUpload from "@/components/layout/Sections/StatementUpload";
 import FeaturePills from "@/components/layout/Sections/FeaturePills";
 import ProcessSteps from "@/components/layout/Sections/ProcessSteps";
 import CardCarousel from "@/components/layout/Sections/CardCarousel";
+import { FeatureCardsLayoutData } from "@/types/acf";
 
 interface PageBlock {
   fieldGroupName?: string;
@@ -40,6 +41,7 @@ interface FlexiblePageBuilderProps {
 interface ComponentProps {
   data?: PageBlock;
   isFirst?: boolean;
+  flushBottom?: boolean;
 }
 
 const componentMap: Record<string, React.ComponentType<ComponentProps>> = {
@@ -90,7 +92,16 @@ export default function FlexiblePageBuilder({ blocks }: FlexiblePageBuilderProps
           return null;
         }
 
-        return <Component key={index} data={block} isFirst={index === 0} />;
+        // A dark-grey feature card grid directly after the hero butts straight
+        // up against it, so the hero drops its bottom margin.
+        const nextBlock = blocks[index + 1];
+        const nextBlockType = nextBlock?.fieldGroupName || nextBlock?.__typename;
+        const flushBottom =
+          blockType === 'PageBlocksPageBlocksHeroLayout' &&
+          nextBlockType === 'PageBlocksPageBlocksFeatureCardsLayout' &&
+          hasDarkGreyBackground(nextBlock as FeatureCardsLayoutData);
+
+        return <Component key={index} data={block} isFirst={index === 0} flushBottom={flushBottom} />;
       })}
     </>
   );
