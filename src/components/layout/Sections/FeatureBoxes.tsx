@@ -52,7 +52,7 @@ export default function FeatureBoxes({ data }: FeatureBoxesProps) {
   );
 
   return !data?.removeBackground ? (
-    <div className="my-14 bg-[#F4F4F5]">
+    <div className="bg-[#F4F4F5]">
       {content}
     </div>
   ) : (

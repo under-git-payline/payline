@@ -7,7 +7,7 @@ import Calendar from "../../icons/Calendar";
 import dynamic from "next/dynamic";
 const CalculatorSection = dynamic(() => import("./CalculatorSection"), { ssr: false });
 import { HeroLayoutData, FlexibleContentProps } from "@/types/acf";
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import Script from "next/script";
 import { getHeroCardKind, isLightHero } from "@/lib/hero";
 
@@ -16,6 +16,17 @@ interface HeroProps extends FlexibleContentProps {
 }
 
 type CardKind = "form" | "iframe" | "calculator" | "image" | null;
+
+// The ACF title field accepts <br/> to force a line break. Render those as real
+// elements so the rest of the title stays escaped as plain text.
+function renderTitle(title: string) {
+  return title.split(/<br\s*\/?>/i).map((part, i) => (
+    <Fragment key={i}>
+      {i > 0 && <br />}
+      {part}
+    </Fragment>
+  ));
+}
 
 export default function Hero({ data }: HeroProps) {
   // Fallback to default values if no data is provided
@@ -101,7 +112,7 @@ export default function Hero({ data }: HeroProps) {
                     : "text-[32px] leading-[42px] font-medium tracking-[-1px] lg:text-[60px] lg:leading-[66px]"
                 }
               >
-                {heroData.title}
+                {renderTitle(heroData.title)}
               </h1>
             )}
             {heroData.description && (
@@ -182,7 +193,7 @@ export default function Hero({ data }: HeroProps) {
             )}
             {heroData.title && (
               <h1 className="text-[32px] leading-[42px] font-medium tracking-[-1px] lg:text-[60px] lg:leading-[66px]">
-                {heroData.title}
+                {renderTitle(heroData.title)}
               </h1>
             )}
           </div>
