@@ -231,6 +231,7 @@ export const GET_PAGE_BLOCKS = gql`
               title
               subtitle
               centerContent
+              lightBackground
               featureCard {
                 title
                 description

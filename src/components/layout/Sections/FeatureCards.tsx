@@ -8,9 +8,10 @@ interface FeatureCardsProps extends FlexibleContentProps {
 export default function FeatureCards({ data }: FeatureCardsProps) {
   const isThreeColCount = data?.featureCard ? [3, 5, 6].includes(data.featureCard.length) : false;
   const centered = Boolean(data?.centerContent);
+  const lightBackground = Boolean(data?.lightBackground);
 
   return (
-    <div className="my-14 bg-[#F4F4F5] text-[#010B24]">
+    <div className={`${lightBackground ? "bg-[#F9F9FA]" : "bg-[#F4F4F5]"} text-[#010B24]`}>
       <div className="container py-20">
         {centered ? (
           <>

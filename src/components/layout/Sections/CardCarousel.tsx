@@ -95,7 +95,7 @@ export default function CardCarousel({ data }: CardCarouselProps) {
                 aria-label="Previous"
                 onClick={() => scrollByCard(-1)}
                 disabled={!canScrollPrev}
-                className="flex size-[52px] items-center justify-center rounded-full bg-white/12 text-white/40 transition-colors enabled:hover:bg-white/20"
+                className="flex size-[52px] items-center justify-center rounded-full bg-white text-[#010B24] transition-colors enabled:cursor-pointer enabled:hover:bg-white/90 disabled:bg-white/12 disabled:text-white/40"
               >
                 <CarouselChevron />
               </button>
@@ -104,7 +104,7 @@ export default function CardCarousel({ data }: CardCarouselProps) {
                 aria-label="Next"
                 onClick={() => scrollByCard(1)}
                 disabled={!canScrollNext}
-                className="flex size-[52px] items-center justify-center rounded-full bg-white text-[#010B24] transition-colors enabled:hover:bg-white/90 disabled:bg-white/12 disabled:text-white/40"
+                className="flex size-[52px] items-center justify-center rounded-full bg-white text-[#010B24] transition-colors enabled:cursor-pointer enabled:hover:bg-white/90 disabled:bg-white/12 disabled:text-white/40"
               >
                 <CarouselChevron className="rotate-180" />
               </button>

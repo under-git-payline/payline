@@ -159,6 +159,7 @@ export interface FeatureCardsLayoutData {
   subtitle: string;
   featureCard: FeatureCardItem[];
   centerContent: boolean;
+  lightBackground: boolean;
   __typename: string;
 }
 
