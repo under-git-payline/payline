@@ -45,8 +45,8 @@ export default function Header({ variant = "light" }: HeaderProps) {
                             <Logo className="h-8 w-auto" fill={isDark ? "#FFFFFF" : "#010B24"} />
                         </Link>
                         <div className={`hidden h-7 w-px lg:block ${isDark ? "bg-white/20" : "bg-[#E6EAF1]"}`} />
-                        <a href="tel:+17792178932" className="hidden text-[16px] leading-none font-normal text-[#55BCF2] hover:underline lg:block">
-                            +1 (779) 217-8932
+                        <a href="tel:+18888707789" className="hidden text-[16px] leading-none font-normal text-[#55BCF2] hover:underline lg:block">
+                            (888) 870-7789
                         </a>
                     </div>
 
@@ -273,7 +273,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
                                         <div className="mt-1 text-[13px] leading-none text-[#676D7C]">Embed payments into your platform</div>
                                     </div>
                                 </Link>
-                                <Link href="/digital-merchant-onboarding" className="flex items-center gap-3 rounded-lg p-1 transition-colors hover:bg-gray-50">
+                                <Link href="/payments-link" className="flex items-center gap-3 rounded-lg p-1 transition-colors hover:bg-gray-50">
                                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-black/4 text-black/55">
                                         <RecurringPaymentIcon className="h-5 w-5" />
                                     </div>
@@ -448,7 +448,7 @@ export default function Header({ variant = "light" }: HeaderProps) {
                                             <div className="mt-1 text-[16px] leading-none text-[#676D7C]">Embed payments into your platform</div>
                                         </div>
                                     </Link>
-                                    <Link href="/digital-merchant-onboarding" className="flex items-center gap-4">
+                                    <Link href="/payments-link" className="flex items-center gap-4">
                                         <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-black/4 text-black/55">
                                             <RecurringPaymentIcon className="h-7 w-7" />
                                         </div>

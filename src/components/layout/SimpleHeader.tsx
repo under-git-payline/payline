@@ -49,8 +49,8 @@ export default function SimpleHeader() {
                     {agentCount} Agents available to take your call
                 </div>
             )}
-            <Link href="tel:7792178932" aria-label="Call Now" className="text-[18px] hover:underline">
-                (779) 217-8932
+            <Link href="tel:+18888707789" aria-label="Call Now" className="text-[18px] hover:underline">
+                (888) 870-7789
             </Link>
             <style jsx>{`
                 @keyframes outward-flash {
