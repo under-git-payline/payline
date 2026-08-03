@@ -9,7 +9,7 @@ const CalculatorSection = dynamic(() => import("./CalculatorSection"), { ssr: fa
 import { HeroLayoutData, FlexibleContentProps } from "@/types/acf";
 import { useEffect, useRef } from "react";
 import Script from "next/script";
-import { getHeroCardKind, isFeatureHero } from "@/lib/hero";
+import { getHeroCardKind, isLightHero } from "@/lib/hero";
 
 interface HeroProps extends FlexibleContentProps {
   data?: HeroLayoutData;
@@ -41,7 +41,10 @@ export default function Hero({ data }: HeroProps) {
   const shouldShowForm = Boolean(data?.addForm && data?.formId);
 
   const cardKind: CardKind = getHeroCardKind(data) ?? (hasImage ? "image" : null);
-  const useFeatureHero = isFeatureHero(data);
+  // A centred hero with no image and no card sits on the light sky background and
+  // uses the larger display heading (see the switch-to-payline design).
+  const isBareHero = !hasImage && cardKind === null;
+  const useLightHero = isLightHero(data);
   const hideCtaOnDesktop = cardKind === "form" || cardKind === "iframe";
 
   const hasCta = Boolean(heroData.cta.url && heroData.cta.title);
@@ -80,9 +83,9 @@ export default function Hero({ data }: HeroProps) {
     return () => document.removeEventListener('hubspotFormsLoaded', onScriptLoad);
   }, [shouldShowForm, data?.formId]);
 
-  if (useFeatureHero) {
+  if (useLightHero) {
     return (
-      <section className="homepage-hero-clouds relative overflow-hidden pb-10 pt-[114px] lg:pb-12 lg:pt-[120px]">
+      <section className={`homepage-hero-clouds relative overflow-hidden pt-[114px] lg:pt-[120px] ${isBareHero ? 'homepage-hero-clouds--fade-bottom pb-10 lg:pb-10' : 'pb-10 lg:pb-12'}`}>
         <div className="container relative z-10 flex flex-col items-center gap-6 px-4! md:gap-10 md:px-5! lg:gap-10 lg:px-10!">
           <div className="flex w-full max-w-[893px] flex-col items-center gap-2 text-center text-[#040405] md:gap-3">
             {heroData.tag && (
@@ -91,7 +94,13 @@ export default function Hero({ data }: HeroProps) {
               </span>
             )}
             {heroData.title && (
-              <h1 className="text-[32px] leading-[42px] font-medium tracking-[-1px] lg:text-[60px] lg:leading-[66px]">
+              <h1
+                className={
+                  isBareHero
+                    ? "text-[32px] leading-[38px] font-medium tracking-[-1px] md:text-[56px] md:leading-[62px] lg:text-[80px] lg:leading-[88px] lg:tracking-[-2px]"
+                    : "text-[32px] leading-[42px] font-medium tracking-[-1px] lg:text-[60px] lg:leading-[66px]"
+                }
+              >
                 {heroData.title}
               </h1>
             )}
@@ -123,7 +132,7 @@ export default function Hero({ data }: HeroProps) {
 
           {cardKind === "calculator" ? (
             <CalculatorSection embedded />
-          ) : (
+          ) : cardKind === "form" || cardKind === "iframe" ? (
             <div className="w-full max-w-[660px] rounded-xl border border-black/6 bg-white p-4 text-black shadow-[0_0_32px_rgba(0,0,0,0.08)] md:p-6">
               {cardKind === "form" ? (
                 <div className="w-full" ref={formContainerRef}>
@@ -149,7 +158,7 @@ export default function Hero({ data }: HeroProps) {
                 />
               ) : null}
             </div>
-          )}
+          ) : null}
         </div>
       </section>
     );

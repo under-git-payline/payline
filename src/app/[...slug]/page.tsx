@@ -3,7 +3,7 @@ import FlexiblePageBuilder from "@/components/FlexibleContent/FlexiblePageBuilde
 import PageLayout from "@/components/layout/PageLayout";
 import { getAllPages, getPageBlocks, getPageData } from "@/lib/queries";
 import { shouldExcludePage, getCustomFallback, uriToSlugArray, pageConfig } from "@/lib/page-config";
-import { isFeatureHero } from "@/lib/hero";
+import { isLightHero } from "@/lib/hero";
 import { HeroLayoutData } from "@/types/acf";
 import type { Metadata } from 'next';
 
@@ -134,15 +134,24 @@ export default async function DynamicPage({ params }: PageProps) {
       notFound();
     }
 
-    // Hero renders a dark background only when it's not a form/iframe/calculator
-    // "Feature Hero" (which is light) — kept in sync with Hero.tsx via the shared predicate.
+    // The header is absolutely positioned over the first block, so its variant follows
+    // that block's background. Hero renders dark unless it's one of the light variants
+    // (kept in sync with Hero.tsx via the shared predicate); Two Column Content renders
+    // its dark editorial variant whenever it is first.
     const firstBlock = blocks[0];
-    const headerVariant = firstBlock?.__typename === 'PageBlocksPageBlocksHeroLayout' && !isFeatureHero(firstBlock as HeroLayoutData)
-      ? 'dark'
-      : 'light';
+    const isDarkHero = firstBlock?.__typename === 'PageBlocksPageBlocksHeroLayout'
+      && !isLightHero(firstBlock as HeroLayoutData);
+    const isDarkEditorial = firstBlock?.__typename === 'PageBlocksPageBlocksTwoColumnContentLayout';
+    const headerVariant = isDarkHero || isDarkEditorial ? 'dark' : 'light';
+
+    // The footer shares the editorial section's #002132, so its rounded top corners
+    // would cut two pale wedges out of what should read as one continuous field.
+    // Square them off only when that section actually touches the footer — the dark
+    // variant renders only as the first block, so that means it is also the last.
+    const footerFlushTop = isDarkEditorial && blocks.length === 1;
 
     return (
-      <PageLayout templateName={templateName} headerVariant={headerVariant}>
+      <PageLayout templateName={templateName} headerVariant={headerVariant} footerFlushTop={footerFlushTop}>
         <FlexiblePageBuilder blocks={blocks} />
       </PageLayout>
     );

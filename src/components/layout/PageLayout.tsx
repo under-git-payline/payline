@@ -8,9 +8,10 @@ interface PageLayoutProps {
   children: React.ReactNode;
   templateName?: string;
   headerVariant?: "light" | "dark";
+  footerFlushTop?: boolean;
 }
 
-export default function PageLayout({ children, templateName, headerVariant = "light" }: PageLayoutProps) {
+export default function PageLayout({ children, templateName, headerVariant = "light", footerFlushTop = false }: PageLayoutProps) {
   const useSimpleLayout = isCustomTemplate(templateName);
 
   if (useSimpleLayout) {
@@ -29,7 +30,7 @@ export default function PageLayout({ children, templateName, headerVariant = "li
     <div className="main">
       <Header variant={headerVariant} />
       {children}
-      <Footer />
+      <Footer flushTop={footerFlushTop} />
     </div>
   );
 }

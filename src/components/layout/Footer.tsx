@@ -6,9 +6,16 @@ import Twitter from "../icons/Twitter";
 import Instagram from "../icons/Instagram";
 import ArrowRight from "../icons/ArrowRight";
 
-export default function Footer() {
+interface FooterProps {
+    // Square off the top corners when the section directly above is the same
+    // #002132 as the footer. The rounded corners cut notches out of that shared
+    // colour, exposing the page background as two pale wedges mid-field.
+    flushTop?: boolean;
+}
+
+export default function Footer({ flushTop = false }: FooterProps) {
     return (
-        <footer className="flex justify-between flex-col rounded-t-[40px] rounded-b-[0] bg-[#002132] px-2 py-10 lg:pt-20 lg:px-10 lg:pb-5 text-white">
+        <footer className={`flex justify-between flex-col ${flushTop ? '' : 'rounded-t-[40px] '}rounded-b-[0] bg-[#002132] px-2 py-10 lg:pt-20 lg:px-10 lg:pb-5 text-white`}>
             <div className="container">
                 <div className="flex flex-col md:flex-row md:justify-between gap-10 w-full mb-10 md:mb-[160px]">
                     <div className="w-full md:max-w-[427px] flex flex-col gap-6">

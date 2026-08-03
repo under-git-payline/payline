@@ -20,7 +20,7 @@ export default function TrustedByIcons({ data }: TrustedByIconsProps) {
   };
 
   return (
-    <section className="bg-[#F9F9FA] px-5 pb-12 lg:px-10 lg:pb-16">
+    <section className="bg-[#F9F9FA] px-5 lg:px-10">
       <div className="container flex flex-col items-center gap-6">
         {(trustedByData.tag || trustedByData.content) && (
           <div className="max-w-[760px] text-center text-[#040405]">

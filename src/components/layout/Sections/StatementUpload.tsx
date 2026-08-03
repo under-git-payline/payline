@@ -16,6 +16,7 @@ interface UploadStatus {
   message?: string;
 }
 
+
 export default function StatementUpload({ data }: StatementUploadProps) {
   const [uploadStatus, setUploadStatus] = useState<UploadStatus>({ state: 'idle' });
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -90,8 +91,9 @@ export default function StatementUpload({ data }: StatementUploadProps) {
     };
 
   return (
-    <section className="container py-16 px-4 md:px-10">
-      <div className="max-w-5xl mx-auto">
+    <section className="bg-[#F9F9FA]">
+      <div className="container py-10 px-4! lg:px-10!">
+       <div className="mx-auto max-w-[1126px]">
         {/* Hidden file input */}
         <input
           ref={fileInputRef}
@@ -102,19 +104,19 @@ export default function StatementUpload({ data }: StatementUploadProps) {
         />
 
         {(data.tag || data.title || data.subtitle) && (
-          <header className="mb-10 flex flex-col gap-4 text-center">
+          <header className="mx-auto mb-10 flex max-w-[660px] flex-col items-center gap-1 text-center">
             {data.tag && (
-              <span className="mx-auto w-fit rounded-sm bg-black/10 px-3 py-1 text-sm font-light text-[#1A2339]">
+              <span className="rounded bg-black/4 px-3 py-1 text-sm leading-6 font-normal text-[#040405]">
                 {data.tag}
               </span>
             )}
             {data.title && (
-              <h2 className="text-3xl font-semibold text-[#0f172a] md:text-5xl">
+              <h2 className="text-[32px] leading-[38px] font-medium tracking-[-1px] text-[#040405] lg:text-[44px] lg:leading-[48px]">
                 {data.title}
               </h2>
             )}
             {data.subtitle && (
-              <p className="text-lg text-[#475467]">
+              <p className="mt-1 text-[17px] leading-[1.45] text-black/80 md:text-xl md:leading-7">
                 {data.subtitle}
               </p>
             )}
@@ -163,8 +165,7 @@ export default function StatementUpload({ data }: StatementUploadProps) {
         {data.card && data.card.length > 0 && (
           <div className="grid gap-6 md:grid-cols-2">
             {data.card.map((card, index) => {
-              const iconSrc = card.icon?.node?.sourceUrl;
-              const iconAlt = card.icon?.node?.altText || card.icon?.node?.title || card.title || "";
+              const imageSrc = card.icon?.node?.sourceUrl;
 
               const getButtonText = () => {
                 if (uploadStatus.state === 'uploading') return "Uploading...";
@@ -175,49 +176,55 @@ export default function StatementUpload({ data }: StatementUploadProps) {
 
               return (
                 <div
-                  key={card.fieldGroupName || `${card.__typename}-${index}`}
-                  className={`flex h-full flex-col justify-between gap-6 rounded-3xl p-10 ${
-                    index % 2 === 1 ? "bg-[#FBDEC9]" : "bg-[#D2E6EA]"
-                  }`}
+                  key={`${card.fieldGroupName || card.__typename}-${index}`}
+                  className="flex h-full flex-col gap-5 pb-5"
                 >
-                  <div className="flex flex-col gap-2 justify-center items-center">
-                    {iconSrc && (
-                      <div className="relative h-20 w-20 bg-white rounded-full p-4 flex items-center justify-center">
-                        <Image src={iconSrc} alt={iconAlt} width={36} height={36}/>
-                      </div>
+                  <div className="relative aspect-3/2 w-full overflow-hidden rounded-[20px] bg-[#E8E8E8]">
+                    {imageSrc && (
+                      <Image
+                        src={imageSrc}
+                        alt={card.icon?.node?.altText || card.title || ""}
+                        fill
+                        className="object-cover"
+                        sizes="(min-width: 1024px) 551px, 100vw"
+                      />
                     )}
-                    <div className="text-center">
-                      {card.title && (
-                        <h3 className="text-2xl font-semibold text-[#0f172a]">
-                          {card.title}
-                        </h3>
-                      )}
-                      {card.subtitle && (
-                        <p className="text-base text-[#475467]">
-                          {card.subtitle}
-                        </p>
-                      )}
-                    </div>
                   </div>
 
-                  {card.ctaUpload ? (
-                    <Button 
-                      variant="darkTransparent" 
-                      onClick={handleUploadClick}
-                      disabled={uploadStatus.state === 'uploading'}
-                    >
-                      {getButtonText()}
-                    </Button>
-                  ) : card.cta ? (
-                    <Button variant="darkTransparent" onClick={() => handlePrimaryCta(card.cta?.url, card.cta?.target)}>
-                      {card.cta.title}
-                    </Button>
-                  ) : null}
+                  <div className="flex flex-col gap-2">
+                    {card.title && (
+                      <h3 className="text-[26px] leading-[30px] font-medium tracking-[-1px] text-[#040405] lg:text-[32px] lg:leading-[36px]">
+                        {card.title}
+                      </h3>
+                    )}
+                    {card.subtitle && (
+                      <p className="text-[17px] leading-[1.45] text-black/80 md:text-xl md:leading-7">
+                        {card.subtitle}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="mt-auto flex">
+                    {card.ctaUpload ? (
+                      <Button
+                        variant="heroSecondary"
+                        onClick={handleUploadClick}
+                        disabled={uploadStatus.state === 'uploading'}
+                      >
+                        {getButtonText()}
+                      </Button>
+                    ) : card.cta ? (
+                      <Button variant="heroSecondary" onClick={() => handlePrimaryCta(card.cta?.url, card.cta?.target)}>
+                        {card.cta.title}
+                      </Button>
+                    ) : null}
+                  </div>
                 </div>
               );
             })}
           </div>
         )}
+       </div>
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 type ButtonProps = {
   children: React.ReactNode;
-  variant?: "primary" | "secondary" | "transparent" | "black" | "gray" | "grayLighter" | "rounded" | "darkTransparent" | "heroPrimary" | "heroSecondary" | "heroSecondaryDark";
+  variant?: "primary" | "secondary" | "transparent" | "black" | "gray" | "grayLighter" | "rounded" | "darkTransparent" | "heroPrimary" | "heroSecondary" | "heroSecondaryDark" | "heroBlack";
   onClick?: () => void;
   disabled?: boolean;
 };
@@ -19,6 +19,7 @@ export default function Button({ children, variant = "primary", onClick, disable
     heroPrimary: "min-h-[52px] rounded-full bg-[#55BCF2] px-8 py-3 text-[#040405] hover:bg-[#43b4ef]",
     heroSecondary: "min-h-[52px] rounded-full bg-black/8 px-8 py-3 text-[#040405] hover:bg-black/12",
     heroSecondaryDark: "min-h-[52px] rounded-full bg-white/20 px-8 py-3 text-white hover:bg-white/30",
+    heroBlack: "min-h-[52px] rounded-full bg-[#040405] px-8 py-3 text-white hover:bg-[#1f1f21]",
   };
 
   return (

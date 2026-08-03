@@ -39,6 +39,7 @@ interface FlexiblePageBuilderProps {
 
 interface ComponentProps {
   data?: PageBlock;
+  isFirst?: boolean;
 }
 
 const componentMap: Record<string, React.ComponentType<ComponentProps>> = {
@@ -89,7 +90,7 @@ export default function FlexiblePageBuilder({ blocks }: FlexiblePageBuilderProps
           return null;
         }
 
-        return <Component key={index} data={block} />;
+        return <Component key={index} data={block} isFirst={index === 0} />;
       })}
     </>
   );

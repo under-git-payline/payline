@@ -416,4 +416,5 @@ export type FlexibleContentData =
 
 export interface FlexibleContentProps {
   data?: FlexibleContentData;
+  isFirst?: boolean;
 }
