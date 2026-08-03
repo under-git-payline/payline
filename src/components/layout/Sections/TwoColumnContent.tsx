@@ -28,9 +28,10 @@ export default function TwoColumnContent({ data }: TwoColumnContentProps) {
             </span>
           )}
           {data?.title && (
-            <h2 className="text-3xl md:text-5xl leading-14 max-w-[580px] self-start">
-              {data.title}
-            </h2>
+            <h2
+              className="text-3xl md:text-5xl leading-14 max-w-[580px] self-start [&_strong]:text-[#018DD7] [&_strong]:font-medium"
+              dangerouslySetInnerHTML={{ __html: data.title }}
+            />
           )}
           {data?.content && (
             <div className="text-xl text-[#343C50] [&_strong]:font-bold [&_small]:text-[16px] [&_h4]:mt-4" dangerouslySetInnerHTML={{ __html: data.content }} />

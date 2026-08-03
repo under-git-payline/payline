@@ -9,7 +9,7 @@ export default function DarkCta({ data }: DarkCtaProps) {
   if (!data) return null;
 
   return (
-    <div className="dark-cta-block container relative flex flex-col lg:flex-row items-center justify-center gap-10 py-5 px-10 lg:py-30 text-white rounded-2xl mt-4 mb-10 overflow-hidden">
+    <div className="dark-cta-block container relative flex flex-col lg:flex-row items-center justify-center gap-10 py-5 px-10 lg:py-30 text-white rounded-2xl my-10 overflow-hidden">
       {/* Floating element - bottom left */}
       {/* <div 
         className="absolute"
