@@ -230,6 +230,7 @@ export const GET_PAGE_BLOCKS = gql`
               __typename
               title
               subtitle
+              centerContent
               featureCard {
                 title
                 description
