@@ -52,7 +52,7 @@ export default function TrustedByIcons({ data }: TrustedByIconsProps) {
                     alt={altText || title || `Logo ${index + 1}`}
                     width={width}
                     height={height}
-                    className="block max-h-11 w-auto object-contain"
+                    className="block h-full max-h-11 w-auto object-contain"
                   />
                 </div>
               );

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { MAX_STATEMENT_SIZE, ALLOWED_STATEMENT_TYPES } from '@/lib/statementUpload';
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,40 +13,47 @@ export async function POST(request: NextRequest) {
 
     const formData = await request.formData();
     const file = formData.get('file') as File;
-    const customerName = formData.get('customerName') as string || 'Website User';
+    const customerName = (formData.get('name') as string || '').trim();
+    const phone = (formData.get('phone') as string || '').trim();
+    const email = (formData.get('email') as string || '').trim();
+    const provider = (formData.get('provider') as string || '').trim();
 
     if (!file) {
       return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
     }
 
+    // The questionnaire is enforced here, not just in the UI - this endpoint is
+    // public, so a statement with no lead attached must be rejected outright.
+    if (!customerName || !phone || !email || !provider) {
+      return NextResponse.json({
+        error: 'Please complete the questionnaire before sending your statement.'
+      }, { status: 400 });
+    }
+
     // Validate file size (10MB limit)
-    const maxSize = 10 * 1024 * 1024; // 10MB in bytes
-    if (file.size > maxSize) {
+    if (file.size > MAX_STATEMENT_SIZE) {
       return NextResponse.json({ error: 'File too large. Maximum size is 10MB.' }, { status: 400 });
     }
 
     // Validate file type (common statement formats)
-    const allowedTypes = [
-      'application/pdf',
-      'image/jpeg',
-      'image/jpg',
-      'image/png',
-      'text/csv',
-      'application/vnd.ms-excel',
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    ];
-
-    if (!allowedTypes.includes(file.type)) {
-      return NextResponse.json({ 
-        error: 'Invalid file type. Please upload PDF, image, or Excel files.' 
+    if (!ALLOWED_STATEMENT_TYPES.includes(file.type)) {
+      return NextResponse.json({
+        error: 'Invalid file type. Please upload PDF, image, or Excel files.'
       }, { status: 400 });
     }
 
     // Create form data for WordPress API
     const wpFormData = new FormData();
     wpFormData.append('name', customerName);
-    wpFormData.append('email', ''); // No email provided
-    wpFormData.append('message', `Statement upload from website user: ${customerName}`);
+    wpFormData.append('email', email);
+    wpFormData.append('message', `Statement Upload Submission
+
+Name: ${customerName}
+Email: ${email}
+Phone: ${phone}
+Current Provider: ${provider}
+
+This user has completed the questionnaire and uploaded a statement for review.`);
     wpFormData.append('file', file);
 
     // Send to WordPress backend

@@ -3,6 +3,10 @@
 import Image from "next/image";
 import { useState, useRef } from "react";
 import Button from "@/components/ui/Button";
+import StatementQuestionnaireModal, {
+  StatementQuestionnaireAnswers,
+} from "@/components/ui/StatementQuestionnaireModal";
+import { validateStatementFile } from "@/lib/statementUpload";
 import { FlexibleContentProps, StatementUploadLayoutData } from "@/types/acf";
 
 interface StatementUploadProps extends FlexibleContentProps {
@@ -19,20 +23,24 @@ interface UploadStatus {
 
 export default function StatementUpload({ data }: StatementUploadProps) {
   const [uploadStatus, setUploadStatus] = useState<UploadStatus>({ state: 'idle' });
+  // Held in memory only - nothing is sent until the questionnaire is submitted
+  const [pendingFile, setPendingFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   if (!data) {
     return null;
   }
 
-  const handleFileUpload = async (file: File) => {
+  const handleFileUpload = async (file: File, answers: StatementQuestionnaireAnswers) => {
     setUploadStatus({ state: 'uploading', message: 'Uploading your statement...' });
 
     try {
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('customerEmail', '');
-      formData.append('customerName', 'Website User');
+      formData.append('name', answers.name);
+      formData.append('phone', answers.phone);
+      formData.append('email', answers.email);
+      formData.append('provider', answers.provider);
 
       const response = await fetch('/api/upload-statement', {
         method: 'POST',
@@ -45,14 +53,16 @@ export default function StatementUpload({ data }: StatementUploadProps) {
         throw new Error(result.error || 'Upload failed');
       }
 
-      setUploadStatus({ 
-        state: 'success', 
+      setPendingFile(null);
+      setUploadStatus({
+        state: 'success',
         message: 'Statement uploaded successfully! Our team will review it shortly.'
       });
     } catch (error) {
       console.error('Upload error:', error);
-      setUploadStatus({ 
-        state: 'error', 
+      // Keep pendingFile so the questionnaire stays open and retry needs no re-pick
+      setUploadStatus({
+        state: 'error',
         message: error instanceof Error ? error.message : 'Upload failed. Please try again.'
       });
     }
@@ -60,7 +70,7 @@ export default function StatementUpload({ data }: StatementUploadProps) {
 
   const handleUploadClick = () => {
     if (uploadStatus.state === 'uploading') return;
-    
+
     if (uploadStatus.state === 'success' || uploadStatus.state === 'error') {
       setUploadStatus({ state: 'idle' });
       return;
@@ -70,11 +80,29 @@ export default function StatementUpload({ data }: StatementUploadProps) {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files && files.length > 0) {
-      handleFileUpload(files[0]);
+    // Grab the File before resetting: input.files is a live FileList, so
+    // clearing value empties it and any reference to it reports length 0.
+    const file = e.target.files?.[0] ?? null;
+    e.target.value = ''; // Reset input so re-picking the same file still fires onChange
+
+    if (!file) {
+      return;
     }
-    e.target.value = ''; // Reset input
+
+    // Fail fast so nobody answers four questions only to be told the file is invalid
+    const validationError = validateStatementFile(file);
+    if (validationError) {
+      setUploadStatus({ state: 'error', message: validationError });
+      return;
+    }
+
+    setUploadStatus({ state: 'idle' });
+    setPendingFile(file);
+  };
+
+  const handleQuestionnaireClose = () => {
+    setPendingFile(null);
+    setUploadStatus({ state: 'idle' });
   };
 
   try {
@@ -123,8 +151,20 @@ export default function StatementUpload({ data }: StatementUploadProps) {
           </header>
         )}
 
-        {/* Upload Status Messages */}
-        {uploadStatus.state !== 'idle' && (
+        {/* Questionnaire - gates the upload until every question is answered */}
+        <StatementQuestionnaireModal
+          open={pendingFile !== null}
+          fileName={pendingFile?.name ?? ''}
+          isSubmitting={uploadStatus.state === 'uploading'}
+          errorMessage={uploadStatus.state === 'error' ? uploadStatus.message : undefined}
+          onClose={handleQuestionnaireClose}
+          onSubmit={(answers) => {
+            if (pendingFile) handleFileUpload(pendingFile, answers);
+          }}
+        />
+
+        {/* Upload Status Messages - the modal shows its own errors while open */}
+        {uploadStatus.state !== 'idle' && pendingFile === null && (
           <div className="mb-8 max-w-2xl mx-auto">
             {uploadStatus.state === 'success' && (
               <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
