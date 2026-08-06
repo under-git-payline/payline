@@ -325,6 +325,13 @@ export default function Header({ variant = "light" }: HeaderProps) {
                 <div className="absolute left-0 right-0 top-[74px] z-50 h-[calc(100vh-74px)] overflow-y-auto border-t border-black/8 bg-white pb-8 lg:hidden">
                     <div className="container py-6">
                         <nav className="space-y-8">
+                            <a
+                                href="tel:+18888707789"
+                                className="block border-b border-black/8 pb-3 text-[22px] leading-none font-medium text-[#55BCF2]"
+                            >
+                                (888) 870-7789
+                            </a>
+
                             <div>
                                 <h3 className="mb-3 border-b border-black/8 pb-3 text-[19px] font-medium text-[#019BEC]">Payments</h3>
                                 <div className="space-y-4">
